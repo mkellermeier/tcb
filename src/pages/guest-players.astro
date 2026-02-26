@@ -1,0 +1,167 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+
+const metadata = {
+  title: 'Gastspieler',
+  description: 'Gastspieler-Infos, Preise und Buchung beim TC Bühlertal.',
+};
+
+const bookingEmail = 'tcbuehlertal@web.de';
+
+const fees = [
+  {
+    label: 'Tennis-Einzel (90 Min.) mit aktivem TCB Mitglied',
+    price: '6 €',
+  },
+  {
+    label: 'Tennis-Einzel (90 Min.) ohne aktives TCB Mitglied',
+    price: '15 €',
+  },
+];
+
+const reasons = [
+  {
+    title: 'Top gepflegte Plätze',
+    text: 'Unsere Sandplätze sind das ganze Jahr über in erstklassigem Zustand und bieten optimale Spielbedingungen.',
+  },
+  {
+    title: 'Freundliches Umfeld',
+    text: 'Eine lebendige Tennisgemeinschaft – Anfänger wie erfahrene Spieler sind herzlich willkommen.',
+  },
+  {
+    title: 'Flexibilität',
+    text: 'Buchen Sie spontan oder planen Sie im Voraus.',
+  },
+  {
+    title: 'Faire Preise',
+    text: 'Tennis zu attraktiven Gastspieler-Konditionen.',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    image={{
+      src: '~/assets/images/racket-on-fence.png',
+      alt: 'Gastspieler Tennis',
+    }}
+  >
+    <Fragment slot="title">Gastspieler</Fragment>
+    <Fragment slot="subtitle">
+      Willkommen! Wir freuen uns über Ihr Interesse, als Gastspieler unsere Tennisplätze und -anlagen zu nutzen.
+    </Fragment>
+  </Hero>
+
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-10">
+    <!-- Intro -->
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+      <p class="text-muted leading-relaxed">
+        Unser Verein heißt Sie herzlich willkommen und lädt Sie ein, das sportliche und freundliche Miteinander auf unseren
+        Plätzen zu erleben. Ob Sie nur einmalig spielen möchten oder häufiger Gast bei uns sein wollen – wir haben das
+        passende Angebot für Sie.
+      </p>
+    </div>
+
+    <!-- Why -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">Warum als Gastspieler bei uns spielen?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {reasons.map((r) => (
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+            <h3 class="font-semibold">{r.title}</h3>
+            <p class="text-muted mt-2 text-sm leading-relaxed">{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">So einfach geht’s</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+          <div class="text-sm text-muted">Schritt 1</div>
+          <h3 class="font-semibold mt-1">Platzbuchung anfragen</h3>
+          <p class="text-muted mt-2 text-sm">
+            Senden Sie uns eine E-Mail an:
+            <a class="hover:underline ml-1" href={`mailto:${bookingEmail}`}>{bookingEmail}</a>
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+          <div class="text-sm text-muted">Schritt 2</div>
+          <h3 class="font-semibold mt-1">Gebühr gemäß Tarif</h3>
+          <p class="text-muted mt-2 text-sm">
+            Die Gastspiel-Gebühr richtet sich danach, ob ein aktives Vereinsmitglied mitspielt.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+          <div class="text-sm text-muted">Schritt 3</div>
+          <h3 class="font-semibold mt-1">Regeln beachten</h3>
+          <p class="text-muted mt-2 text-sm">
+            Bitte machen Sie sich mit unseren Platzregeln vertraut.
+          </p>
+          <div class="mt-3">
+            <a class="btn btn-secondary" href="/facility">Zu Anlage & Regeln</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prices -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">Gastspiel-Gebühren</h2>
+
+      <div class="overflow-x-auto rounded-2xl border border-gray-500/20">
+        <table class="w-full text-sm">
+          <thead class="bg-dark">
+            <tr>
+              <th class="text-left p-3">Tarif</th>
+              <th class="text-left p-3 whitespace-nowrap">Preis</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fees.map((f) => (
+              <tr class="border-t border-gray-500/20">
+                <td class="p-3">{f.label}</td>
+                <td class="p-3 font-semibold whitespace-nowrap">{f.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-muted mt-3 text-sm">
+        Dauer: 90 Minuten.
+      </p>
+    </div>
+
+    <!-- Booking CTA -->
+    <div class="rounded-2xl border border-gray-500/20 bg-dark p-6">
+      <h2 class="text-xl font-semibold">Buchungsanfrage</h2>
+      <p class="text-muted mt-2">
+        Schreiben Sie uns kurz Ihren Wunschtermin, die Spielstärke (optional) und ob ein aktives Vereinsmitglied mitspielt.
+      </p>
+
+      <div class="mt-4 flex flex-col sm:flex-row gap-3">
+        <a class="btn btn-primary" href={`mailto:${bookingEmail}?subject=Gastspiel-Anfrage%20TC%20B%C3%BChlertal`}>
+          E-Mail senden
+        </a>
+        <a class="btn btn-secondary" href="/contact">
+          Kontakt
+        </a>
+      </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+      <p class="text-muted leading-relaxed">
+        Sportliche Grüße und viel Spaß auf dem Platz!<br />
+        <span class="font-semibold text-page">Ihr Tennisverein TC Bühlertal!</span>
+      </p>
+    </div>
+  </section>
+</Layout>

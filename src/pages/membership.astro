@@ -1,13 +1,119 @@
 ---
-const title = "Mitglied werden";
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+
+const metadata = {
+  title: 'Mitglied werden',
+  description: 'Mitgliedsbeiträge und Aufnahmeantrag beim TC Bühlertal.',
+};
+
+const fees = [
+  {
+    title: 'Erwachsene (Aktive)',
+    price: '160 €',
+    description: 'Du möchtest regelmäßig Tennis spielen und/oder Teil unserer Mannschaft werden?',
+  },
+  {
+    title: 'Ehepartner:in',
+    price: '80 €',
+    description: 'Dein(e) Partner:in ist bereits im Verein? Nutze die Chance und melde dich zum halben Preis an!',
+  },
+  {
+    title: 'Jugendliche',
+    price: '50 €',
+    description: 'Bis zum 18. Lebensjahr gewähren wir einen ermäßigten Beitrag.',
+  },
+  {
+    title: 'Passives Mitglied',
+    price: '30 €',
+    description:
+      'Du bist nicht daran interessiert selbst Tennis zu spielen, möchtest uns aber unterstützen? Dann ist dies deine Mitgliedschaft!',
+  },
+  {
+    title: 'Ermäßigter Beitrag',
+    price: '60 €',
+    description:
+      'Du bist noch Schüler, absolvierst aktuell ein Praktikum oder machst ein FSJ? Lege einen Nachweis vor und profitiere von einem reduzierten Mitgliedsbeitrag!',
+  },
+];
+
+// TODO: Lege die Datei unter /public/ ab (siehe Hinweis unten)
+const applicationPdfHref = '/documents/aufnahme-antrag.pdf';
 ---
 
-<html lang="de">
-  <head><title>{title}</title></head>
-  <body class="bg-page text-page">
-    <main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-3xl font-semibold">{title}</h1>
-      <p class="text-muted mt-3">Inhalt folgt.</p>
-    </main>
-  </body>
-</html>
+<Layout metadata={metadata}>
+  <Hero
+    image={{
+      src: '~/assets/images/ball-over-net.png',
+      alt: 'Mitglied werden',
+    }}
+  >
+    <Fragment slot="title">
+      Mitglied werden
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Du möchtest Mitglied werden? Wir freuen uns, dass du dich für eine Mitgliedschaft beim TC Bühlertal interessierst.
+    </Fragment>
+  </Hero>
+
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Fees -->
+      <div class="lg:col-span-2">
+        <h2 class="text-2xl font-semibold mb-4">Mitgliedsbeiträge</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {fees.map((fee) => (
+            <article class="rounded-2xl border border-gray-500/20 bg-light p-5">
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-lg font-semibold">{fee.title}</h3>
+                <div class="text-lg font-semibold whitespace-nowrap">{fee.price}</div>
+              </div>
+              <p class="text-muted mt-2 text-sm leading-relaxed">{fee.description}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-8 rounded-2xl border border-gray-500/20 bg-dark p-6">
+          <h3 class="text-lg font-semibold">Aufnahmeantrag</h3>
+          <p class="text-muted mt-2">
+            Lade den Aufnahmeantrag herunter, fülle ihn aus und sende ihn uns unterschrieben zu.
+          </p>
+
+          <div class="mt-4 flex flex-col sm:flex-row gap-3">
+            <a class="btn btn-primary" href={applicationPdfHref} target="_blank" rel="noopener">
+              Aufnahmeantrag herunterladen
+            </a>
+            <a class="btn btn-secondary" href="/contact">
+              Kontakt
+            </a>
+          </div>
+
+          <p class="text-muted mt-3 text-sm">
+            Hinweis: Für den ermäßigten Beitrag bitte einen passenden Nachweis beilegen.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="rounded-2xl border border-gray-500/20 bg-light p-5 h-fit">
+        <h2 class="text-lg font-semibold">So geht’s</h2>
+        <ol class="mt-3 space-y-2 text-sm text-muted list-decimal list-inside">
+          <li>Aufnahmeantrag herunterladen</li>
+          <li>Ausfüllen und unterschreiben</li>
+          <li>Per E-Mail oder persönlich abgeben</li>
+          <li>Wir melden uns bei Rückfragen</li>
+        </ol>
+
+        <div class="mt-5 pt-5 border-t border-gray-500/20">
+          <h3 class="text-sm font-semibold">Fragen?</h3>
+          <p class="text-muted mt-2 text-sm">
+            Schreib uns gern oder sprich uns auf der Anlage an.
+          </p>
+          <a class="btn btn-tertiary mt-2" href="/contact">Zum Kontakt</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Layout>
