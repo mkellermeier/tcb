@@ -1,4 +1,7 @@
 ---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import EventGallery from '~/components/EventGallery.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -10,43 +13,50 @@ const { slug } = Astro.params;
 
 const events = await getCollection('events');
 const entry = events.find((e) => e.slug === slug);
-
 if (!entry) throw new Error('Event not found');
 
 const { Content, data } = entry;
+
+const metadata = {
+  title: data.title,
+  description: data.summary ?? 'Event beim TC Bühlertal',
+};
 
 function formatDate(d: Date) {
   return d.toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' });
 }
 ---
 
-<html lang="de">
-  <head>
-    <title>{data.title}</title>
-  </head>
+<Layout metadata={metadata}>
+  <Hero
+    image={{
+      src: data.coverImage?.src ?? 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1600&q=80',
+      alt: data.coverImage?.alt ?? data.title,
+    }}
+  >
+    <Fragment slot="title">{data.title}</Fragment>
+    <Fragment slot="subtitle">
+      {formatDate(data.startDate)}
+      {data.endDate ? ` – ${formatDate(data.endDate)}` : ''}
+      {data.location ? ` · ${data.location}` : ''}
+    </Fragment>
+  </Hero>
 
-  <body class="bg-page text-page">
-    <main class="max-w-3xl mx-auto px-4 py-10">
-      <a href="/events/" class="text-sm text-muted hover:underline">← Zurück</a>
+  <section class="max-w-3xl mx-auto px-4 py-10">
+    <a href="/events/" class="text-sm text-muted hover:underline">← Zurück zu Events</a>
 
-      <h1 class="text-3xl font-semibold mt-3">{data.title}</h1>
-
-      <div class="mt-3 text-muted">
-        <div>{formatDate(data.startDate)}{data.endDate ? ` – ${formatDate(data.endDate)}` : ''}</div>
-        {data.location ? <div>{data.location}</div> : null}
-
-        {data.signupUrl ? (
-          <div class="mt-4">
-            <a class="btn btn-primary" href={data.signupUrl} target="_blank" rel="noopener">
-              Anmelden / Infos
-            </a>
-          </div>
-        ) : null}
+    {data.signupUrl && (
+      <div class="mt-6">
+        <a class="btn btn-primary" href={data.signupUrl} target="_blank" rel="noopener">
+          Anmelden / Infos
+        </a>
       </div>
+    )}
 
-      <article class="prose dark:prose-invert mt-8">
-        <Content />
-      </article>
-    </main>
-  </body>
-</html>
+    <article class="prose dark:prose-invert mt-8">
+      <Content />
+    </article>
+
+    <EventGallery images={data.gallery ?? []} />
+  </section>
+</Layout>

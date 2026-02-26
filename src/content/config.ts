@@ -9,6 +9,23 @@ const events = defineCollection({
     location: z.string().optional(),
     signupUrl: z.string().url().optional(),
     draft: z.boolean().default(false),
+
+    summary: z.string().optional(), 
+    coverImage: z
+      .object({
+        src: z.string(), 
+        alt: z.string().optional(),
+      })
+      .optional(),
+    gallery: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string().optional(),
+          caption: z.string().optional(),
+        })
+      )
+      .optional(),
   }),
 });
 

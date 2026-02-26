@@ -1,11 +1,19 @@
 ---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
 import { getCollection } from 'astro:content';
+
+const metadata = {
+  title: 'Events',
+  description: 'Spieltage, Veranstaltungen und Termine.',
+};
+
+const now = new Date();
 
 const events = (await getCollection('events'))
   .filter((e) => !e.data.draft)
   .sort((a, b) => +a.data.startDate - +b.data.startDate);
 
-const now = new Date();
 const upcoming = events.filter((e) => e.data.startDate >= now);
 const past = events.filter((e) => e.data.startDate < now).reverse();
 
@@ -14,57 +22,72 @@ function formatDate(d: Date) {
 }
 ---
 
-<html lang="de">
-  <head>
-    <title>Events</title>
-  </head>
+<Layout metadata={metadata}>
+  <Hero
+    image={{
+      src: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1600&q=80',
+      alt: 'Events',
+    }}
+  >
+    <Fragment slot="title">Events</Fragment>
+    <Fragment slot="subtitle">Spieltage, Veranstaltungen und Termine im Verein.</Fragment>
+  </Hero>
 
-  <body class="bg-page text-page">
-    <main class="max-w-5xl mx-auto px-4 py-10">
-      <header class="mb-8">
-        <h1 class="text-3xl font-semibold">Events</h1>
-        <p class="text-muted mt-2">Termine, Turniere und Vereinsleben.</p>
-      </header>
+  <section class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Nächste Termine</h2>
 
-      <section class="mb-12">
-        <h2 class="text-xl font-semibold mb-3">Nächste Termine</h2>
-        {upcoming.length === 0 ? (
-          <p class="text-muted">Aktuell sind keine Termine veröffentlicht.</p>
-        ) : (
-          <ul class="space-y-3">
-            {upcoming.map((e) => (
-              <li class="p-4 rounded-2xl border border-gray-500/20 bg-light">
-                <a href={`/events/${e.slug}/`} class="font-semibold hover:underline">
+      {upcoming.length === 0 ? (
+        <p class="text-muted">Aktuell sind keine Termine veröffentlicht.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {upcoming.map((e) => (
+            <article class="rounded-2xl border border-gray-500/20 bg-light overflow-hidden">
+              {e.data.coverImage?.src && (
+                <a href={`/events/${e.slug}/`}>
+                  <img
+                    src={e.data.coverImage.src}
+                    alt={e.data.coverImage.alt ?? e.data.title}
+                    class="h-40 w-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+              )}
+              <div class="p-5">
+                <a class="font-semibold text-lg hover:underline" href={`/events/${e.slug}/`}>
                   {e.data.title}
                 </a>
-                <div class="text-sm text-muted">
-                  {formatDate(e.data.startDate)}{e.data.location ? ` • ${e.data.location}` : ''}
+                <div class="text-sm text-muted mt-1">
+                  {formatDate(e.data.startDate)}{e.data.location ? ` · ${e.data.location}` : ''}
                 </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+                {e.data.summary && <p class="text-muted mt-3 text-sm leading-relaxed">{e.data.summary}</p>}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
 
-      <section>
-        <h2 class="text-xl font-semibold mb-3">Vergangene Events</h2>
-        {past.length === 0 ? (
-          <p class="text-muted">Noch keine vergangenen Termine.</p>
-        ) : (
-          <ul class="space-y-3">
-            {past.map((e) => (
-              <li class="p-4 rounded-2xl border border-gray-500/20 bg-light">
-                <a href={`/events/${e.slug}/`} class="font-semibold hover:underline">
-                  {e.data.title}
-                </a>
-                <div class="text-sm text-muted">
-                  {formatDate(e.data.startDate)}{e.data.location ? ` • ${e.data.location}` : ''}
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-    </main>
-  </body>
-</html>
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Vergangene Events</h2>
+
+      {past.length === 0 ? (
+        <p class="text-muted">Noch keine vergangenen Termine.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {past.map((e) => (
+            <article class="rounded-2xl border border-gray-500/20 bg-light p-5">
+              <a class="font-semibold hover:underline" href={`/events/${e.slug}/`}>
+                {e.data.title}
+              </a>
+              <div class="text-sm text-muted mt-1">
+                {formatDate(e.data.startDate)}{e.data.location ? ` · ${e.data.location}` : ''}
+              </div>
+              {e.data.summary && <p class="text-muted mt-3 text-sm leading-relaxed">{e.data.summary}</p>}
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+  </section>
+</Layout>
