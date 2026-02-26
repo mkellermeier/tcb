@@ -39,13 +39,20 @@
 }
 
 #header.scroll > div:first-child {
-  @apply bg-page md:bg-white/90 md:backdrop-blur-md;
-  box-shadow: 0 0.375rem 1.5rem 0 rgb(140 152 164 / 13%);
+  background-color: rgb(7 12 10); /* Schwarzwald Dark */
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0.375rem 1.5rem 0 rgb(0 0 0 / 25%);
+}
+
+@media (min-width: 768px) {
+  #header.scroll > div:first-child {
+    background-color: rgb(7 12 10 / 0.85);
+  }
 }
 .dark #header.scroll > div:first-child,
 #header.scroll.dark > div:first-child {
-  @apply bg-page md:bg-[#030621e6] border-b border-gray-500/20;
-  box-shadow: none;
+  background-color: rgb(7 12 10);
+  @apply border-b border-gray-500/20;
 }
 /* #header.scroll > div:last-child {
   @apply py-3;
