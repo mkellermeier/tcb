@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+
+const items = (await getCollection("events"))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => +a.data.start - +b.data.start);
+
+const now = new Date();
+const upcoming = items.filter((e) => e.data.start >= now);
+const past = items.filter((e) => e.data.start < now).reverse();
+---
+
+<html lang="de">
+  <head>
+    <title>Events</title>
+  </head>
+  <body class="bg-page text-page">
+    <main class="max-w-5xl mx-auto px-4 py-10">
+      <h1 class="text-3xl font-semibold mb-6">Events</h1>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Nächste Termine</h2>
+        {upcoming.length === 0 ? (
+          <p class="text-muted">Aktuell sind keine Termine veröffentlicht.</p>
+        ) : (
+          <ul class="space-y-3">
+            {upcoming.map((e) => (
+              <li class="p-4 rounded-2xl border border-gray-500/20 bg-light">
+                <a href={`/events/${e.slug}/`} class="font-semibold hover:underline">
+                  {e.data.title}
+                </a>
+                <div class="text-sm text-muted">
+                  {e.data.start.toLocaleDateString("de-DE")}{" "}
+                  {e.data.location ? `• ${e.data.location}` : ""}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Vergangene Events</h2>
+        {past.length === 0 ? (
+          <p class="text-muted">Noch keine vergangenen Termine.</p>
+        ) : (
+          <ul class="space-y-3">
+            {past.map((e) => (
+              <li class="p-4 rounded-2xl border border-gray-500/20 bg-light">
+                <a href={`/events/${e.slug}/`} class="font-semibold hover:underline">
+                  {e.data.title}
+                </a>
+                <div class="text-sm text-muted">
+                  {e.data.start.toLocaleDateString("de-DE")}{" "}
+                  {e.data.location ? `• ${e.data.location}` : ""}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    </main>
+  </body>
+</html>

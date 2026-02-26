@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+
+const matches = (await getCollection("matches"))
+  .filter((m) => !m.data.draft)
+  .sort((a, b) => +a.data.date - +b.data.date);
+
+const grouped = new Map<string, typeof matches>();
+for (const m of matches) {
+  const k = m.data.team;
+  grouped.set(k, [...(grouped.get(k) ?? []), m]);
+}
+
+const now = new Date();
+const upcoming = matches.filter((m) => m.data.date >= now).slice(0, 8);
+---
+
+<html lang="de">
+  <head>
+    <title>Spielbetrieb</title>
+  </head>
+  <body class="bg-page text-page">
+    <main class="max-w-5xl mx-auto px-4 py-10">
+      <h1 class="text-3xl font-semibold mb-6">Spielbetrieb</h1>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Nächste Spiele</h2>
+        {upcoming.length === 0 ? (
+          <p class="text-muted">Aktuell sind keine Spiele eingetragen.</p>
+        ) : (
+          <ul class="space-y-3">
+            {upcoming.map((m) => (
+              <li class="p-4 rounded-2xl border border-gray-500/20 bg-light">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                  <div>
+                    <div class="font-semibold">{m.data.team}</div>
+                    <div class="text-sm text-muted">
+                      {m.data.date.toLocaleDateString("de-DE")} •{" "}
+                      {m.data.homeAway === "home" ? "Heim" : "Auswärts"} vs. {m.data.opponent}
+                      {m.data.location ? ` • ${m.data.location}` : ""}
+                    </div>
+                    {m.data.competition && <div class="text-sm text-muted">{m.data.competition}</div>}
+                  </div>
+                  {m.data.link && (
+                    <a class="btn btn-secondary" href={m.data.link} target="_blank" rel="noopener">
+                      Verband / Details
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section class="space-y-10">
+        {[...grouped.entries()].map(([team, list]) => (
+          <div>
+            <h2 class="text-xl font-semibold mb-3">{team}</h2>
+            <div class="overflow-x-auto rounded-2xl border border-gray-500/20">
+              <table class="w-full text-sm">
+                <thead class="bg-dark">
+                  <tr>
+                    <th class="text-left p-3">Datum</th>
+                    <th class="text-left p-3">Begegnung</th>
+                    <th class="text-left p-3">Ort</th>
+                    <th class="text-left p-3">Ergebnis</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {list.map((m) => (
+                    <tr class="border-t border-gray-500/20">
+                      <td class="p-3 whitespace-nowrap">{m.data.date.toLocaleDateString("de-DE")}</td>
+                      <td class="p-3">
+                        {m.data.homeAway === "home" ? "Heim" : "Auswärts"} vs. {m.data.opponent}
+                      </td>
+                      <td class="p-3">{m.data.location ?? "—"}</td>
+                      <td class="p-3">{m.data.result ?? "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
