@@ -1,51 +1,69 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-const matches = (await getCollection("matches"))
+const allMatches = (await getCollection('matches'))
   .filter((m) => !m.data.draft)
-  .sort((a, b) => +a.data.date - +b.data.date);
-
-const grouped = new Map<string, typeof matches>();
-for (const m of matches) {
-  const k = m.data.team;
-  grouped.set(k, [...(grouped.get(k) ?? []), m]);
-}
+  .sort((a, b) => +a.data.matchDate - +b.data.matchDate);
 
 const now = new Date();
-const upcoming = matches.filter((m) => m.data.date >= now).slice(0, 8);
+const upcomingMatches = allMatches.filter((m) => m.data.matchDate >= now).slice(0, 10);
+
+// Group by team
+const matchesByTeam = new Map<string, typeof allMatches>();
+for (const match of allMatches) {
+  const team = match.data.team;
+  matchesByTeam.set(team, [...(matchesByTeam.get(team) ?? []), match]);
+}
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('de-DE', { weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit' });
+}
+
+function homeAwayLabel(v: 'home' | 'away') {
+  return v === 'home' ? 'Heim' : 'Auswärts';
+}
 ---
 
 <html lang="de">
   <head>
     <title>Spielbetrieb</title>
   </head>
+
   <body class="bg-page text-page">
     <main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-3xl font-semibold mb-6">Spielbetrieb</h1>
+      <header class="mb-8">
+        <h1 class="text-3xl font-semibold">Spielbetrieb</h1>
+        <p class="text-muted mt-2">
+          Spieltermine und Ergebnisse unserer Teams.
+        </p>
+      </header>
 
-      <section class="mb-10">
+      <section class="mb-12">
         <h2 class="text-xl font-semibold mb-3">Nächste Spiele</h2>
-        {upcoming.length === 0 ? (
+
+        {upcomingMatches.length === 0 ? (
           <p class="text-muted">Aktuell sind keine Spiele eingetragen.</p>
         ) : (
           <ul class="space-y-3">
-            {upcoming.map((m) => (
+            {upcomingMatches.map((m) => (
               <li class="p-4 rounded-2xl border border-gray-500/20 bg-light">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                   <div>
                     <div class="font-semibold">{m.data.team}</div>
                     <div class="text-sm text-muted">
-                      {m.data.date.toLocaleDateString("de-DE")} •{" "}
-                      {m.data.homeAway === "home" ? "Heim" : "Auswärts"} vs. {m.data.opponent}
-                      {m.data.location ? ` • ${m.data.location}` : ""}
+                      {formatDate(m.data.matchDate)} • {homeAwayLabel(m.data.homeAway)} vs. {m.data.opponent}
+                      {m.data.location ? ` • ${m.data.location}` : ''}
                     </div>
-                    {m.data.competition && <div class="text-sm text-muted">{m.data.competition}</div>}
+                    {m.data.competition && (
+                      <div class="text-sm text-muted">{m.data.competition}</div>
+                    )}
                   </div>
-                  {m.data.link && (
-                    <a class="btn btn-secondary" href={m.data.link} target="_blank" rel="noopener">
-                      Verband / Details
+
+                  {m.data.detailsUrl ? (
+                    <a class="btn btn-secondary" href={m.data.detailsUrl} target="_blank" rel="noopener">
+                      Details
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </li>
             ))}
@@ -54,28 +72,40 @@ const upcoming = matches.filter((m) => m.data.date >= now).slice(0, 8);
       </section>
 
       <section class="space-y-10">
-        {[...grouped.entries()].map(([team, list]) => (
+        {[...matchesByTeam.entries()].map(([team, matches]) => (
           <div>
             <h2 class="text-xl font-semibold mb-3">{team}</h2>
+
             <div class="overflow-x-auto rounded-2xl border border-gray-500/20">
               <table class="w-full text-sm">
                 <thead class="bg-dark">
                   <tr>
-                    <th class="text-left p-3">Datum</th>
+                    <th class="text-left p-3 whitespace-nowrap">Datum</th>
                     <th class="text-left p-3">Begegnung</th>
                     <th class="text-left p-3">Ort</th>
-                    <th class="text-left p-3">Ergebnis</th>
+                    <th class="text-left p-3 whitespace-nowrap">Ergebnis</th>
+                    <th class="text-left p-3 whitespace-nowrap">Link</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {list.map((m) => (
+                  {matches.map((m) => (
                     <tr class="border-t border-gray-500/20">
-                      <td class="p-3 whitespace-nowrap">{m.data.date.toLocaleDateString("de-DE")}</td>
+                      <td class="p-3 whitespace-nowrap">{formatDate(m.data.matchDate)}</td>
                       <td class="p-3">
-                        {m.data.homeAway === "home" ? "Heim" : "Auswärts"} vs. {m.data.opponent}
+                        {homeAwayLabel(m.data.homeAway)} vs. {m.data.opponent}
+                        {m.data.competition ? <span class="text-muted"> · {m.data.competition}</span> : null}
                       </td>
-                      <td class="p-3">{m.data.location ?? "—"}</td>
-                      <td class="p-3">{m.data.result ?? "—"}</td>
+                      <td class="p-3">{m.data.location ?? '—'}</td>
+                      <td class="p-3 whitespace-nowrap">{m.data.result ?? '—'}</td>
+                      <td class="p-3 whitespace-nowrap">
+                        {m.data.detailsUrl ? (
+                          <a class="hover:underline" href={m.data.detailsUrl} target="_blank" rel="noopener">
+                            Details
+                          </a>
+                        ) : (
+                          '—'
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

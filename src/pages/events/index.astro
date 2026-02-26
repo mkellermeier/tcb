@@ -1,24 +1,32 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-const items = (await getCollection("events"))
+const events = (await getCollection('events'))
   .filter((e) => !e.data.draft)
-  .sort((a, b) => +a.data.start - +b.data.start);
+  .sort((a, b) => +a.data.startDate - +b.data.startDate);
 
 const now = new Date();
-const upcoming = items.filter((e) => e.data.start >= now);
-const past = items.filter((e) => e.data.start < now).reverse();
+const upcoming = events.filter((e) => e.data.startDate >= now);
+const past = events.filter((e) => e.data.startDate < now).reverse();
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
 ---
 
 <html lang="de">
   <head>
     <title>Events</title>
   </head>
+
   <body class="bg-page text-page">
     <main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-3xl font-semibold mb-6">Events</h1>
+      <header class="mb-8">
+        <h1 class="text-3xl font-semibold">Events</h1>
+        <p class="text-muted mt-2">Termine, Turniere und Vereinsleben.</p>
+      </header>
 
-      <section class="mb-10">
+      <section class="mb-12">
         <h2 class="text-xl font-semibold mb-3">Nächste Termine</h2>
         {upcoming.length === 0 ? (
           <p class="text-muted">Aktuell sind keine Termine veröffentlicht.</p>
@@ -30,8 +38,7 @@ const past = items.filter((e) => e.data.start < now).reverse();
                   {e.data.title}
                 </a>
                 <div class="text-sm text-muted">
-                  {e.data.start.toLocaleDateString("de-DE")}{" "}
-                  {e.data.location ? `• ${e.data.location}` : ""}
+                  {formatDate(e.data.startDate)}{e.data.location ? ` • ${e.data.location}` : ''}
                 </div>
               </li>
             ))}
@@ -51,8 +58,7 @@ const past = items.filter((e) => e.data.start < now).reverse();
                   {e.data.title}
                 </a>
                 <div class="text-sm text-muted">
-                  {e.data.start.toLocaleDateString("de-DE")}{" "}
-                  {e.data.location ? `• ${e.data.location}` : ""}
+                  {formatDate(e.data.startDate)}{e.data.location ? ` • ${e.data.location}` : ''}
                 </div>
               </li>
             ))}

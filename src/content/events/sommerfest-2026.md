@@ -1,6 +1,6 @@
 ---
 title: "Sommerfest"
-start: 2026-07-18
+startDate: 2026-07-18
 location: "Clubheim"
 signupUrl: "https://example.com/anmeldung"
 ---
