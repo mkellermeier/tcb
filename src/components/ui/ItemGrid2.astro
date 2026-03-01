@@ -35,7 +35,7 @@ const {
       {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }) => (
         <div
           class={twMerge(
-            'relative flex flex-col intersect-once intersect-quarter intersect-no-queue motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade',
+            'relative flex flex-col intersect-once intersect-quarter intersect-no-queue motion-safe:md:opacity-0 motion-safe:md:transition-opacity motion-safe:md:duration-200 motion-safe:md:intersect:opacity-100',
             panelClass,
             itemClasses?.panel
           )}
