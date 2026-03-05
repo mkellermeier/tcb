@@ -1,6 +1,7 @@
-// @ts-nocheck
 // AstroWind legacy blog utility – Blog ist deaktiviert (config.yaml: apps.blog.isEnabled: false).
 // Wird von keiner aktiven Seite genutzt; TypeScript-Check unterdrückt.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import type { PaginateFunction } from 'astro';
 import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';

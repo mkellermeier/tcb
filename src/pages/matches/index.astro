@@ -114,7 +114,6 @@ function homeAwayLabel(v: 'home' | 'away') {
     </div>
 
     <script is:inline>
-      {String.raw`
         const now = new Date();
         const teamSelect = document.getElementById('teamSelect');
         const upcomingOnly = document.getElementById('upcomingOnly');
@@ -145,7 +144,6 @@ function homeAwayLabel(v: 'home' | 'away') {
         teamSelect.addEventListener('change', applyFilters);
         upcomingOnly.addEventListener('change', applyFilters);
         applyFilters();
-      `}
     </script>
   </section>
 </Layout>
