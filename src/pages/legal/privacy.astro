@@ -1,0 +1,70 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Datenschutzerklärung',
+  description: 'Datenschutzerklärung des TC Bühlertal e.V.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto px-4 py-16 space-y-6">
+    <h1 class="text-3xl font-semibold">Datenschutzerklärung</h1>
+
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-6 text-sm text-muted leading-relaxed">
+      <div>
+        <h2 class="font-semibold text-page text-base">1. Datenschutz auf einen Blick</h2>
+        <p class="mt-2">
+          Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von
+          personenbezogenen Daten auf dieser Website auf. Personenbezogene Daten sind alle Daten, mit denen
+          Sie persönlich identifiziert werden können.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">2. Verantwortliche Stelle</h2>
+        <p class="mt-2">
+          TC Bühlertal e.V.<br />
+          Bühlertal, Baden-Württemberg<br />
+          E-Mail: <a class="hover:underline" href="mailto:tcbuehlertal@web.de">tcbuehlertal@web.de</a>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">3. Datenerfassung auf dieser Website</h2>
+        <p class="mt-2">
+          Diese Website ist eine statische Informationsseite. Es werden keine personenbezogenen Daten durch
+          die Website selbst erhoben oder gespeichert. Wenn Sie uns eine E-Mail schreiben, werden Ihre
+          Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">4. Server-Log-Dateien</h2>
+        <p class="mt-2">
+          Der Hosting-Anbieter dieser Website kann automatisch Informationen in sogenannten Server-Log-Dateien
+          speichern, die Ihr Browser automatisch übermittelt. Dies sind z.B. Browsertyp, Betriebssystem,
+          Referrer-URL und IP-Adresse. Diese Daten werden nicht mit anderen Datenquellen zusammengeführt.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">5. Ihre Rechte</h2>
+        <p class="mt-2">
+          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen
+          Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf
+          Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz
+          können Sie sich jederzeit an uns wenden.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">6. Externe Links</h2>
+        <p class="mt-2">
+          Diese Website kann Links zu externen Seiten enthalten. Für die Datenschutzpraktiken dieser Seiten
+          sind wir nicht verantwortlich.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

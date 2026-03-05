@@ -1,0 +1,66 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Impressum',
+  description: 'Impressum des TC Bühlertal e.V.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="max-w-3xl mx-auto px-4 py-16 space-y-6">
+    <h1 class="text-3xl font-semibold">Impressum</h1>
+
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-4 text-sm text-muted leading-relaxed">
+      <div>
+        <h2 class="font-semibold text-page text-base">Angaben gemäß § 5 TMG</h2>
+        <p class="mt-2">
+          TC Bühlertal e.V.<br />
+          Bühlertal<br />
+          Baden-Württemberg
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">Vertreten durch</h2>
+        <p class="mt-2">
+          1. Vorsitzender: <span class="text-page">[Name eintragen]</span>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">Kontakt</h2>
+        <p class="mt-2">
+          E-Mail: <a class="hover:underline" href="mailto:tcbuehlertal@web.de">tcbuehlertal@web.de</a>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">Registereintrag</h2>
+        <p class="mt-2">
+          Eingetragener Verein<br />
+          Registergericht: <span class="text-page">[Registergericht eintragen]</span><br />
+          Registernummer: <span class="text-page">[Nummer eintragen]</span>
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">Haftung für Inhalte</h2>
+        <p class="mt-2">
+          Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den
+          allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht
+          verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-semibold text-page text-base">Haftung für Links</h2>
+        <p class="mt-2">
+          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+          Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten
+          verantwortlich.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

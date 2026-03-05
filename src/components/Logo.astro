@@ -2,8 +2,45 @@
 import { SITE } from 'astrowind:config';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"
->
-  🚀 {SITE?.name}
+<span class="flex items-center gap-2 ml-2 rtl:ml-0 rtl:mr-2 whitespace-nowrap">
+  <!-- Tennisball in Schwarzwald-Grün -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 32 32"
+    width="28"
+    height="28"
+    aria-hidden="true"
+  >
+    <!-- Hintergrundkreis: Waldgrün -->
+    <circle cx="16" cy="16" r="15" fill="#2d6a4f" />
+
+    <!-- Tennisball-Naht (weiße Kurven) -->
+    <!-- obere Kurve -->
+    <path
+      d="M 6 10 Q 16 3 26 10"
+      fill="none"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+    <!-- untere Kurve -->
+    <path
+      d="M 6 22 Q 16 29 26 22"
+      fill="none"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <!-- Kleiner Baum in der Mitte (Schwarzwald-Motiv) -->
+    <!-- Stamm -->
+    <rect x="15" y="21" width="2" height="3" fill="white" opacity="0.85" rx="0.5" />
+    <!-- Baumkrone -->
+    <polygon points="16,11 12,20 20,20" fill="white" opacity="0.85" />
+    <polygon points="16,8 12.5,16 19.5,16" fill="white" opacity="0.9" />
+  </svg>
+
+  <span class="text-xl md:text-lg font-bold text-gray-900 dark:text-white">
+    {SITE?.name}
+  </span>
 </span>
