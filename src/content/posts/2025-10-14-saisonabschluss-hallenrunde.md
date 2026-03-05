@@ -7,9 +7,9 @@ tags:
   - 'Mixed'
   - 'Hallenrunde'
   - 'Saisonabschluss'
-coverImage: '/src/content/posts/2025-10-14-saisonabschluss-hallenrunde/01.webp'
+coverImage: '/images/posts/2025-10-14-saisonabschluss-hallenrunde/01.webp'
 gallery:
-  - src: '/src/content/posts/2025-10-14-saisonabschluss-hallenrunde/01.webp'
+  - src: '/images/posts/2025-10-14-saisonabschluss-hallenrunde/01.webp'
     alt: 'Saisonabschluss und Hallenrunde Oktober 2025'
 draft: false
 ---
