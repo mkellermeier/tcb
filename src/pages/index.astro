@@ -2,7 +2,6 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
-import Features from '~/components/widgets/Features.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 import { getCollection } from 'astro:content';
@@ -20,8 +19,11 @@ function formatShortDate(d: Date) {
   return d.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' });
 }
 
+function formatPostDate(d: Date) {
+  return d.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
 function daysBetween(a: Date, b: Date) {
-  // normalize to midnight to avoid timezone edge cases
   const da = new Date(a.getFullYear(), a.getMonth(), a.getDate()).getTime();
   const db = new Date(b.getFullYear(), b.getMonth(), b.getDate()).getTime();
   return Math.round((db - da) / (1000 * 60 * 60 * 24));
@@ -44,14 +46,14 @@ const matchesAll = (await getCollection('matches', ({ data }) => !data.draft)).s
   (a, b) => +a.data.matchDate - +b.data.matchDate
 );
 
-const upcomingMatches = matchesAll.filter((m) => m.data.matchDate >= now).slice(0, 5);
+const upcomingMatches = matchesAll.filter((m) => m.data.matchDate >= now).slice(0, 3);
 
-// ---------- events (optional if you have it) ----------
+// ---------- events ----------
 const eventsAll = (await getCollection('events', ({ data }) => !data.draft)).sort(
   (a, b) => +a.data.startDate - +b.data.startDate
 );
 
-const upcomingEvents = eventsAll.filter((e) => e.data.startDate >= now).slice(0, 5);
+const upcomingEvents = eventsAll.filter((e) => e.data.startDate >= now).slice(0, 3);
 
 // ---------- latest posts ----------
 const postsAll = (await getCollection('posts', ({ data }) => !data.draft)).sort(
@@ -62,7 +64,6 @@ const latestPosts = postsAll.slice(0, 3);
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero -->
   <Hero
     actions={[
       { variant: 'primary', text: 'Spiele & Ergebnisse', href: '/matches', icon: 'tabler:trophy' },
@@ -73,98 +74,80 @@ const latestPosts = postsAll.slice(0, 3);
     <Fragment slot="title">
       Tennis im <span class="text-accent dark:text-white">Schwarzwald</span>
     </Fragment>
-
-    <Fragment slot="subtitle"> Spielbetrieb, Termine und Vereinsinfos – alles an einem Ort. </Fragment>
+    <Fragment slot="subtitle">Willkommen beim TC Bühlertal – eurem Tennisclub seit 1965.</Fragment>
   </Hero>
 
-  <!-- Aktuelles / Quick Info -->
   <section class="max-w-5xl mx-auto px-4 py-10 space-y-10">
-    <!-- Welcome -->
-    <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-      <h2 class="text-2xl font-semibold text-page">Hallo Tennisfreunde,</h2>
-      <p class="text-muted leading-relaxed mt-3">
-        schön, dass ihr da seid und herzlich Willkommen beim <span class="font-semibold text-page">TC Bühlertal</span>!
-      </p>
-
-      <p class="text-muted leading-relaxed mt-4">
-        Unser Club wurde <span class="font-semibold text-page">1965</span> gegründet und bietet seither alles, was das Tennisherz
-        höher schlagen lässt.
-      </p>
-
-      <p class="text-muted leading-relaxed mt-4">
-        Umgeben von Wäldern laden <span class="font-semibold text-page">sechs Sandplätze</span> und ein Clubhaus mit großer
-        Terrasse zum Verweilen ein. Events, kulinarische Abende und gemeinsame Ausflüge machen das Vereinsleben komplett.
-      </p>
-
-      <div class="mt-6 flex flex-wrap gap-2">
-        <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">Gegründet 1965</span>
-        <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">6 Sandplätze</span>
-        <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted"
-          >Clubhaus & Terrasse</span
-        >
+    <!-- Stat bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gray-500/20 bg-light px-6 py-4">
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="font-semibold text-page">1965</span>
+          <span class="text-muted">gegründet</span>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-500/20 self-stretch"></div>
+        <div class="flex items-center gap-2">
+          <span class="font-semibold text-page">6</span>
+          <span class="text-muted">Sandplätze</span>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-500/20 self-stretch"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-muted">Clubhaus & Terrasse</span>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-500/20 self-stretch"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-muted">Bühlertal · Schwarzwald</span>
+        </div>
       </div>
-
-      <div class="mt-6 flex flex-col sm:flex-row gap-3">
-        <a class="btn btn-secondary" href="/facility">Anlage entdecken</a>
-        <a class="btn btn-secondary" href="/membership">Mitglied werden</a>
-        <a class="btn btn-secondary" href="/contact">Kontakt</a>
-      </div>
+      <a href="/club" class="text-sm text-primary hover:underline whitespace-nowrap">Mehr über uns →</a>
     </div>
 
-    <!-- Quick cards -->
+    <!-- Aktuelles -->
     <div>
       <h2 class="text-2xl font-semibold mb-4">Aktuelles</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Matches Card -->
+        <!-- Nächste Spiele -->
         <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-          <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center justify-between gap-3 mb-4">
             <h3 class="font-semibold text-page">Nächste Spiele</h3>
-            <a class="text-sm text-muted hover:underline" href="/matches">Alle Spiele →</a>
+            <a class="text-sm text-primary hover:underline" href="/matches">Alle Spiele →</a>
           </div>
 
           {
             upcomingMatches.length === 0 ? (
-              <div class="mt-3">
+              <div>
                 <p class="text-muted text-sm leading-relaxed">Aktuell sind keine Spiele veröffentlicht.</p>
-                <div class="mt-4">
-                  <a class="btn btn-secondary" href="/contact">
-                    Kontakt aufnehmen
-                  </a>
-                </div>
+                <a class="btn btn-secondary mt-4 inline-block" href="/contact">Kontakt aufnehmen</a>
               </div>
             ) : (
-              <ul class="mt-4 space-y-3">
-                {upcomingMatches.slice(0, 3).map((m) => (
+              <ul class="space-y-2">
+                {upcomingMatches.map((m) => (
                   <li>
                     <a
                       href={`/matches/${m.slug}`}
-                      class="block rounded-xl border border-gray-500/20 bg-dark p-4 hover:shadow-sm transition"
+                      class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-4 hover:border-gray-400/40 hover:bg-white/5 transition"
                     >
-                      <div class="flex items-start justify-between gap-3">
-                        <div>
-                          <div class="flex flex-wrap items-center gap-2">
-                            <span class="text-sm font-semibold text-page">{m.data.team}</span>
-                            <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                              {homeAwayLabel(m.data.homeAway)}
+                      <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span class="text-sm font-semibold text-page">{m.data.team}</span>
+                          <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                            {homeAwayLabel(m.data.homeAway)}
+                          </span>
+                          {relativeLabel(m.data.matchDate) && (
+                            <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
+                              {relativeLabel(m.data.matchDate)}
                             </span>
-                            {relativeLabel(m.data.matchDate) ? (
-                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                                {relativeLabel(m.data.matchDate)}
-                              </span>
-                            ) : null}
-                          </div>
-
-                          <div class="mt-1 text-sm text-muted">
-                            {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
-                            {m.data.location ? ` · ${m.data.location}` : ''}
-                          </div>
+                          )}
                         </div>
-
-                        {m.data.result ? (
-                          <div class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">{m.data.result}</div>
-                        ) : null}
+                        <div class="mt-1 text-sm text-muted">
+                          {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
+                          {m.data.location ? ` · ${m.data.location}` : ''}
+                        </div>
                       </div>
+                      {m.data.result && (
+                        <span class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">{m.data.result}</span>
+                      )}
                     </a>
                   </li>
                 ))}
@@ -173,52 +156,44 @@ const latestPosts = postsAll.slice(0, 3);
           }
         </div>
 
-        <!-- Events Card -->
+        <!-- Nächste Termine -->
         <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-          <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center justify-between gap-3 mb-4">
             <h3 class="font-semibold text-page">Nächste Termine</h3>
-            <a class="text-sm text-muted hover:underline" href="/events">Alle Termine →</a>
+            <a class="text-sm text-primary hover:underline" href="/events">Alle Termine →</a>
           </div>
 
           {
             upcomingEvents.length === 0 ? (
-              <div class="mt-3">
+              <div>
                 <p class="text-muted text-sm leading-relaxed">Aktuell sind keine Termine veröffentlicht.</p>
-                <div class="mt-4">
-                  <a class="btn btn-secondary" href="/contact">
-                    Termin vorschlagen
-                  </a>
-                </div>
+                <a class="btn btn-secondary mt-4 inline-block" href="/contact">Termin vorschlagen</a>
               </div>
             ) : (
-              <ul class="mt-4 space-y-3">
-                {upcomingEvents.slice(0, 3).map((e) => (
+              <ul class="space-y-2">
+                {upcomingEvents.map((e) => (
                   <li>
                     <a
                       href={`/events/${e.slug}`}
-                      class="block rounded-xl border border-gray-500/20 bg-dark p-4 hover:shadow-sm transition"
+                      class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-4 hover:border-gray-400/40 hover:bg-white/5 transition"
                     >
-                      <div class="flex items-start justify-between gap-3">
-                        <div>
-                          <div class="flex flex-wrap items-center gap-2">
-                            <span class="text-sm font-semibold text-page">{e.data.title}</span>
-                            {relativeLabel(e.data.startDate) ? (
-                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                                {relativeLabel(e.data.startDate)}
-                              </span>
-                            ) : null}
-                          </div>
-
-                          <div class="mt-1 text-sm text-muted">
-                            {formatShortDate(e.data.startDate)}
-                            {e.data.location ? ` · ${e.data.location}` : ''}
-                          </div>
+                      <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span class="text-sm font-semibold text-page">{e.data.title}</span>
+                          {relativeLabel(e.data.startDate) && (
+                            <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
+                              {relativeLabel(e.data.startDate)}
+                            </span>
+                          )}
                         </div>
-
-                        {e.data.time ? (
-                          <div class="shrink-0 text-sm text-muted whitespace-nowrap">{e.data.time}</div>
-                        ) : null}
+                        <div class="mt-1 text-sm text-muted">
+                          {formatShortDate(e.data.startDate)}
+                          {e.data.location ? ` · ${e.data.location}` : ''}
+                        </div>
                       </div>
+                      {e.data.time && (
+                        <span class="shrink-0 text-sm text-muted whitespace-nowrap">{e.data.time} Uhr</span>
+                      )}
                     </a>
                   </li>
                 ))}
@@ -229,11 +204,11 @@ const latestPosts = postsAll.slice(0, 3);
       </div>
     </div>
 
-    <!-- Latest Posts Preview -->
+    <!-- Neueste Berichte -->
     <div>
       <div class="flex items-center justify-between gap-3 mb-4">
         <h2 class="text-2xl font-semibold">Neueste Berichte</h2>
-        <a class="text-sm text-muted hover:underline" href="/posts">Alle Berichte →</a>
+        <a class="text-sm text-primary hover:underline" href="/posts">Alle Berichte →</a>
       </div>
 
       {
@@ -248,7 +223,7 @@ const latestPosts = postsAll.slice(0, 3);
               return (
                 <a
                   href={`/posts/${p.slug}`}
-                  class="group flex flex-col rounded-2xl border border-gray-500/20 bg-light overflow-hidden hover:shadow-md transition"
+                  class="group flex flex-col rounded-2xl border border-gray-500/20 bg-light overflow-hidden hover:border-gray-400/40 hover:shadow-md transition"
                 >
                   {previewImg && (
                     <div class="overflow-hidden">
@@ -256,16 +231,16 @@ const latestPosts = postsAll.slice(0, 3);
                         src={previewImg}
                         alt={p.data.title}
                         loading="lazy"
-                        class="h-40 w-full object-cover transition duration-200 group-hover:scale-[1.03]"
+                        class="h-40 w-full object-cover transition duration-300 group-hover:scale-[1.04]"
                       />
                     </div>
                   )}
                   <div class="p-4 flex flex-col flex-1">
-                    <div class="text-xs text-muted mb-1">{formatShortDate(p.data.date)}</div>
+                    <div class="text-xs text-muted mb-1">{formatPostDate(p.data.date)}</div>
                     <h3 class="font-semibold text-page leading-snug">{p.data.title}</h3>
-                    {p.data.excerpt ? (
+                    {p.data.excerpt && (
                       <p class="text-muted mt-2 text-sm leading-relaxed line-clamp-2 flex-1">{p.data.excerpt}</p>
-                    ) : null}
+                    )}
                     {p.data.tags?.length ? (
                       <div class="mt-3 flex flex-wrap gap-1">
                         {p.data.tags.slice(0, 2).map((t) => (
@@ -285,61 +260,13 @@ const latestPosts = postsAll.slice(0, 3);
     </div>
   </section>
 
-  <!-- Core areas -->
-  <Features
-    id="core"
-    tagline="Verein"
-    title="Alles Wichtige für Mitglieder und Gäste"
-    subtitle="Schnell finden, was du brauchst – von Spielterminen bis zur Platzbuchung."
-    items={[
-      {
-        title: 'Spielbetrieb',
-        description: 'Begegnungen, Teams und Ergebnisse.',
-        icon: 'tabler:trophy',
-        callToAction: { text: 'Zu den Spielen', href: '/matches' },
-      },
-      {
-        title: 'Events & Termine',
-        description: 'Turniere, Arbeitseinsätze, Feste und Termine.',
-        icon: 'tabler:calendar-event',
-        callToAction: { text: 'Alle Termine', href: '/events' },
-      },
-      {
-        title: 'Platzbuchung',
-        description: 'Als Gastspieler Platz buchen und Preise einsehen.',
-        icon: 'tabler:calendar-check',
-        callToAction: { text: 'Jetzt buchen', href: '/guest-players' },
-      },
-      {
-        title: 'Mitgliedschaft',
-        description: 'Beiträge, Aufnahme und Ansprechpartner.',
-        icon: 'tabler:id-badge-2',
-        callToAction: { text: 'Mitglied werden', href: '/membership' },
-      },
-      {
-        title: 'Anlage & Anfahrt',
-        description: 'Adresse, Parken, Plätze und Clubheim.',
-        icon: 'tabler:map-pin',
-        callToAction: { text: 'Zur Anlage', href: '/facility' },
-      },
-      {
-        title: 'Kontakt',
-        description: 'So erreichst du uns schnell.',
-        icon: 'tabler:mail',
-        callToAction: { text: 'Schreib uns', href: '/contact' },
-      },
-    ]}
-  />
-
-  <!-- CTA -->
   <CallToAction
     actions={[
       { variant: 'primary', text: 'Platz buchen', href: '/guest-players', icon: 'tabler:calendar' },
       { text: 'Kontakt', href: '/contact' },
     ]}
   >
-    <Fragment slot="title"> Lust auf ein Match? </Fragment>
-
-    <Fragment slot="subtitle"> Buche deinen Platz online oder melde dich bei Fragen direkt bei uns. </Fragment>
+    <Fragment slot="title">Lust auf ein Match?</Fragment>
+    <Fragment slot="subtitle">Buche deinen Platz online oder melde dich bei Fragen direkt bei uns.</Fragment>
   </CallToAction>
 </Layout>
