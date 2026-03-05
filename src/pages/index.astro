@@ -232,14 +232,14 @@ const latestPosts = postsAll.slice(0, 3);
     <!-- Latest Posts Preview -->
     <div>
       <div class="flex items-center justify-between gap-3 mb-4">
-        <h2 class="text-2xl font-semibold">Neueste Posts</h2>
-        <a class="text-sm text-muted hover:underline" href="/posts">Alle Posts →</a>
+        <h2 class="text-2xl font-semibold">Neueste Berichte</h2>
+        <a class="text-sm text-muted hover:underline" href="/posts">Alle Berichte →</a>
       </div>
 
       {
         latestPosts.length === 0 ? (
           <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-            <p class="text-muted text-sm">Noch keine Posts vorhanden.</p>
+            <p class="text-muted text-sm">Noch keine Berichte vorhanden.</p>
           </div>
         ) : (
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -286,51 +286,40 @@ const latestPosts = postsAll.slice(0, 3);
         title: 'Spielbetrieb',
         description: 'Begegnungen, Teams und Ergebnisse.',
         icon: 'tabler:trophy',
+        callToAction: { text: 'Zu den Spielen', href: '/matches' },
       },
       {
-        title: 'Events',
+        title: 'Events & Termine',
         description: 'Turniere, Arbeitseinsätze, Feste und Termine.',
         icon: 'tabler:calendar-event',
+        callToAction: { text: 'Alle Termine', href: '/events' },
       },
       {
         title: 'Platzbuchung',
-        description: 'Plätze reservieren und Buchungsregeln einsehen.',
+        description: 'Als Gastspieler Platz buchen und Preise einsehen.',
         icon: 'tabler:calendar-check',
+        callToAction: { text: 'Jetzt buchen', href: '/guest-players' },
       },
       {
         title: 'Mitgliedschaft',
         description: 'Beiträge, Aufnahme und Ansprechpartner.',
         icon: 'tabler:id-badge-2',
+        callToAction: { text: 'Mitglied werden', href: '/membership' },
       },
       {
         title: 'Anlage & Anfahrt',
         description: 'Adresse, Parken, Plätze und Clubheim.',
         icon: 'tabler:map-pin',
+        callToAction: { text: 'Zur Anlage', href: '/facility' },
       },
       {
         title: 'Kontakt',
         description: 'So erreichst du uns schnell.',
         icon: 'tabler:mail',
+        callToAction: { text: 'Schreib uns', href: '/contact' },
       },
     ]}
   />
-
-  <!-- Quick Links (falls Features nicht klickbar ist) -->
-  <section class="max-w-5xl mx-auto px-4 pb-10">
-    <div class="rounded-2xl border border-gray-500/20 bg-dark p-6">
-      <h2 class="text-xl font-semibold">Schnellzugriff</h2>
-      <p class="text-muted mt-2 text-sm">Direkt zu den wichtigsten Bereichen.</p>
-
-      <div class="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
-        <a class="btn btn-secondary" href="/matches">Spielbetrieb</a>
-        <a class="btn btn-secondary" href="/events">Events</a>
-        <a class="btn btn-secondary" href="/guest-players">Platz buchen</a>
-        <a class="btn btn-secondary" href="/membership">Mitglied werden</a>
-        <a class="btn btn-secondary" href="/facility">Anlage</a>
-        <a class="btn btn-secondary" href="/contact">Kontakt</a>
-      </div>
-    </div>
-  </section>
 
   <!-- CTA -->
   <CallToAction

@@ -6,6 +6,7 @@ export const headerData = {
     { text: 'Spielbetrieb', href: getPermalink('/matches') },
     { text: 'Events', href: getPermalink('/events') },
     { text: 'Gastspieler', href: getPermalink('/guest-players') },
+    { text: 'Berichte', href: getPermalink('/posts') },
     {
       text: 'Verein',
       links: [
@@ -35,6 +36,7 @@ export const footerData = {
       links: [
         { text: 'Spielbetrieb', href: getPermalink('/matches') },
         { text: 'Events', href: getPermalink('/events') },
+        { text: 'Berichte', href: getPermalink('/posts') },
         { text: 'Gastspieler', href: getPermalink('/guest-players') },
       ],
     },

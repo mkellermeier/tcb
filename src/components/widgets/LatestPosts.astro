@@ -23,7 +23,7 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
         items.map((e) => (
           <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
             {e.data.coverImage && (
-              <a href={`/beitraege/${e.slug}/`} class="block overflow-hidden rounded-xl">
+              <a href={`/posts/${e.slug}/`} class="block overflow-hidden rounded-xl">
                 <img src={e.data.coverImage} alt={e.data.title} class="h-44 w-full object-cover" loading="lazy" />
               </a>
             )}
@@ -34,7 +34,7 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
             </p>
 
             <h3 class="mt-2 text-lg font-semibold">
-              <a href={`/beitraege/${e.slug}/`} class="hover:underline">
+              <a href={`/posts/${e.slug}/`} class="hover:underline">
                 {e.data.title}
               </a>
             </h3>
@@ -47,7 +47,7 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
 
     <div class="mt-10">
       <a
-        href="/beitraege/"
+        href="/posts/"
         class="inline-flex items-center rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
       >
         Alle Beiträge
