@@ -1,15 +1,119 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { Icon } from 'astro-icon/components';
 
 const metadata = {
   title: 'Über uns',
-  description: 'Über den TC Bühlertal – Geschichte, Werte und Gemeinschaft.',
+  description: 'Der TC Bühlertal – seit 1965 Tennis im Herzen des Schwarzwalds.',
 };
+
+const values = [
+  {
+    icon: 'tabler:users',
+    title: 'Gemeinschaft',
+    text: 'Bei uns steht der Mensch im Mittelpunkt. Ob Jung oder Alt, Anfänger oder Wettkampfspieler – alle sind herzlich willkommen.',
+  },
+  {
+    icon: 'tabler:heart',
+    title: 'Leidenschaft',
+    text: 'Tennis ist mehr als Sport. Es ist Bewegung, Strategie und Freude – und das leben wir auf allen sechs Sandplätzen.',
+  },
+  {
+    icon: 'tabler:trees',
+    title: 'Natur & Lage',
+    text: 'Eingebettet in den Schwarzwald bieten wir eine Anlage, die Tennis und Erholung in einzigartiger Umgebung verbindet.',
+  },
+  {
+    icon: 'tabler:trophy',
+    title: 'Sport & Spielbetrieb',
+    text: 'Von Medenrunden bis zu vereinsinternen Turnieren – wir bieten Wettkampf auf allen Ebenen für alle Altersklassen.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <section class="max-w-5xl mx-auto px-4 py-10 space-y-6">
-    <h1 class="text-3xl font-semibold">Über uns</h1>
-    <p class="text-muted leading-relaxed">Inhalt folgt.</p>
+  <Hero
+    image={{
+      src: '~/assets/images/hero-blackforest.png',
+      alt: 'TC Bühlertal – Tennis im Schwarzwald',
+    }}
+  >
+    <Fragment slot="title">Über den <span class="text-accent dark:text-white">TC Bühlertal</span></Fragment>
+    <Fragment slot="subtitle">Seit 1965 Tennis, Gemeinschaft und Vereinsleben im Herzen des Schwarzwalds.</Fragment>
+  </Hero>
+
+  <section class="max-w-4xl mx-auto px-4 py-10 space-y-10">
+    <!-- Willkommen -->
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-4">
+      <h2 class="text-2xl font-semibold text-page">Herzlich willkommen</h2>
+      <p class="text-muted leading-relaxed">
+        Wir freuen uns, euch unseren Tennisverein vorstellen zu dürfen. Der TC Bühlertal wurde
+        <span class="font-semibold text-page">1965</span> gegründet und ist seit über sechs Jahrzehnten fester
+        Bestandteil des sportlichen und gesellschaftlichen Lebens in Bühlertal.
+      </p>
+      <p class="text-muted leading-relaxed">
+        Unsere Anlage ist von <span class="font-semibold text-page">April bis Oktober</span> geöffnet und bietet
+        <span class="font-semibold text-page">sechs gepflegte Sandplätze</span> für alle Altersgruppen – vom
+        Nachwuchsspieler bis zum erfahrenen Vereinsmitglied. Ein gemütliches Clubhaus mit großer Terrasse lädt zum
+        Verweilen, Fachsimpeln und gemeinsamen Feiern ein.
+      </p>
+      <p class="text-muted leading-relaxed">
+        Wir sind sehr stolz auf unsere Gemeinschaft und freuen uns stets, neue Mitglieder begrüßen zu dürfen. Tennis
+        ist bei uns nicht nur Sport – es ist ein Ort der Begegnung, des Miteinanders und der Freude an der Bewegung.
+      </p>
+    </div>
+
+    <!-- Eckdaten -->
+    <div>
+      <h2 class="text-2xl font-semibold text-page mb-4">Der Verein auf einen Blick</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {
+          [
+            { value: '1965', label: 'Gründungsjahr' },
+            { value: '6', label: 'Sandplätze' },
+            { value: 'Apr–Okt', label: 'Saison' },
+            { value: 'Bühlertal', label: 'Schwarzwald' },
+          ].map((stat) => (
+            <div class="rounded-2xl border border-gray-500/20 bg-light p-5 text-center">
+              <div class="text-3xl font-bold text-primary">{stat.value}</div>
+              <div class="text-sm text-muted mt-1">{stat.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Werte -->
+    <div>
+      <h2 class="text-2xl font-semibold text-page mb-4">Was uns ausmacht</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {
+          values.map((v) => (
+            <div class="rounded-2xl border border-gray-500/20 bg-light p-5 flex gap-4">
+              <Icon name={v.icon} class="w-7 h-7 text-primary shrink-0 mt-0.5" />
+              <div>
+                <h3 class="font-semibold text-page">{v.title}</h3>
+                <p class="text-muted text-sm leading-relaxed mt-1">{v.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Einladung -->
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-4">
+      <h2 class="text-2xl font-semibold text-page">Kommt vorbei!</h2>
+      <p class="text-muted leading-relaxed">
+        Wenn ihr Interesse an Tennis habt oder einfach unsere Anlage kennenlernen möchtet – ihr seid herzlich
+        eingeladen! Schreibt uns eine Nachricht oder schaut direkt auf der Anlage vorbei. Wir freuen uns auf euch.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 pt-1">
+        <a class="btn btn-primary" href="/membership">Mitglied werden</a>
+        <a class="btn btn-secondary" href="/contact">Kontakt aufnehmen</a>
+        <a class="btn btn-secondary" href="/facility">Anlage & Anfahrt</a>
+      </div>
+    </div>
   </section>
 </Layout>
