@@ -1,6 +1,6 @@
 site:
   name: TC Bühlertal
-  site: 'https://astrowind.vercel.app'  # kann erstmal Platzhalter bleiben
+  site: 'https://astrowind.vercel.app' # kann erstmal Platzhalter bleiben
   base: '/'
   trailingSlash: false
 
@@ -21,8 +21,7 @@ i18n:
 
 apps:
   blog:
-    isEnabled: false   # Blog aus, wir nutzen Events/Spielbetrieb als Collections
+    isEnabled: false # Blog aus, wir nutzen Events/Spielbetrieb als Collections
 
 ui:
   theme: 'dark:only'
-

@@ -20,8 +20,7 @@ const metadata = {
   description: entry.data.excerpt ?? 'Beitrag',
 };
 
-const fmt = (d: Date) =>
-  new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).format(d);
+const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).format(d);
 ---
 
 <Layout metadata={metadata}>
@@ -51,30 +50,32 @@ const fmt = (d: Date) =>
           <div class="font-semibold text-page">{fmt(entry.data.date)}</div>
         </div>
 
-        {entry.data.tags?.length ? (
-          <div>
-            <div class="text-muted">Tags</div>
-            <div class="mt-2 flex flex-wrap gap-2">
-              {entry.data.tags.map((t) => (
-                <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">
-                  {t}
-                </span>
-              ))}
+        {
+          entry.data.tags?.length ? (
+            <div>
+              <div class="text-muted">Tags</div>
+              <div class="mt-2 flex flex-wrap gap-2">
+                {entry.data.tags.map((t) => (
+                  <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">{t}</span>
+                ))}
+              </div>
             </div>
-          </div>
-        ) : null}
+          ) : null
+        }
       </div>
 
-      {entry.data.meta?.length ? (
-        <div class="mt-6 border-t border-gray-500/20 pt-4 space-y-2">
-          {entry.data.meta.map((m) => (
-            <div class="flex gap-3">
-              <div class="w-28 shrink-0 text-muted">{m.label}</div>
-              <div class="text-page">{m.value}</div>
-            </div>
-          ))}
-        </div>
-      ) : null}
+      {
+        entry.data.meta?.length ? (
+          <div class="mt-6 border-t border-gray-500/20 pt-4 space-y-2">
+            {entry.data.meta.map((m) => (
+              <div class="flex gap-3">
+                <div class="w-28 shrink-0 text-muted">{m.label}</div>
+                <div class="text-page">{m.value}</div>
+              </div>
+            ))}
+          </div>
+        ) : null
+      }
     </div>
 
     <!-- Content -->
@@ -85,10 +86,12 @@ const fmt = (d: Date) =>
     </div>
 
     <!-- Gallery -->
-    {entry.data.gallery?.length ? (
-      <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-        <Gallery items={entry.data.gallery} />
-      </div>
-    ) : null}
+    {
+      entry.data.gallery?.length ? (
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+          <Gallery items={entry.data.gallery} />
+        </div>
+      ) : null
+    }
   </section>
 </Layout>

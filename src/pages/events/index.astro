@@ -10,8 +10,9 @@ const metadata = {
 
 const now = new Date();
 
-const allEvents = (await getCollection('events', ({ data }) => !data.draft))
-  .sort((a, b) => +a.data.startDate - +b.data.startDate);
+const allEvents = (await getCollection('events', ({ data }) => !data.draft)).sort(
+  (a, b) => +a.data.startDate - +b.data.startDate
+);
 
 const upcoming = allEvents.filter((e) => e.data.startDate >= now);
 const past = allEvents.filter((e) => e.data.startDate < now).reverse();
@@ -43,60 +44,64 @@ function formatShort(d: Date) {
     <div>
       <h2 class="text-2xl font-semibold mb-4">Kommende Termine</h2>
 
-      {upcoming.length === 0 ? (
-        <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-          <p class="text-muted text-sm">Aktuell sind keine Termine veröffentlicht.</p>
-          <p class="text-muted text-sm mt-2">Schau bald wieder vorbei oder kontaktiere uns direkt.</p>
-          <div class="mt-4">
-            <a class="btn btn-secondary" href="/contact">Kontakt</a>
+      {
+        upcoming.length === 0 ? (
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+            <p class="text-muted text-sm">Aktuell sind keine Termine veröffentlicht.</p>
+            <p class="text-muted text-sm mt-2">Schau bald wieder vorbei oder kontaktiere uns direkt.</p>
+            <div class="mt-4">
+              <a class="btn btn-secondary" href="/contact">
+                Kontakt
+              </a>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div class="space-y-3">
-          {upcoming.map((e) => (
-            <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                <div>
-                  <h3 class="font-semibold text-page">{e.data.title}</h3>
-                  <div class="mt-1 text-sm text-muted">
-                    {formatDate(e.data.startDate)}
-                    {e.data.endDate && e.data.endDate.toDateString() !== e.data.startDate.toDateString()
-                      ? ` – ${formatShort(e.data.endDate)}`
-                      : ''}
-                    {e.data.time ? ` · ${e.data.time} Uhr` : ''}
+        ) : (
+          <div class="space-y-3">
+            {upcoming.map((e) => (
+              <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <div>
+                    <h3 class="font-semibold text-page">{e.data.title}</h3>
+                    <div class="mt-1 text-sm text-muted">
+                      {formatDate(e.data.startDate)}
+                      {e.data.endDate && e.data.endDate.toDateString() !== e.data.startDate.toDateString()
+                        ? ` – ${formatShort(e.data.endDate)}`
+                        : ''}
+                      {e.data.time ? ` · ${e.data.time} Uhr` : ''}
+                    </div>
+                    {e.data.location ? <div class="mt-1 text-sm text-muted">{e.data.location}</div> : null}
+                    {e.data.description ? (
+                      <p class="mt-2 text-sm text-muted leading-relaxed">{e.data.description}</p>
+                    ) : null}
                   </div>
-                  {e.data.location ? (
-                    <div class="mt-1 text-sm text-muted">{e.data.location}</div>
-                  ) : null}
-                  {e.data.description ? (
-                    <p class="mt-2 text-sm text-muted leading-relaxed">{e.data.description}</p>
-                  ) : null}
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )
+      }
     </div>
 
     <!-- Vergangene Termine -->
-    {past.length > 0 && (
-      <div>
-        <h2 class="text-2xl font-semibold mb-4 text-muted">Vergangene Termine</h2>
-        <div class="space-y-2">
-          {past.map((e) => (
-            <div class="rounded-2xl border border-gray-500/20 bg-dark p-4 opacity-70">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <div class="font-medium text-page text-sm">{e.data.title}</div>
-                <div class="text-xs text-muted whitespace-nowrap">
-                  {formatShort(e.data.startDate)}
-                  {e.data.location ? ` · ${e.data.location}` : ''}
+    {
+      past.length > 0 && (
+        <div>
+          <h2 class="text-2xl font-semibold mb-4 text-muted">Vergangene Termine</h2>
+          <div class="space-y-2">
+            {past.map((e) => (
+              <div class="rounded-2xl border border-gray-500/20 bg-dark p-4 opacity-70">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div class="font-medium text-page text-sm">{e.data.title}</div>
+                  <div class="text-xs text-muted whitespace-nowrap">
+                    {formatShort(e.data.startDate)}
+                    {e.data.location ? ` · ${e.data.location}` : ''}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    )}
+      )
+    }
   </section>
 </Layout>

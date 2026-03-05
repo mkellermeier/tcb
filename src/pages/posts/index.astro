@@ -8,11 +8,11 @@ const metadata = {
   description: 'Rückblicke, Vereinsleben und Spielberichte.',
 };
 
-const entries = (await getCollection('posts', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const entries = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 
-const fmt = (d: Date) =>
-  new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).format(d);
+const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).format(d);
 ---
 
 <Layout metadata={metadata}>
@@ -24,9 +24,7 @@ const fmt = (d: Date) =>
     }}
   >
     <Fragment slot="title">Beiträge</Fragment>
-    <Fragment slot="subtitle">
-      Rückblicke, Vereinsleben und Spielberichte – alles, was bei uns passiert ist.
-    </Fragment>
+    <Fragment slot="subtitle"> Rückblicke, Vereinsleben und Spielberichte – alles, was bei uns passiert ist. </Fragment>
   </Hero>
 
   <section class="max-w-5xl mx-auto px-4 py-10 space-y-10">
@@ -41,49 +39,48 @@ const fmt = (d: Date) =>
     <div>
       <h2 class="text-2xl font-semibold mb-4">Neueste Beiträge</h2>
 
-      {entries.length === 0 ? (
-        <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-          <p class="text-muted">
-            Noch keine Beiträge vorhanden. Lege Markdown-Dateien unter <code class="font-mono">src/content/posts/</code> an.
-          </p>
-        </div>
-      ) : (
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {entries.map((e) => (
-            <a
-              href={`/posts/${e.slug}`}
-              class="block rounded-2xl border border-gray-500/20 bg-light p-5 hover:shadow-sm transition"
-            >
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <h3 class="font-semibold text-page">{e.data.title}</h3>
-                  <p class="text-sm text-muted mt-1">{fmt(e.data.date)}</p>
+      {
+        entries.length === 0 ? (
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+            <p class="text-muted">
+              Noch keine Beiträge vorhanden. Lege Markdown-Dateien unter{' '}
+              <code class="font-mono">src/content/posts/</code> an.
+            </p>
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {entries.map((e) => (
+              <a
+                href={`/posts/${e.slug}`}
+                class="block rounded-2xl border border-gray-500/20 bg-light p-5 hover:shadow-sm transition"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="font-semibold text-page">{e.data.title}</h3>
+                    <p class="text-sm text-muted mt-1">{fmt(e.data.date)}</p>
+                  </div>
+
+                  {e.data.gallery?.length ? (
+                    <div class="text-xs text-muted whitespace-nowrap">{e.data.gallery.length} Fotos</div>
+                  ) : null}
                 </div>
 
-                {e.data.gallery?.length ? (
-                  <div class="text-xs text-muted whitespace-nowrap">
-                    {e.data.gallery.length} Fotos
+                {e.data.excerpt ? <p class="text-muted mt-3 text-sm leading-relaxed">{e.data.excerpt}</p> : null}
+
+                {e.data.tags?.length ? (
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {e.data.tags.map((t) => (
+                      <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 ) : null}
-              </div>
-
-              {e.data.excerpt ? (
-                <p class="text-muted mt-3 text-sm leading-relaxed">{e.data.excerpt}</p>
-              ) : null}
-
-              {e.data.tags?.length ? (
-                <div class="mt-4 flex flex-wrap gap-2">
-                  {e.data.tags.map((t) => (
-                    <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-            </a>
-          ))}
-        </div>
-      )}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </div>
   </section>
 </Layout>

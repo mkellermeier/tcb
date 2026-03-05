@@ -40,20 +40,23 @@ function homeAwayLabel(v: 'home' | 'away') {
 }
 
 // ---------- matches ----------
-const matchesAll = (await getCollection('matches', ({ data }) => !data.draft))
-  .sort((a, b) => +a.data.matchDate - +b.data.matchDate);
+const matchesAll = (await getCollection('matches', ({ data }) => !data.draft)).sort(
+  (a, b) => +a.data.matchDate - +b.data.matchDate
+);
 
 const upcomingMatches = matchesAll.filter((m) => m.data.matchDate >= now).slice(0, 5);
 
 // ---------- events (optional if you have it) ----------
-const eventsAll = (await getCollection('events', ({ data }) => !data.draft))
-  .sort((a, b) => +a.data.startDate - +b.data.startDate);
+const eventsAll = (await getCollection('events', ({ data }) => !data.draft)).sort(
+  (a, b) => +a.data.startDate - +b.data.startDate
+);
 
 const upcomingEvents = eventsAll.filter((e) => e.data.startDate >= now).slice(0, 5);
 
 // ---------- latest posts ----------
-const postsAll = (await getCollection('posts', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const postsAll = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 
 const latestPosts = postsAll.slice(0, 3);
 ---
@@ -71,9 +74,7 @@ const latestPosts = postsAll.slice(0, 3);
       Tennis im <span class="text-accent dark:text-white">Schwarzwald</span>
     </Fragment>
 
-    <Fragment slot="subtitle">
-      Spielbetrieb, Termine und Vereinsinfos – alles an einem Ort.
-    </Fragment>
+    <Fragment slot="subtitle"> Spielbetrieb, Termine und Vereinsinfos – alles an einem Ort. </Fragment>
   </Hero>
 
   <!-- Aktuelles / Quick Info -->
@@ -86,19 +87,21 @@ const latestPosts = postsAll.slice(0, 3);
       </p>
 
       <p class="text-muted leading-relaxed mt-4">
-        Unser Club wurde <span class="font-semibold text-page">1965</span> gegründet und bietet seither alles,
-        was das Tennisherz höher schlagen lässt.
+        Unser Club wurde <span class="font-semibold text-page">1965</span> gegründet und bietet seither alles, was das Tennisherz
+        höher schlagen lässt.
       </p>
 
       <p class="text-muted leading-relaxed mt-4">
-        Umgeben von Wäldern laden <span class="font-semibold text-page">sechs Sandplätze</span> und ein Clubhaus mit
-        großer Terrasse zum Verweilen ein. Events, kulinarische Abende und gemeinsame Ausflüge machen das Vereinsleben komplett.
+        Umgeben von Wäldern laden <span class="font-semibold text-page">sechs Sandplätze</span> und ein Clubhaus mit großer
+        Terrasse zum Verweilen ein. Events, kulinarische Abende und gemeinsame Ausflüge machen das Vereinsleben komplett.
       </p>
 
       <div class="mt-6 flex flex-wrap gap-2">
         <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">Gegründet 1965</span>
         <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">6 Sandplätze</span>
-        <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">Clubhaus & Terrasse</span>
+        <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted"
+          >Clubhaus & Terrasse</span
+        >
       </div>
 
       <div class="mt-6 flex flex-col sm:flex-row gap-3">
@@ -120,54 +123,54 @@ const latestPosts = postsAll.slice(0, 3);
             <a class="text-sm text-muted hover:underline" href="/matches">Alle Spiele →</a>
           </div>
 
-          {upcomingMatches.length === 0 ? (
-            <div class="mt-3">
-              <p class="text-muted text-sm leading-relaxed">
-                Aktuell sind keine Spiele veröffentlicht.
-              </p>
-              <div class="mt-4">
-                <a class="btn btn-secondary" href="/contact">Kontakt aufnehmen</a>
-              </div>
-            </div>
-          ) : (
-            <ul class="mt-4 space-y-3">
-              {upcomingMatches.slice(0, 3).map((m) => (
-                <li>
-                  <a
-                    href={`/matches/${m.slug}`}
-                    class="block rounded-xl border border-gray-500/20 bg-dark p-4 hover:shadow-sm transition"
-                  >
-                    <div class="flex items-start justify-between gap-3">
-                      <div>
-                        <div class="flex flex-wrap items-center gap-2">
-                          <span class="text-sm font-semibold text-page">{m.data.team}</span>
-                          <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                            {homeAwayLabel(m.data.homeAway)}
-                          </span>
-                          {relativeLabel(m.data.matchDate) ? (
-                            <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                              {relativeLabel(m.data.matchDate)}
-                            </span>
-                          ) : null}
-                        </div>
-
-                        <div class="mt-1 text-sm text-muted">
-                          {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
-                          {m.data.location ? ` · ${m.data.location}` : ''}
-                        </div>
-                      </div>
-
-                      {m.data.result ? (
-                        <div class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">
-                          {m.data.result}
-                        </div>
-                      ) : null}
-                    </div>
+          {
+            upcomingMatches.length === 0 ? (
+              <div class="mt-3">
+                <p class="text-muted text-sm leading-relaxed">Aktuell sind keine Spiele veröffentlicht.</p>
+                <div class="mt-4">
+                  <a class="btn btn-secondary" href="/contact">
+                    Kontakt aufnehmen
                   </a>
-                </li>
-              ))}
-            </ul>
-          )}
+                </div>
+              </div>
+            ) : (
+              <ul class="mt-4 space-y-3">
+                {upcomingMatches.slice(0, 3).map((m) => (
+                  <li>
+                    <a
+                      href={`/matches/${m.slug}`}
+                      class="block rounded-xl border border-gray-500/20 bg-dark p-4 hover:shadow-sm transition"
+                    >
+                      <div class="flex items-start justify-between gap-3">
+                        <div>
+                          <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-semibold text-page">{m.data.team}</span>
+                            <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                              {homeAwayLabel(m.data.homeAway)}
+                            </span>
+                            {relativeLabel(m.data.matchDate) ? (
+                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                                {relativeLabel(m.data.matchDate)}
+                              </span>
+                            ) : null}
+                          </div>
+
+                          <div class="mt-1 text-sm text-muted">
+                            {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
+                            {m.data.location ? ` · ${m.data.location}` : ''}
+                          </div>
+                        </div>
+
+                        {m.data.result ? (
+                          <div class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">{m.data.result}</div>
+                        ) : null}
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
         </div>
 
         <!-- Events Card -->
@@ -177,51 +180,51 @@ const latestPosts = postsAll.slice(0, 3);
             <a class="text-sm text-muted hover:underline" href="/events">Alle Termine →</a>
           </div>
 
-          {upcomingEvents.length === 0 ? (
-            <div class="mt-3">
-              <p class="text-muted text-sm leading-relaxed">
-                Aktuell sind keine Termine veröffentlicht.
-              </p>
-              <div class="mt-4">
-                <a class="btn btn-secondary" href="/contact">Termin vorschlagen</a>
-              </div>
-            </div>
-          ) : (
-            <ul class="mt-4 space-y-3">
-              {upcomingEvents.slice(0, 3).map((e) => (
-                <li>
-                  <a
-                    href={`/events/${e.slug}`}
-                    class="block rounded-xl border border-gray-500/20 bg-dark p-4 hover:shadow-sm transition"
-                  >
-                    <div class="flex items-start justify-between gap-3">
-                      <div>
-                        <div class="flex flex-wrap items-center gap-2">
-                          <span class="text-sm font-semibold text-page">{e.data.title}</span>
-                          {relativeLabel(e.data.startDate) ? (
-                            <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                              {relativeLabel(e.data.startDate)}
-                            </span>
-                          ) : null}
-                        </div>
-
-                        <div class="mt-1 text-sm text-muted">
-                          {formatShortDate(e.data.startDate)}
-                          {e.data.location ? ` · ${e.data.location}` : ''}
-                        </div>
-                      </div>
-
-                      {e.data.time ? (
-                        <div class="shrink-0 text-sm text-muted whitespace-nowrap">
-                          {e.data.time}
-                        </div>
-                      ) : null}
-                    </div>
+          {
+            upcomingEvents.length === 0 ? (
+              <div class="mt-3">
+                <p class="text-muted text-sm leading-relaxed">Aktuell sind keine Termine veröffentlicht.</p>
+                <div class="mt-4">
+                  <a class="btn btn-secondary" href="/contact">
+                    Termin vorschlagen
                   </a>
-                </li>
-              ))}
-            </ul>
-          )}
+                </div>
+              </div>
+            ) : (
+              <ul class="mt-4 space-y-3">
+                {upcomingEvents.slice(0, 3).map((e) => (
+                  <li>
+                    <a
+                      href={`/events/${e.slug}`}
+                      class="block rounded-xl border border-gray-500/20 bg-dark p-4 hover:shadow-sm transition"
+                    >
+                      <div class="flex items-start justify-between gap-3">
+                        <div>
+                          <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-semibold text-page">{e.data.title}</span>
+                            {relativeLabel(e.data.startDate) ? (
+                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                                {relativeLabel(e.data.startDate)}
+                              </span>
+                            ) : null}
+                          </div>
+
+                          <div class="mt-1 text-sm text-muted">
+                            {formatShortDate(e.data.startDate)}
+                            {e.data.location ? ` · ${e.data.location}` : ''}
+                          </div>
+                        </div>
+
+                        {e.data.time ? (
+                          <div class="shrink-0 text-sm text-muted whitespace-nowrap">{e.data.time}</div>
+                        ) : null}
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
         </div>
       </div>
     </div>
@@ -233,42 +236,42 @@ const latestPosts = postsAll.slice(0, 3);
         <a class="text-sm text-muted hover:underline" href="/posts">Alle Posts →</a>
       </div>
 
-      {latestPosts.length === 0 ? (
-        <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-          <p class="text-muted text-sm">
-            Noch keine Posts vorhanden.
-          </p>
-        </div>
-      ) : (
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {latestPosts.map((p) => (
-            <a
-              href={`/posts/${p.slug}`}
-              class="block rounded-2xl border border-gray-500/20 bg-light p-5 hover:shadow-sm transition"
-            >
-              <div class="text-sm text-muted">{formatShortDate(p.data.date)}</div>
-              <h3 class="font-semibold text-page mt-1">{p.data.title}</h3>
-              {p.data.excerpt ? (
-                <p class="text-muted mt-2 text-sm leading-relaxed line-clamp-3">{p.data.excerpt}</p>
-              ) : null}
+      {
+        latestPosts.length === 0 ? (
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+            <p class="text-muted text-sm">Noch keine Posts vorhanden.</p>
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {latestPosts.map((p) => (
+              <a
+                href={`/posts/${p.slug}`}
+                class="block rounded-2xl border border-gray-500/20 bg-light p-5 hover:shadow-sm transition"
+              >
+                <div class="text-sm text-muted">{formatShortDate(p.data.date)}</div>
+                <h3 class="font-semibold text-page mt-1">{p.data.title}</h3>
+                {p.data.excerpt ? (
+                  <p class="text-muted mt-2 text-sm leading-relaxed line-clamp-3">{p.data.excerpt}</p>
+                ) : null}
 
-              {p.data.gallery?.length ? (
-                <div class="mt-4 text-xs text-muted">{p.data.gallery.length} Fotos</div>
-              ) : null}
+                {p.data.gallery?.length ? (
+                  <div class="mt-4 text-xs text-muted">{p.data.gallery.length} Fotos</div>
+                ) : null}
 
-              {p.data.tags?.length ? (
-                <div class="mt-4 flex flex-wrap gap-2">
-                  {p.data.tags.slice(0, 3).map((t) => (
-                    <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-            </a>
-          ))}
-        </div>
-      )}
+                {p.data.tags?.length ? (
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {p.data.tags.slice(0, 3).map((t) => (
+                      <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-xs text-muted">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </div>
   </section>
 
@@ -336,12 +339,8 @@ const latestPosts = postsAll.slice(0, 3);
       { text: 'Kontakt', href: '/contact' },
     ]}
   >
-    <Fragment slot="title">
-      Lust auf ein Match?
-    </Fragment>
+    <Fragment slot="title"> Lust auf ein Match? </Fragment>
 
-    <Fragment slot="subtitle">
-      Buche deinen Platz online oder melde dich bei Fragen direkt bei uns.
-    </Fragment>
+    <Fragment slot="subtitle"> Buche deinen Platz online oder melde dich bei Fragen direkt bei uns. </Fragment>
   </CallToAction>
 </Layout>

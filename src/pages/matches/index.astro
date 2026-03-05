@@ -25,20 +25,16 @@ function homeAwayLabel(v: 'home' | 'away') {
 ---
 
 <Layout metadata={metadata}>
-<Hero
-  image={{
-    src: '~/assets/images/racket-in-clay.png',
-    alt: 'Tennis Spielbetrieb',
-  }}
->
-  <Fragment slot="title">
-    Spielbetrieb
-  </Fragment>
+  <Hero
+    image={{
+      src: '~/assets/images/racket-in-clay.png',
+      alt: 'Tennis Spielbetrieb',
+    }}
+  >
+    <Fragment slot="title"> Spielbetrieb </Fragment>
 
-  <Fragment slot="subtitle">
-    Medenspiele, Begegnungen und Ergebnisse unserer Teams.
-  </Fragment>
-</Hero>
+    <Fragment slot="subtitle"> Medenspiele, Begegnungen und Ergebnisse unserer Teams. </Fragment>
+  </Hero>
 
   <section class="max-w-6xl mx-auto px-4 py-10">
     <!-- Controls -->
@@ -46,14 +42,9 @@ function homeAwayLabel(v: 'home' | 'away') {
       <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
         <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
           <label class="text-sm text-muted" for="teamSelect">Team</label>
-          <select
-            id="teamSelect"
-            class="rounded-xl border border-gray-500/20 bg-page px-3 py-2 text-sm"
-          >
+          <select id="teamSelect" class="rounded-xl border border-gray-500/20 bg-page px-3 py-2 text-sm">
             <option value="__all__">Alle Teams</option>
-            {teams.map((t) => (
-              <option value={t}>{t}</option>
-            ))}
+            {teams.map((t) => <option value={t}>{t}</option>)}
           </select>
 
           <div class="flex items-center gap-2">
@@ -82,68 +73,70 @@ function homeAwayLabel(v: 'home' | 'away') {
           </tr>
         </thead>
         <tbody>
-          {allMatches.map((m) => (
-            <tr
-              class="border-t border-gray-500/20"
-              data-team={m.data.team}
-              data-date={m.data.matchDate.toISOString()}
-            >
-              <td class="p-3 whitespace-nowrap">{formatDate(m.data.matchDate)}</td>
-              <td class="p-3">
-                <div class="font-medium">{m.data.team}</div>
-                <div class="text-muted">
-                  {homeAwayLabel(m.data.homeAway)} vs. {m.data.opponent}
-                </div>
-              </td>
-              <td class="p-3">{m.data.location ?? '—'}</td>
-              <td class="p-3">{m.data.competition ?? '—'}</td>
-              <td class="p-3 whitespace-nowrap">{m.data.result ?? '—'}</td>
-              <td class="p-3 whitespace-nowrap">
-                {m.data.detailsUrl ? (
-                  <a class="hover:underline" href={m.data.detailsUrl} target="_blank" rel="noopener">
-                    Details
-                  </a>
-                ) : (
-                  '—'
-                )}
-              </td>
-            </tr>
-          ))}
+          {
+            allMatches.map((m) => (
+              <tr
+                class="border-t border-gray-500/20"
+                data-team={m.data.team}
+                data-date={m.data.matchDate.toISOString()}
+              >
+                <td class="p-3 whitespace-nowrap">{formatDate(m.data.matchDate)}</td>
+                <td class="p-3">
+                  <div class="font-medium">{m.data.team}</div>
+                  <div class="text-muted">
+                    {homeAwayLabel(m.data.homeAway)} vs. {m.data.opponent}
+                  </div>
+                </td>
+                <td class="p-3">{m.data.location ?? '—'}</td>
+                <td class="p-3">{m.data.competition ?? '—'}</td>
+                <td class="p-3 whitespace-nowrap">{m.data.result ?? '—'}</td>
+                <td class="p-3 whitespace-nowrap">
+                  {m.data.detailsUrl ? (
+                    <a class="hover:underline" href={m.data.detailsUrl} target="_blank" rel="noopener">
+                      Details
+                    </a>
+                  ) : (
+                    '—'
+                  )}
+                </td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
 
     <script is:inline>
-        const now = new Date();
-        const teamSelect = document.getElementById('teamSelect');
-        const upcomingOnly = document.getElementById('upcomingOnly');
-        const resultCount = document.getElementById('resultCount');
-        const rows = Array.from(document.querySelectorAll('#matchesTable tbody tr'));
+      const now = new Date();
+      const teamSelect = document.getElementById('teamSelect');
+      const upcomingOnly = document.getElementById('upcomingOnly');
+      const resultCount = document.getElementById('resultCount');
+      const rows = Array.from(document.querySelectorAll('#matchesTable tbody tr'));
 
-        function applyFilters() {
-          const team = teamSelect.value;
-          const onlyUpcoming = upcomingOnly.checked;
+      function applyFilters() {
+        const team = teamSelect.value;
+        const onlyUpcoming = upcomingOnly.checked;
 
-          let visible = 0;
+        let visible = 0;
 
-          for (const row of rows) {
-            const rowTeam = row.getAttribute('data-team');
-            const rowDate = new Date(row.getAttribute('data-date'));
+        for (const row of rows) {
+          const rowTeam = row.getAttribute('data-team');
+          const rowDate = new Date(row.getAttribute('data-date'));
 
-            const teamOk = team === '__all__' || rowTeam === team;
-            const dateOk = !onlyUpcoming || rowDate >= now;
+          const teamOk = team === '__all__' || rowTeam === team;
+          const dateOk = !onlyUpcoming || rowDate >= now;
 
-            const show = teamOk && dateOk;
-            row.style.display = show ? '' : 'none';
-            if (show) visible++;
-          }
-
-          resultCount.textContent = visible === 1 ? '1 Eintrag' : visible + ' Einträge';
+          const show = teamOk && dateOk;
+          row.style.display = show ? '' : 'none';
+          if (show) visible++;
         }
 
-        teamSelect.addEventListener('change', applyFilters);
-        upcomingOnly.addEventListener('change', applyFilters);
-        applyFilters();
+        resultCount.textContent = visible === 1 ? '1 Eintrag' : visible + ' Einträge';
+      }
+
+      teamSelect.addEventListener('change', applyFilters);
+      upcomingOnly.addEventListener('change', applyFilters);
+      applyFilters();
     </script>
   </section>
 </Layout>

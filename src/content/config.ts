@@ -9,24 +9,22 @@ const posts = defineCollection({
 
     coverImage: z.string().optional(),
 
-      meta: z
-        .array(z.object({ label: z.string(), value: z.string() }))
-        .default([]),
+    meta: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
 
-      tags: z.array(z.string()).default([]),
+    tags: z.array(z.string()).default([]),
 
-      gallery: z
-        .array(
-          z.object({
-            src: z.string(),
-            alt: z.string().optional(),
-            caption: z.string().optional(),
-          })
-        )
-        .default([]),
+    gallery: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string().optional(),
+          caption: z.string().optional(),
+        })
+      )
+      .default([]),
 
-      draft: z.boolean().default(false),
-    }),
+    draft: z.boolean().default(false),
+  }),
 });
 
 const matches = defineCollection({

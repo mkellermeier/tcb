@@ -48,9 +48,7 @@ const applicationPdfHref = '/documents/aufnahme-antrag.pdf';
       alt: 'Mitglied werden',
     }}
   >
-    <Fragment slot="title">
-      Mitglied werden
-    </Fragment>
+    <Fragment slot="title"> Mitglied werden </Fragment>
 
     <Fragment slot="subtitle">
       Du möchtest Mitglied werden? Wir freuen uns, dass du dich für eine Mitgliedschaft beim TC Bühlertal interessierst.
@@ -64,15 +62,17 @@ const applicationPdfHref = '/documents/aufnahme-antrag.pdf';
         <h2 class="text-2xl font-semibold mb-4">Mitgliedsbeiträge</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {fees.map((fee) => (
-            <article class="rounded-2xl border border-gray-500/20 bg-light p-5">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="text-lg font-semibold">{fee.title}</h3>
-                <div class="text-lg font-semibold whitespace-nowrap">{fee.price}</div>
-              </div>
-              <p class="text-muted mt-2 text-sm leading-relaxed">{fee.description}</p>
-            </article>
-          ))}
+          {
+            fees.map((fee) => (
+              <article class="rounded-2xl border border-gray-500/20 bg-light p-5">
+                <div class="flex items-start justify-between gap-4">
+                  <h3 class="text-lg font-semibold">{fee.title}</h3>
+                  <div class="text-lg font-semibold whitespace-nowrap">{fee.price}</div>
+                </div>
+                <p class="text-muted mt-2 text-sm leading-relaxed">{fee.description}</p>
+              </article>
+            ))
+          }
         </div>
 
         <div class="mt-8 rounded-2xl border border-gray-500/20 bg-dark p-6">
@@ -85,9 +85,7 @@ const applicationPdfHref = '/documents/aufnahme-antrag.pdf';
             <a class="btn btn-primary" href={applicationPdfHref} target="_blank" rel="noopener">
               Aufnahmeantrag herunterladen
             </a>
-            <a class="btn btn-secondary" href="/contact">
-              Kontakt
-            </a>
+            <a class="btn btn-secondary" href="/contact"> Kontakt </a>
           </div>
 
           <p class="text-muted mt-3 text-sm">
@@ -108,9 +106,7 @@ const applicationPdfHref = '/documents/aufnahme-antrag.pdf';
 
         <div class="mt-5 pt-5 border-t border-gray-500/20">
           <h3 class="text-sm font-semibold">Fragen?</h3>
-          <p class="text-muted mt-2 text-sm">
-            Schreib uns gern oder sprich uns auf der Anlage an.
-          </p>
+          <p class="text-muted mt-2 text-sm">Schreib uns gern oder sprich uns auf der Anlage an.</p>
           <a class="btn btn-tertiary mt-2" href="/contact">Zum Kontakt</a>
         </div>
       </aside>
