@@ -9,8 +9,6 @@ const metadata = {
   description: 'Begegnungen, Teams und Ergebnisse.',
 };
 
-const now = new Date();
-
 const allMatches = (await getCollection('matches'))
   .filter((m) => !m.data.draft)
   .sort((a, b) => +a.data.matchDate - +b.data.matchDate);
