@@ -23,7 +23,7 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'TC Schwarzwald',
+      title: 'TC Bühlertal',
       links: [
         { text: 'Verein', href: getPermalink('/club') },
         { text: 'Vorstand', href: getPermalink('/board') },

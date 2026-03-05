@@ -1,38 +1,33 @@
 import { defineCollection, z } from 'astro:content';
 
 const posts = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    excerpt: z.string().optional(),
+  type: 'content',
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      excerpt: z.string().optional(),
 
-    coverImage: z.string().optional(), 
+      coverImage: image().optional(),
 
-    meta: z
-      .array(
-        z.object({
-          label: z.string(),  // z.B. "Ort"
-          value: z.string(),  // z.B. "Clubhaus"
-        })
-      )
-      .default([]),
+      meta: z
+        .array(z.object({ label: z.string(), value: z.string() }))
+        .default([]),
 
-    tags: z.array(z.string()).default([]),
+      tags: z.array(z.string()).default([]),
 
-    // Galerie (optional)
-    gallery: z
-      .array(
-        z.object({
-          src: z.string(), // "/images/posts/....jpg" (public/)
-          alt: z.string().optional(),
-          caption: z.string().optional(),
-        })
-      )
-      .default([]),
+      gallery: z
+        .array(
+          z.object({
+            src: z.string(),
+            alt: z.string().optional(),
+            caption: z.string().optional(),
+          })
+        )
+        .default([]),
 
-    draft: z.boolean().default(false),
-  }),
+      draft: z.boolean().default(false),
+    }),
 });
 
 const matches = defineCollection({
@@ -50,4 +45,17 @@ const matches = defineCollection({
   }),
 });
 
-export const collections = { matches, posts };
+const events = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date().optional(),
+    time: z.string().optional(),
+    location: z.string().optional(),
+    description: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { matches, posts, events };
