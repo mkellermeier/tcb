@@ -14,6 +14,7 @@ export const headerData = {
         { text: 'Vorstand', href: getPermalink('/board') },
         { text: 'Mitgliedschaft', href: getPermalink('/membership') },
         { text: 'Anlage & Anfahrt', href: getPermalink('/facility') },
+        { text: 'Clubshop ↗', href: 'https://www.11teamsports.com/de-de/clubshop/tc-buehlertal-e-v/' },
       ],
     },
     { text: 'Kontakt', href: getPermalink('/contact') },
@@ -38,6 +39,7 @@ export const footerData = {
         { text: 'Events', href: getPermalink('/events') },
         { text: 'Berichte', href: getPermalink('/posts') },
         { text: 'Gastspieler', href: getPermalink('/guest-players') },
+        { text: 'Clubshop ↗', href: 'https://www.11teamsports.com/de-de/clubshop/tc-buehlertal-e-v/' },
       ],
     },
     {
