@@ -1,22 +1,5 @@
 ---
 import '@fontsource-variable/inter';
-
-// 'DM Sans'
-// Nunito
-// Dosis
-// Outfit
-// Roboto
-// Literata
-// 'IBM Plex Sans'
-// Karla
-// Poppins
-// 'Fira Sans'
-// 'Libre Franklin'
-// Inconsolata
-// Raleway
-// Oswald
-// 'Space Grotesk'
-// Urbanist
 ---
 
 <style is:inline>
@@ -25,22 +8,26 @@ import '@fontsource-variable/inter';
     --aw-font-serif: 'Inter Variable';
     --aw-font-heading: 'Inter Variable';
 
-    /* Schwarzwald Tannengrün */
-    --aw-color-primary: rgb(13 64 36); /* tiefes Waldgrün */
-    --aw-color-secondary: rgb(8 42 24); /* dunkler Schatten */
-    --aw-color-accent: rgb(34 139 94); /* frisches Nadelgrün */
+    /* Schwarzwald Forest Green – Light Mode */
+    --aw-color-primary: rgb(22 101 52);
+    --aw-color-secondary: rgb(14 70 36);
+    --aw-color-accent: rgb(34 160 80);
 
-    /* Light Mode (wird kaum genutzt bei dark:only, aber sauber halten) */
-    --aw-color-text-heading: rgb(20 20 20);
-    --aw-color-text-default: rgb(28 28 28);
-    --aw-color-text-muted: rgb(28 28 28 / 66%);
-    --aw-color-bg-page: rgb(245 247 246);
+    --aw-color-text-heading: rgb(18 28 22);
+    --aw-color-text-default: rgb(18 28 22);
+    --aw-color-text-muted: rgb(18 28 22 / 58%);
+    --aw-color-text-page: rgb(18 28 22);
 
-    /* Hintergrund */
-    --aw-color-bg-page-dark: rgb(7 12 10);
+    /* Backgrounds */
+    --aw-color-bg-page: rgb(243 248 244);       /* Seitenhintergrund */
+    --aw-color-bg-page-light: rgb(255 255 255); /* Elevated Cards (.bg-light) */
+    --aw-color-bg-page-dark: rgb(224 237 226);  /* Inset Areas (.bg-dark) */
+
+    --aw-color-bg-header-scroll: rgba(243, 248, 244, 0.92);
 
     ::selection {
-      background-color: rgb(34 139 94 / 30%);
+      background-color: rgb(22 101 52 / 18%);
+      color: rgb(18 28 22);
     }
   }
 
@@ -49,18 +36,24 @@ import '@fontsource-variable/inter';
     --aw-font-serif: 'Inter Variable';
     --aw-font-heading: 'Inter Variable';
 
-    --aw-color-primary: rgb(34 139 94); /* Buttons / Links */
-    --aw-color-secondary: rgb(13 64 36); /* Hover / Depth */
-    --aw-color-accent: rgb(74 222 128); /* subtile Highlights */
+    /* Forest Dusk – Dark Mode */
+    --aw-color-primary: rgb(46 168 104);
+    --aw-color-secondary: rgb(25 100 58);
+    --aw-color-accent: rgb(74 222 128);
 
-    --aw-color-text-heading: rgb(238 242 240);
-    --aw-color-text-default: rgb(210 218 214);
-    --aw-color-text-muted: rgb(210 218 214 / 60%);
+    --aw-color-text-heading: rgb(218 232 222);
+    --aw-color-text-default: rgb(218 232 222);
+    --aw-color-text-muted: rgb(218 232 222 / 68%);
+    --aw-color-text-page: rgb(218 232 222);
 
-    --aw-color-bg-page: rgb(7 12 10); /* fast schwarz mit Grünanteil */
+    --aw-color-bg-page: rgb(13 21 16);        /* Seitenhintergrund */
+    --aw-color-bg-page-light: rgb(19 31 23);  /* Elevated Cards */
+    --aw-color-bg-page-dark: rgb(8 13 10);    /* Inset Areas */
+
+    --aw-color-bg-header-scroll: rgba(13, 21, 16, 0.92);
 
     ::selection {
-      background-color: rgb(34 139 94 / 40%);
+      background-color: rgb(46 168 104 / 35%);
       color: white;
     }
   }
