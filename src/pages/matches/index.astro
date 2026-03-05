@@ -76,9 +76,10 @@ function homeAwayLabel(v: 'home' | 'away') {
           {
             allMatches.map((m) => (
               <tr
-                class="border-t border-gray-500/20"
+                class="border-t border-gray-500/20 hover:bg-white/5 transition cursor-pointer"
                 data-team={m.data.team}
                 data-date={m.data.matchDate.toISOString()}
+                onclick={`window.location='/matches/${m.slug}'`}
               >
                 <td class="p-3 whitespace-nowrap">{formatDate(m.data.matchDate)}</td>
                 <td class="p-3">
@@ -91,13 +92,9 @@ function homeAwayLabel(v: 'home' | 'away') {
                 <td class="p-3">{m.data.competition ?? '—'}</td>
                 <td class="p-3 whitespace-nowrap">{m.data.result ?? '—'}</td>
                 <td class="p-3 whitespace-nowrap">
-                  {m.data.detailsUrl ? (
-                    <a class="hover:underline" href={m.data.detailsUrl} target="_blank" rel="noopener">
-                      Details
-                    </a>
-                  ) : (
-                    '—'
-                  )}
+                  <a class="hover:underline text-primary" href={`/matches/${m.slug}`}>
+                    Details →
+                  </a>
                 </td>
               </tr>
             ))
