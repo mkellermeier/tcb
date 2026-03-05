@@ -26,8 +26,7 @@ const metadata = {
 const fmtLong = (date: Date) =>
   date.toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
 
-const fmtTime = (date: Date) =>
-  date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+const fmtTime = (date: Date) => date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
 
 const hasTime = d.matchDate.getHours() !== 0 || d.matchDate.getMinutes() !== 0;
 ---
@@ -44,11 +43,13 @@ const hasTime = d.matchDate.getHours() !== 0 || d.matchDate.getMinutes() !== 0;
           <span class="text-xs rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-muted">
             {d.homeAway === 'home' ? 'Heimspiel' : 'Auswärtsspiel'}
           </span>
-          {d.competition && (
-            <span class="text-xs rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-muted">
-              {d.competition}
-            </span>
-          )}
+          {
+            d.competition && (
+              <span class="text-xs rounded-full border border-gray-500/20 bg-dark px-3 py-1 text-muted">
+                {d.competition}
+              </span>
+            )
+          }
         </div>
         <h1 class="text-2xl font-bold text-page leading-snug">{d.team}</h1>
         <p class="text-muted mt-1 text-lg">vs. {d.opponent}</p>
@@ -66,15 +67,17 @@ const hasTime = d.matchDate.getHours() !== 0 || d.matchDate.getMinutes() !== 0;
           </div>
         </div>
 
-        {d.location && (
-          <div class="flex items-start gap-3">
-            <Icon name="tabler:map-pin" class="w-5 h-5 text-primary mt-0.5 shrink-0" />
-            <div>
-              <div class="text-muted">Ort</div>
-              <div class="text-page font-medium">{d.location}</div>
+        {
+          d.location && (
+            <div class="flex items-start gap-3">
+              <Icon name="tabler:map-pin" class="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <div>
+                <div class="text-muted">Ort</div>
+                <div class="text-page font-medium">{d.location}</div>
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
 
         <div class="flex items-start gap-3">
           <Icon name="tabler:trophy" class="w-5 h-5 text-primary mt-0.5 shrink-0" />
@@ -86,31 +89,35 @@ const hasTime = d.matchDate.getHours() !== 0 || d.matchDate.getMinutes() !== 0;
           </div>
         </div>
 
-        {d.detailsUrl && (
-          <div class="flex items-start gap-3">
-            <Icon name="tabler:external-link" class="w-5 h-5 text-primary mt-0.5 shrink-0" />
-            <div>
-              <div class="text-muted">Verband</div>
-              <a
-                href={d.detailsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-primary hover:underline font-medium"
-              >
-                Offizielle Seite →
-              </a>
+        {
+          d.detailsUrl && (
+            <div class="flex items-start gap-3">
+              <Icon name="tabler:external-link" class="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <div>
+                <div class="text-muted">Verband</div>
+                <a
+                  href={d.detailsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:underline font-medium"
+                >
+                  Offizielle Seite →
+                </a>
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
       </div>
     </div>
 
-    {entry.body?.trim() && (
-      <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-        <article class="prose dark:prose-invert max-w-none">
-          <Content />
-        </article>
-      </div>
-    )}
+    {
+      entry.body?.trim() && (
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+          <article class="prose dark:prose-invert max-w-none">
+            <Content />
+          </article>
+        </div>
+      )
+    }
   </section>
 </Layout>
