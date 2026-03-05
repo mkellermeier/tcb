@@ -52,6 +52,12 @@ export const footerData = {
     { text: 'Impressum', href: getPermalink('/legal/imprint') },
     { text: 'Datenschutz', href: getPermalink('/legal/privacy') },
   ],
-  socialLinks: [],
+  socialLinks: [
+    {
+      ariaLabel: 'Instagram',
+      icon: 'tabler:brand-instagram',
+      href: 'https://www.instagram.com/tcbuehlertal/',
+    },
+  ],
   footNote: `© ${new Date().getFullYear()} TC Bühlertal e.V. - Alle Rechte vorbehalten.`,
 };
