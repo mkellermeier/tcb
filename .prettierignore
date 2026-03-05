@@ -3,3 +3,5 @@ node_modules
 .github
 .changeset
 CLAUDE.md
+# Prettier Astro plugin crashes on define:vars inline scripts
+src/components/common/Gallery.astro
