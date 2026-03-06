@@ -7,7 +7,7 @@ tags:
   - 'Herren 1'
   - 'Medenrunde'
   - 'Saisonstart'
-coverImage: '/images/posts/2025-05-11-saisonstart-spieltag/01.jpeg'
+coverImage: '/images/posts/2025-05-11-saisonstart-spieltag/02.jpeg'
 gallery:
   - src: '/images/posts/2025-05-11-saisonstart-spieltag/01.jpeg'
   - src: '/images/posts/2025-05-11-saisonstart-spieltag/02.jpeg'

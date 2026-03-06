@@ -8,7 +8,7 @@ tags:
   - 'Damen'
   - 'Medenrunde'
   - 'Saisonabschluss'
-coverImage: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/01.jpeg'
+coverImage: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/02.jpeg'
 gallery:
   - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/01.jpeg'
 

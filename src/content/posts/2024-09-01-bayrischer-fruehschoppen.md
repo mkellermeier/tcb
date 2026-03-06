@@ -1,7 +1,7 @@
 ---
 title: 'Bayrischer Frühschoppen 2024 – Oldie-Tradition erfolgreich wiederaufgelebt'
 date: 2024-09-01
-excerpt: 'Nach gefühlten 10 Jahren Pause feierten die TCB-Oldies ihren Bayrischen Frühschoppen – mit Haxen, Karotten-Linsenbratlinge, Live-Musik von „So ische\'s" und großartiger Stimmung.'
+excerpt: 'Nach gefühlten 10 Jahren Pause feierten die TCB-Oldies ihren Bayrischen Frühschoppen – mit Haxen, Karotten-Linsenbratlinge, Live-Musik von „So isches und großartiger Stimmung.'
 tags:
   - 'Event'
   - 'Vereinsleben'

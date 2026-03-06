@@ -6,7 +6,7 @@ tags:
   - 'Damen'
   - 'Herren 2'
   - 'Medenrunde'
-coverImage: '/images/posts/2024-06-23-medenrunde-3-spieltag-2024/01.jpeg'
+coverImage: '/images/posts/2024-06-23-medenrunde-3-spieltag-2024/02.png'
 gallery:
   - src: '/images/posts/2024-06-23-medenrunde-3-spieltag-2024/01.jpeg'
   - src: '/images/posts/2024-06-23-medenrunde-3-spieltag-2024/02.png'

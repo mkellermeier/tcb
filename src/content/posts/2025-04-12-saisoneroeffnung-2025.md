@@ -6,7 +6,7 @@ tags:
   - 'Event'
   - 'Vereinsleben'
   - 'Saisonstart'
-coverImage: '/images/posts/2025-04-12-saisoneroeffnung-2025/01.jpeg'
+coverImage: '/images/posts/2025-04-12-saisoneroeffnung-2025/07.jpeg'
 gallery:
   - src: '/images/posts/2025-04-12-saisoneroeffnung-2025/01.jpeg'
   - src: '/images/posts/2025-04-12-saisoneroeffnung-2025/02.jpeg'
