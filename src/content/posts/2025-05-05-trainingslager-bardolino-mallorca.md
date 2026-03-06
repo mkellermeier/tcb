@@ -5,6 +5,20 @@ excerpt: 'Zum vierten Mal in Folge reiste das Herren-Team zur Saisonvorbereitung
 tags:
   - 'Trainingslager'
   - 'Vereinsleben'
+coverImage: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/01.jpeg'
+gallery:
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/01.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/02.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/03.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/04.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/05.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/06.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/07.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/08.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/09.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/10.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/11.jpeg'
+  - src: '/images/posts/2025-05-05-trainingslager-bardolino-mallorca/12.jpeg'
 draft: false
 ---
 
