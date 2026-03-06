@@ -5,6 +5,10 @@ excerpt: 'Kurzfristig einberufenes Treffen mit ehemaligen Vorständen und Funkti
 tags:
   - 'Vereinsleben'
   - 'Event'
+coverImage: '/images/posts/2022-09-18-veteranentreffen/01.jpeg'
+gallery:
+  - src: '/images/posts/2022-09-18-veteranentreffen/01.jpeg'
+  - src: '/images/posts/2022-09-18-veteranentreffen/02.jpeg'
 draft: false
 ---
 

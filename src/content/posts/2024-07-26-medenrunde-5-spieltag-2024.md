@@ -6,6 +6,10 @@ tags:
   - 'Herren 50'
   - 'Medenrunde'
   - 'Saisonabschluss'
+coverImage: '/images/posts/2024-07-26-medenrunde-5-spieltag-2024/01.jpeg'
+gallery:
+  - src: '/images/posts/2024-07-26-medenrunde-5-spieltag-2024/01.jpeg'
+  - src: '/images/posts/2024-07-26-medenrunde-5-spieltag-2024/02.jpeg'
 draft: false
 ---
 

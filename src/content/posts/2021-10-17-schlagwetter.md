@@ -5,6 +5,9 @@ excerpt: 'Starkregen hat die Sandplätze beschädigt und Erde weggespült. Der V
 tags:
   - 'Vereinsleben'
   - 'Anlage'
+coverImage: '/images/posts/2021-10-17-schlagwetter/01.jpg'
+gallery:
+  - src: '/images/posts/2021-10-17-schlagwetter/01.jpg'
 draft: false
 ---
 

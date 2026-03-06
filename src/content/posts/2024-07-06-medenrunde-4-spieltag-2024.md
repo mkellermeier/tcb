@@ -7,6 +7,12 @@ tags:
   - 'Herren 50'
   - 'Herren 30'
   - 'Medenrunde'
+coverImage: '/images/posts/2024-07-06-medenrunde-4-spieltag-2024/01.jpeg'
+gallery:
+  - src: '/images/posts/2024-07-06-medenrunde-4-spieltag-2024/01.jpeg'
+  - src: '/images/posts/2024-07-06-medenrunde-4-spieltag-2024/02.jpeg'
+  - src: '/images/posts/2024-07-06-medenrunde-4-spieltag-2024/03.jpeg'
+  - src: '/images/posts/2024-07-06-medenrunde-4-spieltag-2024/04.jpeg'
 draft: false
 ---
 

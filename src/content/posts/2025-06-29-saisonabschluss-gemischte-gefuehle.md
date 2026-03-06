@@ -9,10 +9,11 @@ tags:
   - 'Medenrunde'
   - 'Saisonabschluss'
   - 'Derby'
-coverImage: '/images/posts/2025-06-29-saisonabschluss-gemischte-gefuehle/01.webp'
+coverImage: '/images/posts/2025-06-29-saisonabschluss-gemischte-gefuehle/01.jpeg'
 gallery:
-  - src: '/images/posts/2025-06-29-saisonabschluss-gemischte-gefuehle/01.webp'
-    alt: 'Medenrunde Juni 2025'
+  - src: '/images/posts/2025-06-29-saisonabschluss-gemischte-gefuehle/01.jpeg'
+  - src: '/images/posts/2025-06-29-saisonabschluss-gemischte-gefuehle/02.jpeg'
+
 draft: false
 ---
 

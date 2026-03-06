@@ -7,6 +7,9 @@ tags:
   - 'Herren 30'
   - 'Medenrunde'
   - 'Saisonstart'
+coverImage: '/images/posts/2024-05-05-medenrunde-1-spieltag-2024/01.jpg'
+gallery:
+  - src: '/images/posts/2024-05-05-medenrunde-1-spieltag-2024/01.jpg'
 draft: false
 ---
 

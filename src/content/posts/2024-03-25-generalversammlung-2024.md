@@ -5,6 +5,11 @@ excerpt: 'Bei der Generalversammlung 2024 stehen Sanierungskosten, der Wegfall d
 tags:
   - 'Vereinsleben'
   - 'Generalversammlung'
+coverImage: '/images/posts/2024-03-25-generalversammlung-2024/01.jpg'
+gallery:
+  - src: '/images/posts/2024-03-25-generalversammlung-2024/01.jpg'
+  - src: '/images/posts/2024-03-25-generalversammlung-2024/02.jpg'
+  - src: '/images/posts/2024-03-25-generalversammlung-2024/03.jpg'
 draft: false
 ---
 

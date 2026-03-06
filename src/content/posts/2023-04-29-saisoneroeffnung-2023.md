@@ -6,6 +6,10 @@ tags:
   - 'Event'
   - 'Vereinsleben'
   - 'Saisonstart'
+coverImage: '/images/posts/2023-04-29-saisoneroeffnung-2023/01.jpg'
+gallery:
+  - src: '/images/posts/2023-04-29-saisoneroeffnung-2023/01.jpg'
+  - src: '/images/posts/2023-04-29-saisoneroeffnung-2023/02.jpg'
 draft: false
 ---
 

@@ -6,6 +6,11 @@ tags:
   - 'Mixed'
   - 'Medenrunde'
   - 'Meisterschaft'
+coverImage: '/images/posts/2022-10-01-imposante-siegesserie/01.png'
+gallery:
+  - src: '/images/posts/2022-10-01-imposante-siegesserie/01.png'
+  - src: '/images/posts/2022-10-01-imposante-siegesserie/02.png'
+  - src: '/images/posts/2022-10-01-imposante-siegesserie/03.png'
 draft: false
 ---
 

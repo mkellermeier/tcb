@@ -5,6 +5,9 @@ excerpt: 'Die neue Vereinskollektion ist da! Trikots, Hoodies, Trainingsjacken u
 tags:
   - 'Vereinsleben'
   - 'Clubshop'
+coverImage: '/images/posts/2025-04-16-vereinskollektion-2025/01.png'
+gallery:
+  - src: '/images/posts/2025-04-16-vereinskollektion-2025/01.png'
 draft: false
 ---
 

@@ -6,6 +6,13 @@ tags:
   - 'Herren 50'
   - 'Vereinsleben'
   - 'Event'
+coverImage: '/images/posts/2020-08-25-internes-kraeftemessen-h50-h60/01.jpeg'
+gallery:
+  - src: '/images/posts/2020-08-25-internes-kraeftemessen-h50-h60/01.jpeg'
+  - src: '/images/posts/2020-08-25-internes-kraeftemessen-h50-h60/02.jpeg'
+  - src: '/images/posts/2020-08-25-internes-kraeftemessen-h50-h60/03.jpeg'
+  - src: '/images/posts/2020-08-25-internes-kraeftemessen-h50-h60/04.jpeg'
+  - src: '/images/posts/2020-08-25-internes-kraeftemessen-h50-h60/05.jpeg'
 draft: false
 ---
 

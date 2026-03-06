@@ -5,6 +5,9 @@ excerpt: 'Die Mannschaften beenden die Sommersaison 2023 mit einem gebührenden 
 tags:
   - 'Vereinsleben'
   - 'Saisonabschluss'
+coverImage: '/images/posts/2023-10-08-jahresabschluss-2023/01.jpg'
+gallery:
+  - src: '/images/posts/2023-10-08-jahresabschluss-2023/01.jpg'
 draft: false
 ---
 

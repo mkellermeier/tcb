@@ -5,6 +5,9 @@ excerpt: 'Erfolgreicher Pokalauftakt für die Herren 1: Mit einem verdienten 2:1
 tags:
   - 'Herren 1'
   - 'Pokal'
+coverImage: '/images/posts/2025-06-12-herren1-btv-pokal-sieg/01.jpeg'
+gallery:
+  - src: '/images/posts/2025-06-12-herren1-btv-pokal-sieg/01.jpeg'
 draft: false
 ---
 

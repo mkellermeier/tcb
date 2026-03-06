@@ -8,6 +8,12 @@ tags:
   - 'Herren 1'
   - 'Herren 2'
   - 'Medenrunde'
+coverImage: '/images/posts/2024-05-12-medenrunde-2-spieltag-2024/01.jpg'
+gallery:
+  - src: '/images/posts/2024-05-12-medenrunde-2-spieltag-2024/01.jpg'
+  - src: '/images/posts/2024-05-12-medenrunde-2-spieltag-2024/02.jpg'
+  - src: '/images/posts/2024-05-12-medenrunde-2-spieltag-2024/03.jpg'
+  - src: '/images/posts/2024-05-12-medenrunde-2-spieltag-2024/04.jpg'
 draft: false
 ---
 

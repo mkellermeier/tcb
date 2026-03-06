@@ -6,6 +6,9 @@ tags:
   - 'Herren 1'
   - 'Herren 2'
   - 'Medenrunde'
+coverImage: '/images/posts/2022-05-15-heimauftakt-nach-mass/01.jpg'
+gallery:
+  - src: '/images/posts/2022-05-15-heimauftakt-nach-mass/01.jpg'
 draft: false
 ---
 

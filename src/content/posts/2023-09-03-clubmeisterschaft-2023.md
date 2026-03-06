@@ -6,6 +6,14 @@ tags:
   - 'Event'
   - 'Vereinsleben'
   - 'Clubmeisterschaft'
+coverImage: '/images/posts/2023-09-03-clubmeisterschaft-2023/01.jpg'
+gallery:
+  - src: '/images/posts/2023-09-03-clubmeisterschaft-2023/01.jpg'
+  - src: '/images/posts/2023-09-03-clubmeisterschaft-2023/02.jpg'
+  - src: '/images/posts/2023-09-03-clubmeisterschaft-2023/03.jpg'
+  - src: '/images/posts/2023-09-03-clubmeisterschaft-2023/04.jpg'
+  - src: '/images/posts/2023-09-03-clubmeisterschaft-2023/05.jpg'
+  - src: '/images/posts/2023-09-03-clubmeisterschaft-2023/06.jpg'
 draft: false
 ---
 

@@ -8,14 +8,14 @@ tags:
   - 'Damen'
   - 'Medenrunde'
   - 'Saisonabschluss'
-coverImage: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/01.webp'
+coverImage: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/01.jpeg'
 gallery:
-  - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/01.webp'
-    alt: 'Medenrunde Juli 2025'
-  - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/02.webp'
-    alt: 'Medenrunde Juli 2025'
-  - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/03.webp'
-    alt: 'Medenrunde Juli 2025'
+  - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/01.jpeg'
+
+  - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/02.jpeg'
+
+  - src: '/images/posts/2025-07-06-herren-siegen-damen-teamgeist/03.jpeg'
+
 draft: false
 ---
 

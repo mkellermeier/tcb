@@ -5,6 +5,9 @@ excerpt: 'Ein geselliger Vereinsabend mit selbst gekochter Paella – Gemeinscha
 tags:
   - 'Vereinsleben'
   - 'Event'
+coverImage: '/images/posts/2021-09-30-lecker-paella/01.png'
+gallery:
+  - src: '/images/posts/2021-09-30-lecker-paella/01.png'
 draft: false
 ---
 

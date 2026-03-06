@@ -5,6 +5,25 @@ excerpt: 'Nach gefühlten 10 Jahren Pause feierten die TCB-Oldies ihren Bayrisch
 tags:
   - 'Event'
   - 'Vereinsleben'
+coverImage: '/images/posts/2024-09-01-bayrischer-fruehschoppen/01.jpeg'
+gallery:
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/01.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/02.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/03.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/04.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/05.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/06.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/07.jpg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/08.jpg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/09.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/10.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/11.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/12.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/13.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/14.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/15.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/16.jpeg'
+  - src: '/images/posts/2024-09-01-bayrischer-fruehschoppen/17.jpeg'
 draft: false
 ---
 

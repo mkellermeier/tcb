@@ -5,6 +5,18 @@ excerpt: 'Traditionell geht es im November gen Breisgau: Der TCB besuchte erneut
 tags:
   - 'Trainingslager'
   - 'Vereinsleben'
+coverImage: '/images/posts/2024-11-16-trainingscamp-hugstetten/01.jpeg'
+gallery:
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/01.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/02.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/03.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/04.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/05.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/06.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/07.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/08.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/09.jpeg'
+  - src: '/images/posts/2024-11-16-trainingscamp-hugstetten/10.jpeg'
 draft: false
 ---
 

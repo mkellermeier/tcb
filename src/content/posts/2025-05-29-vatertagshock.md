@@ -5,6 +5,14 @@ excerpt: 'Gemeinsam mit dem MGV Sängerbund feierte der TCB einen gelungenen Vat
 tags:
   - 'Event'
   - 'Vereinsleben'
+coverImage: '/images/posts/2025-05-29-vatertagshock/01.jpeg'
+gallery:
+  - src: '/images/posts/2025-05-29-vatertagshock/01.jpeg'
+  - src: '/images/posts/2025-05-29-vatertagshock/02.jpeg'
+  - src: '/images/posts/2025-05-29-vatertagshock/03.jpeg'
+  - src: '/images/posts/2025-05-29-vatertagshock/04.jpeg'
+  - src: '/images/posts/2025-05-29-vatertagshock/05.jpeg'
+  - src: '/images/posts/2025-05-29-vatertagshock/06.jpeg'
 draft: false
 ---
 

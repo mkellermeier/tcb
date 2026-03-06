@@ -5,6 +5,14 @@ excerpt: 'Nach dem erfolgreichen Einsatz beim Hauptfest wurden die Jungs des TCB
 tags:
   - 'Vereinsleben'
   - 'Event'
+coverImage: '/images/posts/2022-10-13-advantage-tcb/01.jpeg'
+gallery:
+  - src: '/images/posts/2022-10-13-advantage-tcb/01.jpeg'
+  - src: '/images/posts/2022-10-13-advantage-tcb/02.jpeg'
+  - src: '/images/posts/2022-10-13-advantage-tcb/03.jpeg'
+  - src: '/images/posts/2022-10-13-advantage-tcb/04.jpeg'
+  - src: '/images/posts/2022-10-13-advantage-tcb/05.jpeg'
+  - src: '/images/posts/2022-10-13-advantage-tcb/06.jpeg'
 draft: false
 ---
 

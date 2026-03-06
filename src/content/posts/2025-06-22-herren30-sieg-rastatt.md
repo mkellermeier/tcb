@@ -5,9 +5,9 @@ excerpt: 'Geschlossene Teamleistung der Herren 30 beim Nachholspiel in Rastatt â
 tags:
   - 'Herren 30'
   - 'Medenrunde'
-coverImage: '/images/posts/2025-06-22-herren30-sieg-rastatt/01.webp'
+coverImage: '/images/posts/2025-06-22-herren30-sieg-rastatt/01.jpeg'
 gallery:
-  - src: '/images/posts/2025-06-22-herren30-sieg-rastatt/01.webp'
+  - src: '/images/posts/2025-06-22-herren30-sieg-rastatt/01.jpeg'
     alt: 'Herren 30 beim Nachholspiel in Rastatt â€“ Juni 2025'
 draft: false
 ---

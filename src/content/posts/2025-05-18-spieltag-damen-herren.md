@@ -7,6 +7,10 @@ tags:
   - 'Herren 1'
   - 'Herren 2'
   - 'Medenrunde'
+coverImage: '/images/posts/2025-05-18-spieltag-damen-herren/01.jpeg'
+gallery:
+  - src: '/images/posts/2025-05-18-spieltag-damen-herren/01.jpeg'
+  - src: '/images/posts/2025-05-18-spieltag-damen-herren/02.jpeg'
 draft: false
 ---
 

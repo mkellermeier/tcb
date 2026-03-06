@@ -5,6 +5,13 @@ excerpt: 'Beim Hauptfest des MGV half die TCB-Jugend spontan als Aufbau- und Ser
 tags:
   - 'Vereinsleben'
   - 'Event'
+coverImage: '/images/posts/2022-08-17-hauptfest/01.png'
+gallery:
+  - src: '/images/posts/2022-08-17-hauptfest/01.png'
+  - src: '/images/posts/2022-08-17-hauptfest/02.png'
+  - src: '/images/posts/2022-08-17-hauptfest/03.png'
+  - src: '/images/posts/2022-08-17-hauptfest/04.png'
+  - src: '/images/posts/2022-08-17-hauptfest/05.png'
 draft: false
 ---
 

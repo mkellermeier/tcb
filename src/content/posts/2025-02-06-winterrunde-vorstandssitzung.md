@@ -6,6 +6,9 @@ tags:
   - 'Herren 1'
   - 'Winterrunde'
   - 'Vereinsleben'
+coverImage: '/images/posts/2025-02-06-winterrunde-vorstandssitzung/01.jpg'
+gallery:
+  - src: '/images/posts/2025-02-06-winterrunde-vorstandssitzung/01.jpg'
 draft: false
 ---
 

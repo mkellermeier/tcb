@@ -5,6 +5,9 @@ excerpt: 'Beim traditionellen Weihnachtsessen im Bergfriedel war diesmal ein gan
 tags:
   - 'Vereinsleben'
   - 'Event'
+coverImage: '/images/posts/2023-11-17-weihnachtsfeier-2023/01.jpg'
+gallery:
+  - src: '/images/posts/2023-11-17-weihnachtsfeier-2023/01.jpg'
 draft: false
 ---
 
