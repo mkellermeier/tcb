@@ -87,42 +87,31 @@ const sponsors = [
     <!-- Dankeschön -->
     <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
       <p class="text-muted leading-relaxed">
-        Der TC Bühlertal ist stolz auf seine treuen Unterstützer aus der Region. Ohne das Engagement unserer
-        Sponsoren wäre vieles, was unseren Verein ausmacht, nicht möglich. Wir sagen herzlichen Dank!
+        Der TC Bühlertal ist stolz auf seine treuen Unterstützer aus der Region. Ohne das Engagement unserer Sponsoren
+        wäre vieles, was unseren Verein ausmacht, nicht möglich. Wir sagen herzlichen Dank!
       </p>
     </div>
 
     <!-- Sponsoren-Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-      {sponsors.map((s) => {
-        const card = (
-          <div class="rounded-2xl border border-gray-500/20 bg-light p-5 flex flex-col items-center justify-center gap-3 min-h-[120px] group-hover:border-primary/40 transition">
-            <img
-              src={s.logo}
-              alt={s.name}
-              class="max-h-16 max-w-full object-contain"
-              loading="lazy"
-            />
-            <span class="text-xs text-muted text-center leading-snug">{s.name}</span>
-          </div>
-        );
+      {
+        sponsors.map((s) => {
+          const card = (
+            <div class="rounded-2xl border border-gray-500/20 bg-light p-5 flex flex-col items-center justify-center gap-3 min-h-[120px] group-hover:border-primary/40 transition">
+              <img src={s.logo} alt={s.name} class="max-h-16 max-w-full object-contain" loading="lazy" />
+              <span class="text-xs text-muted text-center leading-snug">{s.name}</span>
+            </div>
+          );
 
-        return s.href ? (
-          <a
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group"
-            title={s.name}
-          >
-            {card}
-          </a>
-        ) : (
-          <div title={s.name}>
-            {card}
-          </div>
-        );
-      })}
+          return s.href ? (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" class="group" title={s.name}>
+              {card}
+            </a>
+          ) : (
+            <div title={s.name}>{card}</div>
+          );
+        })
+      }
     </div>
 
     <!-- Sponsor werden -->
@@ -132,8 +121,8 @@ const sponsors = [
         <div class="space-y-2">
           <h2 class="text-xl font-semibold text-page">Sponsor werden</h2>
           <p class="text-muted leading-relaxed">
-            Ihr möchtet den TC Bühlertal unterstützen und als Sponsor sichtbar sein? Wir freuen uns über
-            Anfragen von Unternehmen und Privatpersonen aus der Region. Meldet euch gerne bei uns!
+            Ihr möchtet den TC Bühlertal unterstützen und als Sponsor sichtbar sein? Wir freuen uns über Anfragen von
+            Unternehmen und Privatpersonen aus der Region. Meldet euch gerne bei uns!
           </p>
           <a class="btn btn-primary inline-flex items-center gap-2 mt-2" href="/contact">
             <Icon name="tabler:mail" class="w-4 h-4" />

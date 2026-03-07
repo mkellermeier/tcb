@@ -14,6 +14,7 @@ Am **Samstag, 07. März** treffen wir uns um **10:00 Uhr** auf der Anlage zum er
 Wie jedes Jahr gilt: **Viele Hände, schnelles Ende!** Je mehr mitmachen, desto schneller sind wir fertig – und desto früher kann die Saison richtig loslegen.
 
 Bitte bringt mit:
+
 - Arbeitshandschuhe
 - Wetterfeste Kleidung
 - Gute Laune

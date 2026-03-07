@@ -27,19 +27,19 @@ Nach der Entlastung durch die Mitglieder – vorgeschlagen von Gemeinderat **Vol
 
 ## Neuer Vorstand
 
-| Funktion | Name |
-|---|---|
-| Vorstand Sport | Jürgen Götz |
-| Vorstand Spielbetrieb | Robin Ganter |
-| Vorstand Öffentlichkeitsarbeit | Johannes Braun |
-| Kassenwart | Johannes Pfeiffer, Simon Kellermeier |
-| Schriftführer & Festwart | Rico Früh |
-| Sportwart | Fabrice Huck |
-| Jugendwart | unbesetzt |
-| Bauwart | Rainer/Robin Ganter |
-| Pressewart | Jürgen Götz |
-| Beisitzer | Wolfgang Kohler, Rainer Ganter, Uwe Seifermann |
-| Kassenprüfer | Manuel Welle, Louis Meier |
+| Funktion                       | Name                                           |
+| ------------------------------ | ---------------------------------------------- |
+| Vorstand Sport                 | Jürgen Götz                                    |
+| Vorstand Spielbetrieb          | Robin Ganter                                   |
+| Vorstand Öffentlichkeitsarbeit | Johannes Braun                                 |
+| Kassenwart                     | Johannes Pfeiffer, Simon Kellermeier           |
+| Schriftführer & Festwart       | Rico Früh                                      |
+| Sportwart                      | Fabrice Huck                                   |
+| Jugendwart                     | unbesetzt                                      |
+| Bauwart                        | Rainer/Robin Ganter                            |
+| Pressewart                     | Jürgen Götz                                    |
+| Beisitzer                      | Wolfgang Kohler, Rainer Ganter, Uwe Seifermann |
+| Kassenprüfer                   | Manuel Welle, Louis Meier                      |
 
 Die eingeschlagene Verjüngung setzt sich nun auch im Bereich der Vorsitzenden fort: **Robin Ganter** und **Johannes Braun** rücken ins erste Glied vor. Die Oldies **Rainer Ganter** und **Uwe Seifermann** bleiben als Beisitzer erhalten.
 
