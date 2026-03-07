@@ -1,7 +1,6 @@
 site:
   name: TC Bühlertal
-  site: 'https://mkellermeier.github.io'
-  base: '/tcb'
+  site: 'https://tcbuehlertal.de'
   trailingSlash: false
 
 metadata:
