@@ -11,62 +11,62 @@ const metadata = {
 const sponsors = [
   {
     name: 'Veith Gebäudetechnik',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Veith.png',
+    logo: '/images/sponsors/veith.png',
     href: 'https://www.veith-gebaeudetechnik.de/',
   },
   {
     name: 'Pfeiffer Gartenbau',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2024/05/Pfeiffer-Gartenbau-Logo-1024x722.png',
+    logo: '/images/sponsors/pfeiffer.png',
     href: 'https://pfeiffer-technik.de/',
   },
   {
     name: 'Schwarzwald Apotheke',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Anzeige_Image_190_85-1024x458.jpg',
+    logo: '/images/sponsors/apotheke.png',
     href: 'https://www.schwarzwald-apotheke.com/',
   },
   {
     name: 'Hubert Boy Spezialbaustoffe',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Boy.png',
+    logo: '/images/sponsors/boy.png',
     href: null,
   },
   {
     name: 'Friedmanns Autowelt',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/FriedmannsAutowelt.png',
+    logo: '/images/sponsors/friedmann.png',
     href: 'http://www.friedmanns-autowelt.de',
   },
   {
     name: 'Lienhart Elektro',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2024/05/Lienhart-Elektro-Logo-1024x576.png',
+    logo: '/images/sponsors/lienhart.png',
     href: 'https://www.elektro-lienhart.de/',
   },
   {
     name: 'SKB Bühlertal',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/pic00781-1024x149.jpeg',
+    logo: '/images/sponsors/skb.jpeg',
     href: 'http://www.skb-buehlertal.de',
   },
   {
     name: 'Spedition Martin',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Spedition-Martin.jpeg',
+    logo: '/images/sponsors/martin.jpeg',
     href: 'http://www.sped-martin.de/',
   },
   {
     name: 'IH Engineering',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Herb.png',
+    logo: '/images/sponsors/ih.png',
     href: 'https://www.ih-engineering.de/',
   },
   {
     name: 'Linie GmbH',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Braun.png',
+    logo: '/images/sponsors/linie.png',
     href: 'http://www.linie-gmbh.de/Home.html',
   },
   {
     name: 'NC Kohler',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Kohler-CNC.png',
+    logo: '/images/sponsors/kohler.png',
     href: 'http://www.nc-kohler.de/home/',
   },
   {
     name: 'Küchenmarkt Götz',
-    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Goetz.png',
+    logo: '/images/sponsors/goetz.png',
     href: 'https://www.kuechenmarktgoetz.de/',
   },
 ];
@@ -98,7 +98,13 @@ const sponsors = [
         sponsors.map((s) => {
           const card = (
             <div class="rounded-2xl border border-gray-500/20 bg-light p-5 flex flex-col items-center justify-center gap-3 min-h-[120px] group-hover:border-primary/40 transition">
-              <img src={s.logo} alt={s.name} class="max-h-16 max-w-full object-contain" loading="lazy" />
+              <img
+                src={s.logo}
+                alt={s.name}
+                class="max-h-16 max-w-full object-contain"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
               <span class="text-xs text-muted text-center leading-snug">{s.name}</span>
             </div>
           );
