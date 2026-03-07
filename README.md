@@ -43,13 +43,13 @@ Die Seite ist dann unter `http://localhost:4321` erreichbar.
 
 ## Verfügbare Scripts
 
-| Script | Beschreibung |
-|---|---|
-| `npm run dev` | Entwicklungsserver starten |
-| `npm run build` | Produktions-Build erstellen |
-| `npm run preview` | Build lokal vorschauen |
-| `npm run check` | Astro-Check + ESLint + Prettier |
-| `npm run fix` | ESLint + Prettier automatisch fixen |
+| Script            | Beschreibung                        |
+| ----------------- | ----------------------------------- |
+| `npm run dev`     | Entwicklungsserver starten          |
+| `npm run build`   | Produktions-Build erstellen         |
+| `npm run preview` | Build lokal vorschauen              |
+| `npm run check`   | Astro-Check + ESLint + Prettier     |
+| `npm run fix`     | ESLint + Prettier automatisch fixen |
 
 ## Deployment
 
@@ -68,17 +68,16 @@ Datei unter `src/content/posts/YYYY-MM-DD-titel.md` anlegen:
 
 ```yaml
 ---
-title: "Titel des Beitrags"
+title: 'Titel des Beitrags'
 date: 2026-06-15
-excerpt: "Kurze Beschreibung"
-tags: ["herren1", "medenrunde"]
+excerpt: 'Kurze Beschreibung'
+tags: ['herren1', 'medenrunde']
 coverImage: '/images/posts/YYYY-MM-DD-titel/01.jpg'
 gallery:
   - src: '/images/posts/YYYY-MM-DD-titel/01.jpg'
   - src: '/images/posts/YYYY-MM-DD-titel/02.jpg'
 draft: false
 ---
-
 Inhalt des Beitrags...
 ```
 
@@ -90,11 +89,11 @@ Datei unter `src/content/events/YYYY-MM-DD-titel.md`:
 
 ```yaml
 ---
-title: "Sommerfest"
+title: 'Sommerfest'
 startDate: 2026-07-12
-time: "14:00"
-location: "Clubhaus"
-description: "Kurzbeschreibung"
+time: '14:00'
+location: 'Clubhaus'
+description: 'Kurzbeschreibung'
 draft: false
 ---
 ```
@@ -105,12 +104,12 @@ Datei unter `src/content/matches/`:
 
 ```yaml
 ---
-team: "Herren 1"
+team: 'Herren 1'
 matchDate: 2026-05-10
 homeAway: home
-opponent: "TC Beispiel"
-competition: "Sommer 2026"
-result: "6:3"
+opponent: 'TC Beispiel'
+competition: 'Sommer 2026'
+result: '6:3'
 draft: false
 ---
 ```
