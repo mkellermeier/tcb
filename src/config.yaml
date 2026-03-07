@@ -1,7 +1,7 @@
 site:
   name: TC Bühlertal
-  site: 'https://astrowind.vercel.app' # kann erstmal Platzhalter bleiben
-  base: '/'
+  site: 'https://mkellermeier.github.io'
+  base: '/tcb'
   trailingSlash: false
 
 metadata:
