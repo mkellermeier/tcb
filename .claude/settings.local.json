@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:tcbuehlertal.de)",
+      "Bash(sed -i 's|/images/posts/2025-10-14-saisonabschluss-hallenrunde/01\\\\.webp|/images/posts/2025-10-14-saisonabschluss-hallenrunde/01.jpeg|g' src/content/posts/2025-10-14-saisonabschluss-hallenrunde.md)",
+      "Bash(sed -i 's|/images/posts/2025-06-22-herren30-sieg-rastatt/01\\\\.webp|/images/posts/2025-06-22-herren30-sieg-rastatt/01.jpeg|g' src/content/posts/2025-06-22-herren30-sieg-rastatt.md)"
+    ]
+  }
+}
