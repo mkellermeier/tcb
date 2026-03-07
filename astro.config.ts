@@ -22,7 +22,8 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
 export default defineConfig({
-  site: 'https://tcbuehlertal.de',
+  site: 'https://mkellermeier.github.io',
+  base: '/tcb',
   output: 'static',
 
   integrations: [
