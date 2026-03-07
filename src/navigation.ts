@@ -13,6 +13,7 @@ export const headerData = {
         { text: 'Über uns', href: getPermalink('/club') },
         { text: 'Vorstand', href: getPermalink('/board') },
         { text: 'Mitgliedschaft', href: getPermalink('/membership') },
+        { text: 'Sponsoren', href: getPermalink('/sponsors') },
         { text: 'Anlage & Anfahrt', href: getPermalink('/facility') },
         { text: 'Clubshop ↗', href: 'https://www.11teamsports.com/de-de/clubshop/tc-buehlertal-e-v/' },
       ],
@@ -29,6 +30,7 @@ export const footerData = {
       links: [
         { text: 'Verein', href: getPermalink('/club') },
         { text: 'Vorstand', href: getPermalink('/board') },
+        { text: 'Sponsoren', href: getPermalink('/sponsors') },
         { text: 'Kontakt', href: getPermalink('/contact') },
       ],
     },

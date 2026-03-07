@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import { getCollection } from 'astro:content';
+import defaultPostImage from '~/assets/images/bag-on-clay.png';
 
 const metadata = {
   title: 'Berichte',
@@ -40,25 +41,14 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
               href={`/posts/${e.slug}`}
               class="group flex flex-col rounded-2xl border border-gray-500/20 bg-light overflow-hidden hover:shadow-md transition"
             >
-              {e.data.coverImage ? (
-                <div class="overflow-hidden">
-                  <img
-                    src={e.data.coverImage}
-                    alt={e.data.title}
-                    loading="lazy"
-                    class="h-48 w-full object-cover transition duration-200 group-hover:scale-[1.02]"
-                  />
-                </div>
-              ) : e.data.gallery?.length ? (
-                <div class="overflow-hidden">
-                  <img
-                    src={e.data.gallery[0].src}
-                    alt={e.data.gallery[0].alt ?? e.data.title}
-                    loading="lazy"
-                    class="h-48 w-full object-cover transition duration-200 group-hover:scale-[1.02]"
-                  />
-                </div>
-              ) : null}
+              <div class="overflow-hidden">
+                <img
+                  src={e.data.coverImage ?? e.data.gallery?.[0]?.src ?? defaultPostImage.src}
+                  alt={e.data.title}
+                  loading="lazy"
+                  class="h-48 w-full object-cover transition duration-200 group-hover:scale-[1.02]"
+                />
+              </div>
 
               <div class="p-5 flex flex-col flex-1">
                 <div class="flex items-center justify-between gap-3 text-xs text-muted mb-2">

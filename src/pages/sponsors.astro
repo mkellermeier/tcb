@@ -1,0 +1,146 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { Icon } from 'astro-icon/components';
+
+const metadata = {
+  title: 'Sponsoren',
+  description: 'Unsere Sponsoren und Partner – die den TC Bühlertal unterstützen.',
+};
+
+const sponsors = [
+  {
+    name: 'Veith Gebäudetechnik',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Veith.png',
+    href: 'https://www.veith-gebaeudetechnik.de/',
+  },
+  {
+    name: 'Pfeiffer Gartenbau',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2024/05/Pfeiffer-Gartenbau-Logo-1024x722.png',
+    href: 'https://pfeiffer-technik.de/',
+  },
+  {
+    name: 'Schwarzwald Apotheke',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Anzeige_Image_190_85-1024x458.jpg',
+    href: 'https://www.schwarzwald-apotheke.com/',
+  },
+  {
+    name: 'Hubert Boy Spezialbaustoffe',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Boy.png',
+    href: null,
+  },
+  {
+    name: 'Friedmanns Autowelt',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/FriedmannsAutowelt.png',
+    href: 'http://www.friedmanns-autowelt.de',
+  },
+  {
+    name: 'Lienhart Elektro',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2024/05/Lienhart-Elektro-Logo-1024x576.png',
+    href: 'https://www.elektro-lienhart.de/',
+  },
+  {
+    name: 'SKB Bühlertal',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/pic00781-1024x149.jpeg',
+    href: 'http://www.skb-buehlertal.de',
+  },
+  {
+    name: 'Spedition Martin',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Spedition-Martin.jpeg',
+    href: 'http://www.sped-martin.de/',
+  },
+  {
+    name: 'IH Engineering',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Herb.png',
+    href: 'https://www.ih-engineering.de/',
+  },
+  {
+    name: 'Linie GmbH',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Braun.png',
+    href: 'http://www.linie-gmbh.de/Home.html',
+  },
+  {
+    name: 'NC Kohler',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Kohler-CNC.png',
+    href: 'http://www.nc-kohler.de/home/',
+  },
+  {
+    name: 'Küchenmarkt Götz',
+    logo: 'https://tcbuehlertal.de/wp-content/uploads/2022/08/Goetz.png',
+    href: 'https://www.kuechenmarktgoetz.de/',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    image={{
+      src: '~/assets/images/bag-on-clay.png',
+      alt: 'Sponsoren des TC Bühlertal',
+    }}
+  >
+    <Fragment slot="title">Unsere <span class="text-accent dark:text-white">Sponsoren</span></Fragment>
+    <Fragment slot="subtitle">Partner, die uns ermöglichen, Tennis in Bühlertal zu leben.</Fragment>
+  </Hero>
+
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-10">
+    <!-- Dankeschön -->
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+      <p class="text-muted leading-relaxed">
+        Der TC Bühlertal ist stolz auf seine treuen Unterstützer aus der Region. Ohne das Engagement unserer
+        Sponsoren wäre vieles, was unseren Verein ausmacht, nicht möglich. Wir sagen herzlichen Dank!
+      </p>
+    </div>
+
+    <!-- Sponsoren-Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {sponsors.map((s) => {
+        const card = (
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-5 flex flex-col items-center justify-center gap-3 min-h-[120px] group-hover:border-primary/40 transition">
+            <img
+              src={s.logo}
+              alt={s.name}
+              class="max-h-16 max-w-full object-contain"
+              loading="lazy"
+            />
+            <span class="text-xs text-muted text-center leading-snug">{s.name}</span>
+          </div>
+        );
+
+        return s.href ? (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group"
+            title={s.name}
+          >
+            {card}
+          </a>
+        ) : (
+          <div title={s.name}>
+            {card}
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Sponsor werden -->
+    <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-4">
+      <div class="flex items-start gap-4">
+        <Icon name="tabler:heart-handshake" class="w-8 h-8 text-primary shrink-0 mt-0.5" />
+        <div class="space-y-2">
+          <h2 class="text-xl font-semibold text-page">Sponsor werden</h2>
+          <p class="text-muted leading-relaxed">
+            Ihr möchtet den TC Bühlertal unterstützen und als Sponsor sichtbar sein? Wir freuen uns über
+            Anfragen von Unternehmen und Privatpersonen aus der Region. Meldet euch gerne bei uns!
+          </p>
+          <a class="btn btn-primary inline-flex items-center gap-2 mt-2" href="/contact">
+            <Icon name="tabler:mail" class="w-4 h-4" />
+            Kontakt aufnehmen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
