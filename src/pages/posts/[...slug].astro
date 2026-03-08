@@ -1,9 +1,8 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Gallery from '../../components/common/Gallery.astro'; // oder ~/... wenn Alias existiert
+import Gallery from '../../components/common/Gallery.astro';
 import { getCollection, render } from 'astro:content';
-import defaultPostImage from '~/assets/images/bag-on-clay.png';
+import defaultPostImage from '~/assets/images/hero-blackforest.png';
 
 export async function getStaticPaths() {
   const entries = await getCollection('posts', ({ data }) => !data.draft);
@@ -25,17 +24,21 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
 ---
 
 <Layout metadata={metadata}>
-  <Hero
-    image={{
-      src: '~/assets/images/bag-on-clay.png',
-      alt: entry.data.title,
-    }}
-  >
-    <Fragment slot="title">{entry.data.title}</Fragment>
-    <Fragment slot="subtitle">
-      {entry.data.excerpt ?? fmt(entry.data.date)}
-    </Fragment>
-  </Hero>
+  <!-- Post-Banner -->
+  <div class="w-full bg-dark border-b border-gray-500/20">
+    <div class="max-w-5xl mx-auto px-6 py-8 md:px-16 md:py-10">
+      <h1 class="text-2xl md:text-4xl font-bold text-page leading-tight">{entry.data.title}</h1>
+      {entry.data.excerpt && (
+        <p class="mt-2 text-muted text-sm md:text-base max-w-2xl">{entry.data.excerpt}</p>
+      )}
+    </div>
+    <img
+      src={entry.data.coverImage ?? entry.data.gallery?.[0]?.src ?? defaultPostImage.src}
+      alt={entry.data.title}
+      class="w-full object-cover max-h-[480px]"
+      loading="eager"
+    />
+  </div>
 
   <section class="max-w-5xl mx-auto px-4 py-10 space-y-10">
     <!-- Back -->
@@ -77,16 +80,6 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
           </div>
         ) : null
       }
-    </div>
-
-    <!-- Cover image -->
-    <div class="rounded-2xl overflow-hidden">
-      <img
-        src={entry.data.coverImage ?? defaultPostImage.src}
-        alt={entry.data.title}
-        class="w-full max-h-[480px] object-cover"
-        loading="eager"
-      />
     </div>
 
     <!-- Content -->
