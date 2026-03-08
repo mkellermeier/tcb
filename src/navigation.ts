@@ -4,7 +4,7 @@ export const headerData = {
   links: [
     { text: 'Start', href: getPermalink('/') },
     { text: 'Spielbetrieb', href: getPermalink('/matches') },
-    { text: 'Events', href: getPermalink('/events') },
+    { text: 'Termine', href: getPermalink('/events') },
     { text: 'Gastspieler', href: getPermalink('/guest-players') },
     { text: 'Berichte', href: getPermalink('/posts') },
     {
@@ -38,7 +38,7 @@ export const footerData = {
       title: 'Sport',
       links: [
         { text: 'Spielbetrieb', href: getPermalink('/matches') },
-        { text: 'Events', href: getPermalink('/events') },
+        { text: 'Termine', href: getPermalink('/events') },
         { text: 'Berichte', href: getPermalink('/posts') },
         { text: 'Gastspieler', href: getPermalink('/guest-players') },
         { text: 'Clubshop ↗', href: 'https://www.11teamsports.com/de-de/clubshop/tc-buehlertal-e-v/' },
