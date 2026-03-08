@@ -28,9 +28,7 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('de-DE', { day: '2-digit', mont
   <div class="w-full bg-dark border-b border-gray-500/20">
     <div class="max-w-5xl mx-auto px-6 py-8 md:px-16 md:py-10">
       <h1 class="text-2xl md:text-4xl font-bold text-page leading-tight">{entry.data.title}</h1>
-      {entry.data.excerpt && (
-        <p class="mt-2 text-muted text-sm md:text-base max-w-2xl">{entry.data.excerpt}</p>
-      )}
+      {entry.data.excerpt && <p class="mt-2 text-muted text-sm md:text-base max-w-2xl">{entry.data.excerpt}</p>}
     </div>
     <img
       src={entry.data.coverImage ?? entry.data.gallery?.[0]?.src ?? defaultPostImage.src}
