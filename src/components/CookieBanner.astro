@@ -1,0 +1,73 @@
+---
+const GA_ID = 'G-F7TZD76EGM';
+---
+
+<div
+  id="cookie-banner"
+  class="hidden fixed bottom-0 left-0 right-0 z-50 border-t border-gray-500/20"
+  style="background-color: var(--aw-color-bg-page-dark)"
+>
+  <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-muted">
+      Wir nutzen Google Analytics, um die Nutzung der Website zu verstehen. Mehr dazu in unserer <a
+        href="/legal/privacy"
+        class="text-primary hover:underline">Datenschutzerklärung</a
+      >.
+    </p>
+    <div class="flex gap-3 shrink-0">
+      <button id="cookie-reject" class="btn text-sm !py-2 !px-4">Ablehnen</button>
+      <button id="cookie-accept" class="btn btn-primary text-sm !py-2 !px-4">Zustimmen</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ GA_ID }}>
+  const CONSENT_KEY = 'cookie-consent-v1';
+  const banner = document.getElementById('cookie-banner');
+
+  function loadGA() {
+    if (document.querySelector(`script[src*="${GA_ID}"]`)) return;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      dataLayer.push(arguments);
+    };
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  }
+
+  function hideBanner() {
+    if (!banner) return;
+    banner.style.transition = 'opacity 0.3s';
+    banner.style.opacity = '0';
+    setTimeout(() => banner.remove(), 300);
+  }
+
+  const consent = localStorage.getItem(CONSENT_KEY);
+  if (consent === 'accepted') {
+    loadGA();
+  } else if (!consent) {
+    banner?.classList.remove('hidden');
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    hideBanner();
+    loadGA();
+  });
+
+  document.getElementById('cookie-reject')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'rejected');
+    hideBanner();
+  });
+
+  // Seitenaufrufe bei Astro View Transitions tracken
+  document.addEventListener('astro:page-load', () => {
+    if (window.gtag) {
+      gtag('config', GA_ID, { page_path: window.location.pathname });
+    }
+  });
+</script>
