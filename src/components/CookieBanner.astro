@@ -32,8 +32,8 @@ const GA_ID = 'G-F7TZD76EGM';
     s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
     document.head.appendChild(s);
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      dataLayer.push(arguments);
+    window.gtag = function (...args) {
+      dataLayer.push(args);
     };
     gtag('js', new Date());
     gtag('config', GA_ID);
