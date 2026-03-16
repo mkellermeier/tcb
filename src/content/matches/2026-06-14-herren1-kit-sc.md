@@ -1,9 +1,9 @@
 ---
-team: "Herren 1"
+team: 'Herren 1'
 matchDate: 2026-06-14
 homeAway: away
-opponent: "KIT SC 2010 1"
-competition: "Sommer 2026"
-detailsUrl: "https://baden.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/groupPage?championship=B2+S+2026&group=7"
+opponent: 'KIT SC 2010 1'
+competition: 'Sommer 2026'
+detailsUrl: 'https://baden.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/groupPage?championship=B2+S+2026&group=7'
 draft: false
 ---
