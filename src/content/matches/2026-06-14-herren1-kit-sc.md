@@ -1,6 +1,6 @@
 ---
 team: 'Herren 1'
-matchDate: 2026-06-14T09:30:00
+matchDate: 2026-06-14T09:30:00+02:00
 homeAway: away
 opponent: 'KIT SC 2010 1'
 competition: 'Sommer 2026'

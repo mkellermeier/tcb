@@ -1,6 +1,6 @@
 ---
 team: 'Herren 1'
-matchDate: 2026-06-21T09:30:00
+matchDate: 2026-06-21T09:30:00+02:00
 homeAway: home
 opponent: 'TV Ersingen 1'
 competition: 'Sommer 2026'
