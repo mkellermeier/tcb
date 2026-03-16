@@ -4,7 +4,7 @@ startDate: 2026-03-14
 time: '10:00'
 location: 'Tennisanlage Bühlertal'
 description: "Plätze 5+6 sind fertig, Plätze 1+2 zur Hälfte erledigt – weiter geht's! Restliches Moos entfernen, walzen, Sand einstreuen und Sponsorenbanner anbringen."
-draft: false
+draft: true
 ---
 
 Guter Fortschritt beim ersten Einsatz! Hier der aktuelle Stand:
