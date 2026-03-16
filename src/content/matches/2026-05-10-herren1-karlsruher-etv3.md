@@ -1,6 +1,6 @@
 ---
 team: 'Herren 1'
-matchDate: 2026-05-10
+matchDate: 2026-05-10T09:30:00
 homeAway: away
 opponent: 'Karlsruher ETV 3'
 competition: 'Sommer 2026'

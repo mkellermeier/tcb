@@ -1,6 +1,6 @@
 ---
 team: 'Herren 1'
-matchDate: 2026-07-12
+matchDate: 2026-07-12T09:30:00
 homeAway: home
 opponent: 'TC Gernsbach 1'
 competition: 'Sommer 2026'
