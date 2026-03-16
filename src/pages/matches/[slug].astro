@@ -24,11 +24,19 @@ const metadata = {
 };
 
 const fmtLong = (date: Date) =>
-  date.toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+  date.toLocaleDateString('de-DE', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'Europe/Berlin',
+  });
 
-const fmtTime = (date: Date) => date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+const fmtTime = (date: Date) =>
+  date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' });
 
-const hasTime = d.matchDate.getHours() !== 0 || d.matchDate.getMinutes() !== 0;
+const timeFormatted = fmtTime(d.matchDate);
+const hasTime = timeFormatted !== '00:00';
 ---
 
 <Layout metadata={metadata}>

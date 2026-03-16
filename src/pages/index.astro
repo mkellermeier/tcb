@@ -138,8 +138,12 @@ const latestPosts = postsAll.slice(0, 3);
             ) : (
               <ul class="space-y-2">
                 {(upcomingMatches.length > 0 ? upcomingMatches : recentMatches).map((m) => {
-                  const hasTime = m.data.matchDate.getHours() !== 0 || m.data.matchDate.getMinutes() !== 0;
-                  const timeStr = m.data.matchDate.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+                  const timeStr = m.data.matchDate.toLocaleTimeString('de-DE', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Europe/Berlin',
+                  });
+                  const hasTime = timeStr !== '00:00';
                   return (
                     <li>
                       <a
