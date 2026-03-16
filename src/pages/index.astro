@@ -137,30 +137,42 @@ const latestPosts = postsAll.slice(0, 3);
               </div>
             ) : (
               <ul class="space-y-2">
-                {(upcomingMatches.length > 0 ? upcomingMatches : recentMatches).map((m) => (
-                  <li class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-4">
-                    <div>
-                      <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-sm font-semibold text-page">{m.data.team}</span>
-                        <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                          {homeAwayLabel(m.data.homeAway)}
-                        </span>
-                        {relativeLabel(m.data.matchDate) && (
-                          <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
-                            {relativeLabel(m.data.matchDate)}
+                {(upcomingMatches.length > 0 ? upcomingMatches : recentMatches).map((m) => {
+                  const hasTime = m.data.matchDate.getHours() !== 0 || m.data.matchDate.getMinutes() !== 0;
+                  const timeStr = m.data.matchDate.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+                  return (
+                    <li>
+                      <a
+                        href={`/matches/${m.slug}`}
+                        class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-4 hover:border-gray-400/40 hover:bg-white/5 transition"
+                      >
+                        <div>
+                          <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-semibold text-page">{m.data.team}</span>
+                            <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                              {homeAwayLabel(m.data.homeAway)}
+                            </span>
+                            {relativeLabel(m.data.matchDate) && (
+                              <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
+                                {relativeLabel(m.data.matchDate)}
+                              </span>
+                            )}
+                          </div>
+                          <div class="mt-1 text-sm text-muted">
+                            {formatShortDate(m.data.matchDate)}
+                            {hasTime ? ` · ${timeStr} Uhr` : ''} · vs. {m.data.opponent}
+                            {m.data.location ? ` · ${m.data.location}` : ''}
+                          </div>
+                        </div>
+                        {m.data.result && (
+                          <span class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">
+                            {m.data.result}
                           </span>
                         )}
-                      </div>
-                      <div class="mt-1 text-sm text-muted">
-                        {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
-                        {m.data.location ? ` · ${m.data.location}` : ''}
-                      </div>
-                    </div>
-                    {m.data.result && (
-                      <span class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">{m.data.result}</span>
-                    )}
-                  </li>
-                ))}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             )
           }
