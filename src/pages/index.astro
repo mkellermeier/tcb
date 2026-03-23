@@ -233,110 +233,93 @@ const latestPosts = postsAll.slice(0, 3);
           </div>
         </div>
 
-        <!-- Nächste Termine -->
-        <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-          <div class="flex items-center justify-between gap-3 mb-4">
-            <div class="flex items-center gap-2">
-              <Icon name="tabler:calendar-event" class="w-5 h-5 text-primary shrink-0" />
-              <h3 class="font-semibold text-page">Nächste Termine</h3>
+        <!-- Rechte Spalte: Termine + Neueste Berichte -->
+        <div class="flex flex-col gap-4">
+          <!-- Nächste Termine -->
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-2">
+                <Icon name="tabler:calendar-event" class="w-5 h-5 text-primary shrink-0" />
+                <h3 class="font-semibold text-page">Nächste Termine</h3>
+              </div>
+              <a class="text-sm text-primary hover:underline" href="/events">Alle →</a>
             </div>
-            <a class="text-sm text-primary hover:underline" href="/events">Alle Termine →</a>
+            {
+              upcomingEvents.length === 0 ? (
+                <p class="text-muted text-sm">Aktuell keine Termine.</p>
+              ) : (
+                <ul class="space-y-2">
+                  {upcomingEvents.map((e) => (
+                    <li>
+                      <a
+                        href={`/events/${e.slug}`}
+                        class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
+                      >
+                        <div>
+                          <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-sm font-semibold text-page">{e.data.title}</span>
+                            {relativeLabel(e.data.startDate) && (
+                              <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
+                                {relativeLabel(e.data.startDate)}
+                              </span>
+                            )}
+                          </div>
+                          <div class="mt-1 text-xs text-muted">
+                            {formatShortDate(e.data.startDate)}
+                            {e.data.time ? ` · ${e.data.time} Uhr` : ''}
+                            {e.data.location ? ` · ${e.data.location}` : ''}
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )
+            }
           </div>
 
-          {
-            upcomingEvents.length === 0 ? (
-              <div>
-                <p class="text-muted text-sm leading-relaxed">Aktuell sind keine Termine veröffentlicht.</p>
-                <a class="btn btn-secondary mt-4 inline-block" href="/contact">
-                  Termin vorschlagen
-                </a>
+          <!-- Neueste Berichte -->
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div class="flex items-center gap-2">
+                <Icon name="tabler:news" class="w-5 h-5 text-primary shrink-0" />
+                <h3 class="font-semibold text-page">Neueste Berichte</h3>
               </div>
-            ) : (
-              <ul class="space-y-2">
-                {upcomingEvents.map((e) => (
-                  <li>
-                    <a
-                      href={`/events/${e.slug}`}
-                      class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-4 hover:border-gray-400/40 hover:bg-white/5 transition"
-                    >
-                      <div>
-                        <div class="flex flex-wrap items-center gap-2">
-                          <span class="text-sm font-semibold text-page">{e.data.title}</span>
-                          {relativeLabel(e.data.startDate) && (
-                            <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
-                              {relativeLabel(e.data.startDate)}
-                            </span>
-                          )}
-                        </div>
-                        <div class="mt-1 text-sm text-muted">
-                          {formatShortDate(e.data.startDate)}
-                          {e.data.location ? ` · ${e.data.location}` : ''}
-                        </div>
-                      </div>
-                      {e.data.time && (
-                        <span class="shrink-0 text-sm text-muted whitespace-nowrap">{e.data.time} Uhr</span>
-                      )}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )
-          }
+              <a class="text-sm text-primary hover:underline" href="/posts">Alle →</a>
+            </div>
+            {
+              latestPosts.length === 0 ? (
+                <p class="text-muted text-sm">Noch keine Berichte.</p>
+              ) : (
+                <ul class="space-y-2">
+                  {latestPosts.slice(0, 3).map((p) => {
+                    const previewImg = p.data.coverImage ?? p.data.gallery?.[0]?.src ?? defaultPostImage.src;
+                    return (
+                      <li>
+                        <a
+                          href={`/posts/${p.slug}`}
+                          class="flex items-center gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition group"
+                        >
+                          <img
+                            src={previewImg}
+                            alt={p.data.title}
+                            loading="lazy"
+                            class="h-12 w-12 rounded-lg object-cover shrink-0"
+                          />
+                          <div class="min-w-0">
+                            <div class="text-sm font-semibold text-page leading-snug line-clamp-1">{p.data.title}</div>
+                            <div class="text-xs text-muted mt-0.5">{formatPostDate(p.data.date)}</div>
+                          </div>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            }
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Neueste Berichte -->
-    <div>
-      <div class="flex items-center justify-between gap-3 mb-4">
-        <h2 class="text-2xl font-semibold">Neueste Berichte</h2>
-        <a class="text-sm text-primary hover:underline" href="/posts">Alle Berichte →</a>
-      </div>
-
-      {
-        latestPosts.length === 0 ? (
-          <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
-            <p class="text-muted text-sm">Noch keine Berichte vorhanden.</p>
-          </div>
-        ) : (
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {latestPosts.map((p) => {
-              const previewImg = p.data.coverImage ?? p.data.gallery?.[0]?.src ?? defaultPostImage.src;
-              return (
-                <a
-                  href={`/posts/${p.slug}`}
-                  class="group flex flex-col rounded-2xl border border-gray-500/20 bg-light overflow-hidden hover:border-gray-400/40 hover:shadow-md transition"
-                >
-                  <div class="overflow-hidden">
-                    <img
-                      src={previewImg}
-                      alt={p.data.title}
-                      loading="lazy"
-                      class="h-40 w-full object-cover transition duration-300 group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div class="p-4 flex flex-col flex-1">
-                    <div class="text-xs text-muted mb-1">{formatPostDate(p.data.date)}</div>
-                    <h3 class="font-semibold text-page leading-snug">{p.data.title}</h3>
-                    {p.data.excerpt && (
-                      <p class="text-muted mt-2 text-sm leading-relaxed line-clamp-2 flex-1">{p.data.excerpt}</p>
-                    )}
-                    {p.data.tags?.length ? (
-                      <div class="mt-3 flex flex-wrap gap-1">
-                        {p.data.tags.slice(0, 2).map((t) => (
-                          <span class="rounded-full border border-gray-500/20 bg-dark px-2 py-0.5 text-xs text-muted">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        )
-      }
     </div>
   </section>
 
