@@ -52,6 +52,13 @@ const recentMatches = matchesAll
   .slice(-3)
   .reverse();
 
+function resultInfo(result: string | undefined) {
+  if (!result) return null;
+  const parts = result.split(':').map(Number);
+  if (parts.length !== 2 || parts.some(isNaN)) return null;
+  return { label: result, won: parts[0] > parts[1] };
+}
+
 // ---------- events ----------
 const eventsAll = (await getCollection('events', ({ data }) => !data.draft)).sort(
   (a, b) => +a.data.startDate - +b.data.startDate
@@ -118,68 +125,112 @@ const latestPosts = postsAll.slice(0, 3);
       <h2 class="text-2xl font-semibold mb-4">Aktuelles</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Nächste Spiele -->
-        <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-          <div class="flex items-center justify-between gap-3 mb-4">
-            <div class="flex items-center gap-2">
-              <Icon name="tabler:trophy" class="w-5 h-5 text-primary shrink-0" />
-              <h3 class="font-semibold text-page">
-                {upcomingMatches.length > 0 ? 'Nächste Spiele' : 'Letzte Ergebnisse'}
-              </h3>
+        <!-- Spiele -->
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-5 space-y-5">
+          <!-- Nächste Spiele -->
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-3">
+              <div class="flex items-center gap-2">
+                <Icon name="tabler:calendar-event" class="w-5 h-5 text-primary shrink-0" />
+                <h3 class="font-semibold text-page">Nächste Spiele</h3>
+              </div>
+              <a class="text-sm text-primary hover:underline" href="/matches">Spielplan →</a>
             </div>
-            <a class="text-sm text-primary hover:underline" href="/matches">Alle Spiele →</a>
+            {
+              upcomingMatches.length === 0 ? (
+                <p class="text-muted text-sm">Keine kommenden Spiele.</p>
+              ) : (
+                <ul class="space-y-2">
+                  {upcomingMatches.map((m) => {
+                    const timeStr = m.data.matchDate.toLocaleTimeString('de-DE', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      timeZone: 'Europe/Berlin',
+                    });
+                    const hasTime = timeStr !== '00:00';
+                    return (
+                      <li>
+                        <a
+                          href={`/matches/${m.slug}`}
+                          class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
+                        >
+                          <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                              <span class="text-sm font-semibold text-page">{m.data.team}</span>
+                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                                {homeAwayLabel(m.data.homeAway)}
+                              </span>
+                              {relativeLabel(m.data.matchDate) && (
+                                <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
+                                  {relativeLabel(m.data.matchDate)}
+                                </span>
+                              )}
+                            </div>
+                            <div class="mt-1 text-xs text-muted">
+                              {formatShortDate(m.data.matchDate)}
+                              {hasTime ? ` · ${timeStr} Uhr` : ''} · vs. {m.data.opponent}
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            }
           </div>
 
-          {
-            upcomingMatches.length === 0 && recentMatches.length === 0 ? (
-              <div>
-                <p class="text-muted text-sm leading-relaxed">Noch keine Spiele veröffentlicht.</p>
+          <!-- Divider -->
+          <div class="border-t border-gray-500/20"></div>
+
+          <!-- Letzte Ergebnisse -->
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-3">
+              <div class="flex items-center gap-2">
+                <Icon name="tabler:trophy" class="w-5 h-5 text-primary shrink-0" />
+                <h3 class="font-semibold text-page">Letzte Ergebnisse</h3>
               </div>
-            ) : (
-              <ul class="space-y-2">
-                {(upcomingMatches.length > 0 ? upcomingMatches : recentMatches).map((m) => {
-                  const timeStr = m.data.matchDate.toLocaleTimeString('de-DE', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    timeZone: 'Europe/Berlin',
-                  });
-                  const hasTime = timeStr !== '00:00';
-                  return (
-                    <li>
-                      <a
-                        href={`/matches/${m.slug}`}
-                        class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-4 hover:border-gray-400/40 hover:bg-white/5 transition"
-                      >
-                        <div>
-                          <div class="flex flex-wrap items-center gap-2">
-                            <span class="text-sm font-semibold text-page">{m.data.team}</span>
-                            <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                              {homeAwayLabel(m.data.homeAway)}
-                            </span>
-                            {relativeLabel(m.data.matchDate) && (
-                              <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
-                                {relativeLabel(m.data.matchDate)}
+              <a class="text-sm text-primary hover:underline" href="/matches#ergebnisse">Alle →</a>
+            </div>
+            {
+              recentMatches.length === 0 ? (
+                <p class="text-muted text-sm">Noch keine Ergebnisse.</p>
+              ) : (
+                <ul class="space-y-2">
+                  {recentMatches.map((m) => {
+                    const ri = resultInfo(m.data.result);
+                    return (
+                      <li>
+                        <a
+                          href={`/matches/${m.slug}`}
+                          class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
+                        >
+                          <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                              <span class="text-sm font-semibold text-page">{m.data.team}</span>
+                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
+                                {homeAwayLabel(m.data.homeAway)}
                               </span>
-                            )}
+                            </div>
+                            <div class="mt-1 text-xs text-muted">
+                              {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
+                            </div>
                           </div>
-                          <div class="mt-1 text-sm text-muted">
-                            {formatShortDate(m.data.matchDate)}
-                            {hasTime ? ` · ${timeStr} Uhr` : ''} · vs. {m.data.opponent}
-                            {m.data.location ? ` · ${m.data.location}` : ''}
-                          </div>
-                        </div>
-                        {m.data.result && (
-                          <span class="shrink-0 text-sm font-semibold text-page whitespace-nowrap">
-                            {m.data.result}
-                          </span>
-                        )}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            )
-          }
+                          {ri && (
+                            <span
+                              class={`shrink-0 self-center px-2.5 py-1 rounded-full text-xs font-semibold ${ri.won ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}
+                            >
+                              {ri.label}
+                            </span>
+                          )}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            }
+          </div>
         </div>
 
         <!-- Nächste Termine -->
