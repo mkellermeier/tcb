@@ -38,6 +38,17 @@ const matches = defineCollection({
     competition: z.string().optional(),
     detailsUrl: z.string().url().optional(),
     result: z.string().optional(),
+    matchResults: z
+      .array(
+        z.object({
+          position: z.string(),
+          tcbPlayer: z.string(),
+          opponent: z.string(),
+          score: z.string(),
+          won: z.boolean(),
+        })
+      )
+      .optional(),
     draft: z.boolean().default(false),
   }),
 });

@@ -119,6 +119,44 @@ const hasTime = timeFormatted !== '00:00';
     </div>
 
     {
+      d.matchResults && d.matchResults.length > 0 && (
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-4">
+          <h2 class="text-lg font-semibold text-page">Einzelergebnisse</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-500/20 text-muted text-left">
+                  <th class="pb-2 pr-4 whitespace-nowrap font-medium">Pos.</th>
+                  <th class="pb-2 pr-4 font-medium">TC Bühlertal</th>
+                  <th class="pb-2 pr-4 font-medium">Gegner</th>
+                  <th class="pb-2 pr-4 whitespace-nowrap font-medium">Ergebnis</th>
+                  <th class="pb-2 font-medium" />
+                </tr>
+              </thead>
+              <tbody>
+                {d.matchResults.map((r) => (
+                  <tr class="border-t border-gray-500/20">
+                    <td class="py-2 pr-4 text-muted whitespace-nowrap">{r.position}</td>
+                    <td class="py-2 pr-4">{r.tcbPlayer}</td>
+                    <td class="py-2 pr-4 text-muted">{r.opponent}</td>
+                    <td class="py-2 pr-4 whitespace-nowrap font-mono">{r.score}</td>
+                    <td class="py-2">
+                      {r.won ? (
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">Sieg</span>
+                      ) : (
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-red-500/20 text-red-400">Niederlage</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )
+    }
+
+    {
       entry.body?.trim() && (
         <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
           <article class="prose dark:prose-invert max-w-none">
