@@ -15,12 +15,24 @@ const allMatches = (await getCollection('matches'))
 
 const teams = Array.from(new Set(allMatches.map((m) => m.data.team))).sort((a, b) => a.localeCompare(b, 'de-DE'));
 
+// Group by competition, sorted so that newest season appears first
+const competitionOrder = Array.from(new Set(allMatches.map((m) => m.data.competition ?? 'Sonstige'))).sort((a, b) => {
+  // Sort by latest match date in that competition (descending)
+  const latestA = Math.max(
+    ...allMatches.filter((m) => (m.data.competition ?? 'Sonstige') === a).map((m) => +m.data.matchDate)
+  );
+  const latestB = Math.max(
+    ...allMatches.filter((m) => (m.data.competition ?? 'Sonstige') === b).map((m) => +m.data.matchDate)
+  );
+  return latestB - latestA;
+});
+
 function formatDate(d: Date) {
   return d.toLocaleDateString('de-DE', {
     weekday: 'short',
-    year: 'numeric',
-    month: '2-digit',
     day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
     timeZone: 'Europe/Berlin',
   });
 }
@@ -30,8 +42,12 @@ function formatTime(d: Date) {
   return t !== '00:00' ? t : null;
 }
 
-function homeAwayLabel(v: 'home' | 'away') {
-  return v === 'home' ? 'Heim' : 'Auswärts';
+function resultInfo(result: string | undefined) {
+  if (!result) return null;
+  const parts = result.split(':').map(Number);
+  if (parts.length !== 2 || parts.some(isNaN)) return null;
+  const [a, b] = parts;
+  return { label: result, won: a > b };
 }
 ---
 
@@ -43,113 +59,163 @@ function homeAwayLabel(v: 'home' | 'away') {
     }}
   >
     <Fragment slot="title"> Spielbetrieb </Fragment>
-
     <Fragment slot="subtitle"> Medenspiele, Begegnungen und Ergebnisse unserer Teams. </Fragment>
   </Hero>
 
-  <section class="max-w-6xl mx-auto px-4 py-10">
-    <!-- Controls -->
-    <div class="mb-6 rounded-2xl border border-gray-500/20 bg-light p-4">
-      <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
-        <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
-          <label class="text-sm text-muted" for="teamSelect">Team</label>
-          <select id="teamSelect" class="rounded-xl border border-gray-500/20 bg-page px-3 py-2 text-sm">
-            <option value="__all__">Alle Teams</option>
-            {teams.map((t) => <option value={t}>{t}</option>)}
-          </select>
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-6">
+    <!-- Team Tabs -->
+    <div class="flex flex-wrap gap-2">
+      <button
+        class="tab-btn px-4 py-1.5 rounded-full text-sm border border-gray-500/20 bg-light text-page transition hover:bg-white/10 active-tab"
+        data-team="__all__"
+      >
+        Alle Teams
+      </button>
+      {
+        teams.map((t) => (
+          <button
+            class="tab-btn px-4 py-1.5 rounded-full text-sm border border-gray-500/20 bg-light text-muted transition hover:bg-white/10"
+            data-team={t}
+          >
+            {t}
+          </button>
+        ))
+      }
+    </div>
 
-          <div class="flex items-center gap-2">
-            <input id="upcomingOnly" type="checkbox" checked class="h-4 w-4" />
-            <label for="upcomingOnly" class="text-sm">Nur kommende Spiele</label>
+    <!-- Upcoming toggle + count -->
+    <div class="flex items-center justify-between">
+      <label class="flex items-center gap-2 text-sm cursor-pointer select-none">
+        <input id="upcomingOnly" type="checkbox" checked class="h-4 w-4 accent-primary" />
+        Nur kommende Spiele
+      </label>
+      <span id="resultCount" class="text-sm text-muted"></span>
+    </div>
+
+    <!-- Groups by competition -->
+    {
+      competitionOrder.map((competition) => {
+        const matches = allMatches.filter((m) => (m.data.competition ?? 'Sonstige') === competition);
+        return (
+          <div class="competition-group" data-competition={competition}>
+            <h2 class="text-base font-semibold text-muted uppercase tracking-wide mb-3">{competition}</h2>
+            <div class="rounded-2xl border border-gray-500/20 overflow-hidden">
+              <table class="w-full text-sm">
+                <tbody>
+                  {matches.map((m) => {
+                    const ri = resultInfo(m.data.result);
+                    const time = formatTime(m.data.matchDate);
+                    return (
+                      <tr
+                        class="border-t border-gray-500/20 first:border-t-0 hover:bg-white/5 transition cursor-pointer"
+                        data-team={m.data.team}
+                        data-date={m.data.matchDate.toISOString()}
+                        onclick={`window.location='/matches/${m.slug}'`}
+                      >
+                        {/* Datum */}
+                        <td class="p-3 whitespace-nowrap w-32">
+                          <div class="text-page">{formatDate(m.data.matchDate)}</div>
+                          {time && <div class="text-muted text-xs">{time} Uhr</div>}
+                        </td>
+
+                        {/* Begegnung */}
+                        <td class="p-3">
+                          <div class="font-medium text-page">
+                            {m.data.team}
+                            <span class="ml-2 text-xs font-normal text-muted border border-gray-500/30 rounded px-1.5 py-0.5">
+                              {m.data.homeAway === 'home' ? 'Heim' : 'Auswärts'}
+                            </span>
+                          </div>
+                          <div class="text-muted text-xs mt-0.5">
+                            vs. {m.data.opponent}
+                            {m.data.location && <span class="ml-2 opacity-60">· {m.data.location}</span>}
+                          </div>
+                        </td>
+
+                        {/* Ergebnis */}
+                        <td class="p-3 text-right whitespace-nowrap">
+                          {ri ? (
+                            <span
+                              class={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${
+                                ri.won ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                              }`}
+                            >
+                              {ri.label}
+                            </span>
+                          ) : (
+                            <span class="text-muted text-xs">ausstehend</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        );
+      })
+    }
 
-        <div class="text-sm text-muted">
-          <span id="resultCount"></span>
-        </div>
-      </div>
-    </div>
+    <p id="emptyMsg" class="hidden text-center text-muted py-8">Keine Spiele gefunden.</p>
+  </section>
 
-    <!-- Table -->
-    <div class="overflow-x-auto rounded-2xl border border-gray-500/20">
-      <table class="w-full text-sm" id="matchesTable">
-        <thead class="bg-dark">
-          <tr>
-            <th class="text-left p-3 whitespace-nowrap">Datum</th>
-            <th class="text-left p-3">Begegnung</th>
-            <th class="text-left p-3">Ort</th>
-            <th class="text-left p-3">Wettbewerb</th>
-            <th class="text-left p-3 whitespace-nowrap">Ergebnis</th>
-            <th class="text-left p-3 whitespace-nowrap">Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            allMatches.map((m) => (
-              <tr
-                class="border-t border-gray-500/20 hover:bg-white/5 transition cursor-pointer"
-                data-team={m.data.team}
-                data-date={m.data.matchDate.toISOString()}
-                onclick={`window.location='/matches/${m.slug}'`}
-              >
-                <td class="p-3 whitespace-nowrap">
-                  <div>{formatDate(m.data.matchDate)}</div>
-                  {formatTime(m.data.matchDate) && (
-                    <div class="text-muted text-xs">{formatTime(m.data.matchDate)} Uhr</div>
-                  )}
-                </td>
-                <td class="p-3">
-                  <div class="font-medium">{m.data.team}</div>
-                  <div class="text-muted">
-                    {homeAwayLabel(m.data.homeAway)} vs. {m.data.opponent}
-                  </div>
-                </td>
-                <td class="p-3">{m.data.location ?? '—'}</td>
-                <td class="p-3">{m.data.competition ?? '—'}</td>
-                <td class="p-3 whitespace-nowrap">{m.data.result ?? '—'}</td>
-                <td class="p-3 whitespace-nowrap">
-                  <a class="hover:underline text-primary" href={`/matches/${m.slug}`}>
-                    Details →
-                  </a>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
+  <script is:inline>
+    const now = new Date();
+    const upcomingOnly = document.getElementById('upcomingOnly');
+    const resultCount = document.getElementById('resultCount');
+    const emptyMsg = document.getElementById('emptyMsg');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const rows = Array.from(document.querySelectorAll('tbody tr'));
+    const groups = Array.from(document.querySelectorAll('.competition-group'));
 
-    <script is:inline>
-      const now = new Date();
-      const teamSelect = document.getElementById('teamSelect');
-      const upcomingOnly = document.getElementById('upcomingOnly');
-      const resultCount = document.getElementById('resultCount');
-      const rows = Array.from(document.querySelectorAll('#matchesTable tbody tr'));
+    let activeTeam = '__all__';
 
-      function applyFilters() {
-        const team = teamSelect.value;
-        const onlyUpcoming = upcomingOnly.checked;
+    function applyFilters() {
+      const onlyUpcoming = upcomingOnly.checked;
+      let visible = 0;
 
-        let visible = 0;
-
-        for (const row of rows) {
-          const rowTeam = row.getAttribute('data-team');
-          const rowDate = new Date(row.getAttribute('data-date'));
-
-          const teamOk = team === '__all__' || rowTeam === team;
-          const dateOk = !onlyUpcoming || rowDate >= now;
-
-          const show = teamOk && dateOk;
-          row.style.display = show ? '' : 'none';
-          if (show) visible++;
-        }
-
-        resultCount.textContent = visible === 1 ? '1 Eintrag' : visible + ' Einträge';
+      for (const row of rows) {
+        const rowTeam = row.getAttribute('data-team');
+        const rowDate = new Date(row.getAttribute('data-date'));
+        const teamOk = activeTeam === '__all__' || rowTeam === activeTeam;
+        const dateOk = !onlyUpcoming || rowDate >= now;
+        const show = teamOk && dateOk;
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
       }
 
-      teamSelect.addEventListener('change', applyFilters);
-      upcomingOnly.addEventListener('change', applyFilters);
-      applyFilters();
-    </script>
-  </section>
+      // Show/hide group headers based on visible rows
+      for (const group of groups) {
+        const hasVisible = Array.from(group.querySelectorAll('tbody tr')).some((r) => r.style.display !== 'none');
+        group.style.display = hasVisible ? '' : 'none';
+      }
+
+      resultCount.textContent = visible === 1 ? '1 Spiel' : visible + ' Spiele';
+      emptyMsg.classList.toggle('hidden', visible > 0);
+    }
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        activeTeam = btn.getAttribute('data-team');
+        tabBtns.forEach((b) => {
+          b.classList.toggle('active-tab', b === btn);
+          b.classList.toggle('text-page', b === btn);
+          b.classList.toggle('text-muted', b !== btn);
+        });
+        applyFilters();
+      });
+    });
+
+    upcomingOnly.addEventListener('change', applyFilters);
+    applyFilters();
+  </script>
+
+  <style>
+    .active-tab {
+      background-color: rgb(var(--aw-color-primary) / 0.15);
+      border-color: rgb(var(--aw-color-primary) / 0.4);
+      color: rgb(var(--aw-color-primary));
+    }
+  </style>
 </Layout>
