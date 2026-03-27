@@ -6,6 +6,9 @@ location: 'Grüner Baum'
 draft: false
 ---
 
-Unsere Generalversammlung findet am **Montag, den 30. März** um **18:00 Uhr** im **Grünen Baum** statt.
+Die Generalversammlung ist das wichtigste Treffen unseres Vereinsjahres – hier berichten wir über das vergangene Jahr, blicken gemeinsam auf die kommende Saison und treffen Entscheidungen, die unseren Club betreffen.
 
-Schön, wenn ihr dabei seid!
+**Wann:** Montag, 30. März 2026 um 18:00 Uhr
+**Wo:** Grüner Baum, Bühlertal
+
+Wir freuen uns über möglichst viele Mitglieder – denn ein lebendiger Verein lebt von Menschen, die mitgestalten. Also: Tragt den Termin in den Kalender und kommt vorbei!
