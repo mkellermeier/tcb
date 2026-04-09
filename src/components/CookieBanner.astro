@@ -32,9 +32,11 @@ const GA_ID = 'G-F7TZD76EGM';
     s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
     document.head.appendChild(s);
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function (...args) {
-      dataLayer.push(args);
+    /* eslint-disable prefer-rest-params */
+    window.gtag = function () {
+      dataLayer.push(arguments);
     };
+    /* eslint-enable prefer-rest-params */
     gtag('js', new Date());
     gtag('config', GA_ID);
   }
