@@ -211,63 +211,69 @@ function resultInfo(result: string | undefined) {
   </section>
 
   <script is:inline>
-    const tabSpielplan = document.getElementById('tabSpielplan');
-    const tabErgebnisse = document.getElementById('tabErgebnisse');
-    const viewSpielplan = document.getElementById('viewSpielplan');
-    const viewErgebnisse = document.getElementById('viewErgebnisse');
-    const teamBtns = document.querySelectorAll('.team-btn');
-    const emptyMsg = document.getElementById('emptyMsg');
+    function initMatchFilter() {
+      const tabSpielplan = document.getElementById('tabSpielplan');
+      const tabErgebnisse = document.getElementById('tabErgebnisse');
+      const viewSpielplan = document.getElementById('viewSpielplan');
+      const viewErgebnisse = document.getElementById('viewErgebnisse');
+      const teamBtns = document.querySelectorAll('.team-btn');
+      const emptyMsg = document.getElementById('emptyMsg');
 
-    let activeView = 'spielplan';
-    let activeTeam = '__all__';
+      if (!tabSpielplan) return;
 
-    function applyFilters() {
-      const groups = document.querySelectorAll(`.match-group[data-view="${activeView}"]`);
-      let totalVisible = 0;
+      let activeView = 'spielplan';
+      let activeTeam = '__all__';
 
-      groups.forEach((group) => {
-        const rows = group.querySelectorAll('.match-row');
-        let groupVisible = 0;
-        rows.forEach((row) => {
-          const show = activeTeam === '__all__' || row.getAttribute('data-team') === activeTeam;
-          row.style.display = show ? '' : 'none';
-          if (show) groupVisible++;
+      function applyFilters() {
+        const groups = document.querySelectorAll(`.match-group[data-view="${activeView}"]`);
+        let totalVisible = 0;
+
+        groups.forEach((group) => {
+          const rows = group.querySelectorAll('.match-row');
+          let groupVisible = 0;
+          rows.forEach((row) => {
+            const show = activeTeam === '__all__' || row.getAttribute('data-team') === activeTeam;
+            row.style.display = show ? '' : 'none';
+            if (show) groupVisible++;
+          });
+          group.style.display = groupVisible > 0 ? '' : 'none';
+          totalVisible += groupVisible;
         });
-        group.style.display = groupVisible > 0 ? '' : 'none';
-        totalVisible += groupVisible;
+
+        emptyMsg.classList.toggle('hidden', totalVisible > 0);
+      }
+
+      function switchView(view) {
+        activeView = view;
+        const isSpielplan = view === 'spielplan';
+        viewSpielplan.classList.toggle('hidden', !isSpielplan);
+        viewErgebnisse.classList.toggle('hidden', isSpielplan);
+        tabSpielplan.classList.toggle('active-view', isSpielplan);
+        tabSpielplan.classList.toggle('text-muted', !isSpielplan);
+        tabErgebnisse.classList.toggle('active-view', !isSpielplan);
+        tabErgebnisse.classList.toggle('text-muted', isSpielplan);
+        applyFilters();
+      }
+
+      tabSpielplan.addEventListener('click', () => switchView('spielplan'));
+      tabErgebnisse.addEventListener('click', () => switchView('ergebnisse'));
+
+      teamBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeTeam = btn.getAttribute('data-team');
+          teamBtns.forEach((b) => {
+            const isActive = b === btn;
+            b.classList.toggle('active-team', isActive);
+            b.classList.toggle('text-muted', !isActive);
+          });
+          applyFilters();
+        });
       });
 
-      emptyMsg.classList.toggle('hidden', totalVisible > 0);
-    }
-
-    function switchView(view) {
-      activeView = view;
-      const isSpielplan = view === 'spielplan';
-      viewSpielplan.classList.toggle('hidden', !isSpielplan);
-      viewErgebnisse.classList.toggle('hidden', isSpielplan);
-      tabSpielplan.classList.toggle('active-view', isSpielplan);
-      tabSpielplan.classList.toggle('text-muted', !isSpielplan);
-      tabErgebnisse.classList.toggle('active-view', !isSpielplan);
-      tabErgebnisse.classList.toggle('text-muted', isSpielplan);
       applyFilters();
     }
 
-    tabSpielplan.addEventListener('click', () => switchView('spielplan'));
-    tabErgebnisse.addEventListener('click', () => switchView('ergebnisse'));
-
-    teamBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        activeTeam = btn.getAttribute('data-team');
-        teamBtns.forEach((b) => {
-          const isActive = b === btn;
-          b.classList.toggle('active-team', isActive);
-          b.classList.toggle('text-muted', !isActive);
-        });
-        applyFilters();
-      });
-    });
-
-    applyFilters();
+    document.addEventListener('astro:page-load', initMatchFilter);
   </script>
 
   <style>
