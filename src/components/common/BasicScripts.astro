@@ -41,6 +41,7 @@ import { UI } from 'astrowind:config';
   }
 
   const onLoad = function () {
+    let lastKnownScrollPosition = window.scrollY;
     let ticking = true;
 
     attachEvent('#header nav', 'click', function () {
@@ -121,14 +122,23 @@ import { UI } from 'astrowind:config';
     function applyHeaderStylesOnScroll() {
       const header = document.querySelector('#header[data-aw-sticky-header]');
       if (!header) return;
-      if (!header.classList.contains('scroll')) {
-        header.classList.add('scroll');
+      if (lastKnownScrollPosition > 60) {
+        if (!header.classList.contains('scroll')) {
+          header.classList.add('scroll');
+          header.classList.remove('dark');
+        }
+      } else {
+        if (header.classList.contains('scroll')) {
+          header.classList.remove('scroll');
+        }
+        header.classList.add('dark');
       }
       ticking = false;
     }
     applyHeaderStylesOnScroll();
 
     attachEvent([document], 'scroll', function () {
+      lastKnownScrollPosition = window.scrollY;
       if (!ticking) {
         window.requestAnimationFrame(() => {
           applyHeaderStylesOnScroll();
