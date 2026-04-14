@@ -43,17 +43,17 @@ Der Kassenbericht zeigte eine solide Basis. Die Entlastung der Kassenwarte und d
 
 Die Zusammensetzung der Vorstandschaft bleibt gegenüber dem Vorjahr unverändert:
 
-| Amt | Person |
-|---|---|
-| Vorstand Sport | Jürgen Götz |
-| Vorstand Spielbetrieb | Robin Ganter |
-| Vorstand Öffentlichkeitsarbeit | Johannes Braun |
-| Kassenwart | Johannes Pfeiffer, Simon Kellermeier |
-| Schriftführer | Rico Früh |
-| Sportwart | Fabrice Huck |
-| Jugendwart | unbesetzt |
-| Bauwart | Rainer / Robin Ganter |
-| Festwart | Rico Früh |
-| Pressewart | Jürgen Götz |
-| Beisitzer | Wolfgang Kohler, Rainer Ganter, Uwe Seifermann |
-| Kassenprüfer | Manuel Welle, Louis Meier |
+| Amt                            | Person                                         |
+| ------------------------------ | ---------------------------------------------- |
+| Vorstand Sport                 | Jürgen Götz                                    |
+| Vorstand Spielbetrieb          | Robin Ganter                                   |
+| Vorstand Öffentlichkeitsarbeit | Johannes Braun                                 |
+| Kassenwart                     | Johannes Pfeiffer, Simon Kellermeier           |
+| Schriftführer                  | Rico Früh                                      |
+| Sportwart                      | Fabrice Huck                                   |
+| Jugendwart                     | unbesetzt                                      |
+| Bauwart                        | Rainer / Robin Ganter                          |
+| Festwart                       | Rico Früh                                      |
+| Pressewart                     | Jürgen Götz                                    |
+| Beisitzer                      | Wolfgang Kohler, Rainer Ganter, Uwe Seifermann |
+| Kassenprüfer                   | Manuel Welle, Louis Meier                      |
