@@ -11,10 +11,15 @@ const metadata = {
 const allMatches = (await getCollection('matches')).filter((m) => !m.data.draft);
 
 const now = new Date();
+const todayBerlin = now.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
+const dayOf = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
+
 const upcoming = allMatches
   .sort((a, b) => +a.data.matchDate - +b.data.matchDate)
-  .filter((m) => m.data.matchDate >= now);
-const past = allMatches.sort((a, b) => +b.data.matchDate - +a.data.matchDate).filter((m) => m.data.matchDate < now);
+  .filter((m) => dayOf(m.data.matchDate) >= todayBerlin);
+const past = allMatches
+  .sort((a, b) => +b.data.matchDate - +a.data.matchDate)
+  .filter((m) => dayOf(m.data.matchDate) < todayBerlin);
 
 const teams = Array.from(new Set(allMatches.map((m) => m.data.team))).sort((a, b) => a.localeCompare(b, 'de-DE'));
 

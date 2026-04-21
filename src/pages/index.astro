@@ -13,6 +13,8 @@ const metadata = {
 };
 
 const now = new Date();
+const todayBerlin = now.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
+const dayOf = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
 
 // ---------- helpers ----------
 function formatShortDate(d: Date) {
@@ -46,9 +48,9 @@ const matchesAll = (await getCollection('matches', ({ data }) => !data.draft)).s
   (a, b) => +a.data.matchDate - +b.data.matchDate
 );
 
-const upcomingMatches = matchesAll.filter((m) => m.data.matchDate >= now).slice(0, 3);
+const upcomingMatches = matchesAll.filter((m) => dayOf(m.data.matchDate) >= todayBerlin).slice(0, 3);
 const recentMatches = matchesAll
-  .filter((m) => m.data.matchDate < now)
+  .filter((m) => dayOf(m.data.matchDate) < todayBerlin)
   .slice(-3)
   .reverse();
 
@@ -64,7 +66,7 @@ const eventsAll = (await getCollection('events', ({ data }) => !data.draft)).sor
   (a, b) => +a.data.startDate - +b.data.startDate
 );
 
-const upcomingEvents = eventsAll.filter((e) => e.data.startDate >= now).slice(0, 3);
+const upcomingEvents = eventsAll.filter((e) => dayOf(e.data.startDate) >= todayBerlin).slice(0, 3);
 
 // ---------- latest posts ----------
 const postsAll = (await getCollection('posts', ({ data }) => !data.draft)).sort(

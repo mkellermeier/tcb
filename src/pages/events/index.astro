@@ -9,13 +9,15 @@ const metadata = {
 };
 
 const now = new Date();
+const todayBerlin = now.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
+const dayOf = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
 
 const allEvents = (await getCollection('events', ({ data }) => !data.draft)).sort(
   (a, b) => +a.data.startDate - +b.data.startDate
 );
 
-const upcoming = allEvents.filter((e) => e.data.startDate >= now);
-const past = allEvents.filter((e) => e.data.startDate < now).reverse();
+const upcoming = allEvents.filter((e) => dayOf(e.data.startDate) >= todayBerlin);
+const past = allEvents.filter((e) => dayOf(e.data.startDate) < todayBerlin).reverse();
 
 function formatDate(d: Date) {
   return d.toLocaleDateString('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
