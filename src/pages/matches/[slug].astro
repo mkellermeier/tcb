@@ -19,9 +19,10 @@ const d = entry.data;
 
 const title = `${d.team} – ${d.homeAway === 'home' ? 'Heim' : 'Auswärts'} vs. ${d.opponent}`;
 
+const resultPart = d.result ? `Endstand ${d.result}. ` : '';
 const metadata = {
   title,
-  description: `${d.team} vs. ${d.opponent} am ${d.matchDate.toLocaleDateString('de-DE')}`,
+  description: `${resultPart}${d.team} vs. ${d.opponent} am ${d.matchDate.toLocaleDateString('de-DE')} – TC Bühlertal.`,
 };
 
 const fmtLong = (date: Date) =>

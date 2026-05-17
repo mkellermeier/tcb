@@ -7,7 +7,7 @@ metadata:
   title:
     default: TC Bühlertal
     template: '%s — TC Bühlertal'
-  description: 'Tennisverein im Schwarzwald: Spielbetrieb, Termine, Platzbuchung und Vereinsinfos.'
+  description: 'TC Bühlertal e.V. – Tennisclub im Schwarzwald, gegründet 1965. Sechs Sandplätze, Mannschaften, Termine und Platzbuchung in Bühlertal.'
   robots:
     index: true
     follow: true
