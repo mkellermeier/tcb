@@ -8,6 +8,9 @@ metadata:
     default: TC Bühlertal
     template: '%s — TC Bühlertal'
   description: 'Tennisverein im Schwarzwald: Spielbetrieb, Termine, Platzbuchung und Vereinsinfos.'
+  robots:
+    index: true
+    follow: true
   openGraph:
     site_name: TC Bühlertal
   twitter:
