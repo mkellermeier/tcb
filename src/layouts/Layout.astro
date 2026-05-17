@@ -23,6 +23,33 @@ export interface Props {
 
 const { metadata = {} } = Astro.props;
 const { language, textDirection } = I18N;
+
+const sportsClubSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsClub',
+  name: 'TC Bühlertal e.V.',
+  alternateName: 'Tennisclub Bühlertal',
+  description:
+    'Tennisclub im Schwarzwald, gegründet 1965. Sechs Sandplätze, Mannschaften und Vereinsleben in Bühlertal.',
+  url: 'https://tcbuehlertal.de',
+  logo: 'https://tcbuehlertal.de/og-image.png',
+  image: 'https://tcbuehlertal.de/og-image.png',
+  foundingDate: '1965',
+  sport: 'Tennis',
+  email: 'tcbuehlertal@web.de',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Hirschbachstraße',
+    postalCode: '77830',
+    addressLocality: 'Bühlertal',
+    addressRegion: 'Baden-Württemberg',
+    addressCountry: 'DE',
+  },
+  areaServed: {
+    '@type': 'Place',
+    name: 'Schwarzwald',
+  },
+};
 ---
 
 <!doctype html>
@@ -37,6 +64,8 @@ const { language, textDirection } = I18N;
     <Metadata {...metadata} />
     <SiteVerification />
     <Analytics />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(sportsClubSchema)} />
 
     <!-- Comment the line below to disable View Transitions -->
     <ClientRouter fallback="swap" />
