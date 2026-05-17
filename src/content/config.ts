@@ -49,6 +49,16 @@ const matches = defineCollection({
         })
       )
       .optional(),
+    coverImage: z.string().optional(),
+    gallery: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string().optional(),
+          caption: z.string().optional(),
+        })
+      )
+      .default([]),
     draft: z.boolean().default(false),
   }),
 });

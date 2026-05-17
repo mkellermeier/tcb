@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import Gallery from '~/components/common/Gallery.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('matches', ({ data }) => !data.draft);
@@ -44,6 +45,14 @@ const hasTime = timeFormatted !== '00:00';
     <div>
       <a class="btn btn-secondary" href="/matches">← Zurück zur Übersicht</a>
     </div>
+
+    {
+      d.coverImage && (
+        <div class="overflow-hidden rounded-2xl border border-gray-500/20 bg-dark">
+          <img src={d.coverImage} alt={title} class="w-full h-64 sm:h-80 object-cover" />
+        </div>
+      )
+    }
 
     <div class="rounded-2xl border border-gray-500/20 bg-light p-6 space-y-6">
       <div>
@@ -162,6 +171,14 @@ const hasTime = timeFormatted !== '00:00';
           <article class="prose dark:prose-invert max-w-none">
             <Content />
           </article>
+        </div>
+      )
+    }
+
+    {
+      d.gallery && d.gallery.length > 0 && (
+        <div class="rounded-2xl border border-gray-500/20 bg-light p-6">
+          <Gallery items={d.gallery} title="Galerie" />
         </div>
       )
     }
