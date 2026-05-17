@@ -49,9 +49,7 @@ const matchesAll = (await getCollection('matches', ({ data }) => !data.draft)).s
   (a, b) => +a.data.matchDate - +b.data.matchDate
 );
 
-const upcomingMatches = matchesAll
-  .filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result)
-  .slice(0, 3);
+const upcomingMatches = matchesAll.filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result).slice(0, 3);
 const recentMatches = matchesAll
   .filter((m) => m.data.result || dayOf(m.data.matchDate) < todayBerlin)
   .slice(-3)
