@@ -16,10 +16,10 @@ const dayOf = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: 'Europe/Ber
 
 const upcoming = allMatches
   .sort((a, b) => +a.data.matchDate - +b.data.matchDate)
-  .filter((m) => dayOf(m.data.matchDate) >= todayBerlin);
+  .filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result);
 const past = allMatches
   .sort((a, b) => +b.data.matchDate - +a.data.matchDate)
-  .filter((m) => dayOf(m.data.matchDate) < todayBerlin);
+  .filter((m) => m.data.result || dayOf(m.data.matchDate) < todayBerlin);
 
 const teams = Array.from(new Set(allMatches.map((m) => m.data.team))).sort((a, b) => a.localeCompare(b, 'de-DE'));
 
