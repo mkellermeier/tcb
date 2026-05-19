@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import MatchTable from '~/components/MatchTable.astro';
 import { getCollection } from 'astro:content';
 
 const metadata = {
@@ -14,12 +15,19 @@ const now = new Date();
 const todayBerlin = now.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
 const dayOf = (d: Date) => d.toLocaleDateString('en-CA', { timeZone: 'Europe/Berlin' });
 
+// Aktuelle Saison = Wettbewerb des zeitlich spätesten Spiels (i. d. R. das letzte angesetzte Spiel)
+const latestMatch = [...allMatches].sort((a, b) => +b.data.matchDate - +a.data.matchDate)[0];
+const currentSeason = latestMatch?.data.competition ?? null;
+
 const upcoming = allMatches
-  .sort((a, b) => +a.data.matchDate - +b.data.matchDate)
-  .filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result);
+  .filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result)
+  .sort((a, b) => +a.data.matchDate - +b.data.matchDate);
 const past = allMatches
-  .sort((a, b) => +b.data.matchDate - +a.data.matchDate)
-  .filter((m) => m.data.result || dayOf(m.data.matchDate) < todayBerlin);
+  .filter((m) => m.data.result || dayOf(m.data.matchDate) < todayBerlin)
+  .sort((a, b) => +b.data.matchDate - +a.data.matchDate);
+
+const pastCurrent = past.filter((m) => m.data.competition === currentSeason);
+const pastArchive = past.filter((m) => m.data.competition !== currentSeason);
 
 const teams = Array.from(new Set(allMatches.map((m) => m.data.team))).sort((a, b) => a.localeCompare(b, 'de-DE'));
 
@@ -34,36 +42,8 @@ function groupByCompetition(matches: typeof allMatches) {
 }
 
 const upcomingGroups = groupByCompetition(upcoming);
-const pastGroups = groupByCompetition(past);
-
-function formatDate(d: Date) {
-  return d.toLocaleDateString('de-DE', {
-    weekday: 'short',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    timeZone: 'Europe/Berlin',
-  });
-}
-
-function formatTime(d: Date) {
-  const t = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' });
-  return t !== '00:00' ? t : null;
-}
-
-function resultInfo(result: string | undefined) {
-  if (!result) return null;
-  const parts = result.split(':').map(Number);
-  if (parts.length !== 2 || parts.some(isNaN)) return null;
-  const outcome: 'win' | 'loss' | 'draw' = parts[0] > parts[1] ? 'win' : parts[0] < parts[1] ? 'loss' : 'draw';
-  return { label: result, outcome };
-}
-
-const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
-  win: 'bg-green-500/20 text-green-400',
-  loss: 'bg-red-500/20 text-red-400',
-  draw: 'bg-yellow-500/20 text-yellow-400',
-};
+const pastCurrentGroups = groupByCompetition(pastCurrent);
+const pastArchiveGroups = groupByCompetition(pastArchive);
 ---
 
 <Layout metadata={metadata}>
@@ -77,17 +57,7 @@ const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
     <Fragment slot="subtitle"> Medenspiele, Begegnungen und Ergebnisse unserer Teams. </Fragment>
   </Hero>
 
-  <section class="max-w-5xl mx-auto px-4 py-10 space-y-6">
-    <!-- Spielplan / Ergebnisse toggle -->
-    <div class="flex rounded-xl border border-gray-500/20 bg-light p-1 w-fit">
-      <button id="tabSpielplan" class="view-tab px-5 py-1.5 rounded-lg text-sm font-medium transition active-view">
-        Spielplan
-      </button>
-      <button id="tabErgebnisse" class="view-tab px-5 py-1.5 rounded-lg text-sm font-medium transition text-muted">
-        Ergebnisse
-      </button>
-    </div>
-
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-8">
     <!-- Team filter -->
     <div class="flex flex-wrap gap-2">
       <button
@@ -108,167 +78,69 @@ const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
       }
     </div>
 
-    <!-- Spielplan view -->
-    <div id="viewSpielplan" class="space-y-6">
-      {
-        upcomingGroups.size === 0 ? (
-          <p class="text-center text-muted py-8">Keine kommenden Spiele.</p>
-        ) : (
-          Array.from(upcomingGroups.entries()).map(([competition, matches]) => (
-            <div class="match-group" data-view="spielplan">
-              <h2 class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">{competition}</h2>
-              <div class="rounded-2xl border border-gray-500/20 overflow-hidden">
-                <table class="w-full text-sm">
-                  <tbody>
-                    {matches.map((m) => {
-                      const time = formatTime(m.data.matchDate);
-                      return (
-                        <tr
-                          class="match-row border-t border-gray-500/20 first:border-t-0 hover:bg-white/5 transition cursor-pointer"
-                          data-team={m.data.team}
-                          onclick={`window.location='/matches/${m.slug}'`}
-                        >
-                          <td class="p-3 whitespace-nowrap w-32">
-                            <div class="text-page">{formatDate(m.data.matchDate)}</div>
-                            {time && <div class="text-xs text-muted">{time} Uhr</div>}
-                          </td>
-                          <td class="p-3">
-                            <div class="font-medium text-page">
-                              {m.data.team}
-                              <span class="ml-2 text-xs font-normal text-muted border border-gray-500/30 rounded px-1.5 py-0.5">
-                                {m.data.homeAway === 'home' ? 'Heim' : 'Auswärts'}
-                              </span>
-                            </div>
-                            <div class="text-xs text-muted mt-0.5">
-                              vs. {m.data.opponent}
-                              {m.data.location && <span class="opacity-60"> · {m.data.location}</span>}
-                            </div>
-                          </td>
-                          <td class="p-3 text-right whitespace-nowrap">
-                            <span class="text-xs text-muted">ausstehend</span>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))
-        )
-      }
+    <!-- Letzte Ergebnisse (aktuelle Saison) -->
+    <div class="match-section space-y-6">
+      <h2 class="text-xl font-bold text-page">Letzte Ergebnisse</h2>
+      <MatchTable groups={pastCurrentGroups} mode="result" />
+      <p class:list={['section-empty text-center text-muted py-8', { hidden: pastCurrentGroups.size > 0 }]}>
+        Noch keine Ergebnisse.
+      </p>
     </div>
 
-    <!-- Ergebnisse view -->
-    <div id="viewErgebnisse" class="space-y-6 hidden">
-      {
-        pastGroups.size === 0 ? (
-          <p class="text-center text-muted py-8">Noch keine Ergebnisse.</p>
-        ) : (
-          Array.from(pastGroups.entries()).map(([competition, matches]) => (
-            <div class="match-group" data-view="ergebnisse">
-              <h2 class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">{competition}</h2>
-              <div class="rounded-2xl border border-gray-500/20 overflow-hidden">
-                <table class="w-full text-sm">
-                  <tbody>
-                    {matches.map((m) => {
-                      const ri = resultInfo(m.data.result);
-                      const time = formatTime(m.data.matchDate);
-                      return (
-                        <tr
-                          class="match-row border-t border-gray-500/20 first:border-t-0 hover:bg-white/5 transition cursor-pointer"
-                          data-team={m.data.team}
-                          onclick={`window.location='/matches/${m.slug}'`}
-                        >
-                          <td class="p-3 whitespace-nowrap w-32">
-                            <div class="text-page">{formatDate(m.data.matchDate)}</div>
-                            {time && <div class="text-xs text-muted">{time} Uhr</div>}
-                          </td>
-                          <td class="p-3">
-                            <div class="font-medium text-page">
-                              {m.data.team}
-                              <span class="ml-2 text-xs font-normal text-muted border border-gray-500/30 rounded px-1.5 py-0.5">
-                                {m.data.homeAway === 'home' ? 'Heim' : 'Auswärts'}
-                              </span>
-                            </div>
-                            <div class="text-xs text-muted mt-0.5">
-                              vs. {m.data.opponent}
-                              {m.data.location && <span class="opacity-60"> · {m.data.location}</span>}
-                            </div>
-                          </td>
-                          <td class="p-3 text-right whitespace-nowrap">
-                            {ri ? (
-                              <span
-                                class={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${outcomeClass[ri.outcome]}`}
-                              >
-                                {ri.label}
-                              </span>
-                            ) : (
-                              <span class="text-xs text-muted">—</span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))
-        )
-      }
+    <!-- Kommende Spiele -->
+    <div class="match-section space-y-6">
+      <h2 class="text-xl font-bold text-page">Kommende Spiele</h2>
+      <MatchTable groups={upcomingGroups} mode="upcoming" />
+      <p class:list={['section-empty text-center text-muted py-8', { hidden: upcomingGroups.size > 0 }]}>
+        Keine kommenden Spiele.
+      </p>
     </div>
 
-    <p id="emptyMsg" class="hidden text-center text-muted py-8">Keine Spiele gefunden.</p>
+    <!-- Frühere Saisons -->
+    {
+      pastArchiveGroups.size > 0 && (
+        <div class="match-section space-y-6">
+          <h2 class="text-xl font-bold text-page">Frühere Saisons</h2>
+          <MatchTable groups={pastArchiveGroups} mode="result" />
+          <p class="section-empty text-center text-muted py-8 hidden">Keine Spiele für dieses Team.</p>
+        </div>
+      )
+    }
   </section>
 
   <script is:inline>
     function initMatchFilter() {
-      const tabSpielplan = document.getElementById('tabSpielplan');
-      const tabErgebnisse = document.getElementById('tabErgebnisse');
-      const viewSpielplan = document.getElementById('viewSpielplan');
-      const viewErgebnisse = document.getElementById('viewErgebnisse');
       const teamBtns = document.querySelectorAll('.team-btn');
-      const emptyMsg = document.getElementById('emptyMsg');
+      const sections = document.querySelectorAll('.match-section');
+      if (!sections.length) return;
 
-      if (!tabSpielplan) return;
-
-      let activeView = 'spielplan';
       let activeTeam = '__all__';
 
       function applyFilters() {
-        const groups = document.querySelectorAll(`.match-group[data-view="${activeView}"]`);
-        let totalVisible = 0;
-
-        groups.forEach((group) => {
-          const rows = group.querySelectorAll('.match-row');
-          let groupVisible = 0;
-          rows.forEach((row) => {
-            const show = activeTeam === '__all__' || row.getAttribute('data-team') === activeTeam;
-            row.style.display = show ? '' : 'none';
-            if (show) groupVisible++;
+        sections.forEach((section) => {
+          let sectionVisible = 0;
+          section.querySelectorAll('.match-group').forEach((group) => {
+            let groupVisible = 0;
+            group.querySelectorAll('.match-row').forEach((row) => {
+              const show = activeTeam === '__all__' || row.getAttribute('data-team') === activeTeam;
+              row.style.display = show ? '' : 'none';
+              if (show) groupVisible++;
+            });
+            group.style.display = groupVisible > 0 ? '' : 'none';
+            sectionVisible += groupVisible;
           });
-          group.style.display = groupVisible > 0 ? '' : 'none';
-          totalVisible += groupVisible;
+          const empty = section.querySelector('.section-empty');
+          if (empty) {
+            empty.textContent =
+              sectionVisible > 0
+                ? ''
+                : activeTeam === '__all__'
+                  ? empty.dataset.emptyAll
+                  : 'Keine Spiele für dieses Team.';
+            empty.classList.toggle('hidden', sectionVisible > 0);
+          }
         });
-
-        emptyMsg.classList.toggle('hidden', totalVisible > 0);
       }
-
-      function switchView(view) {
-        activeView = view;
-        const isSpielplan = view === 'spielplan';
-        viewSpielplan.classList.toggle('hidden', !isSpielplan);
-        viewErgebnisse.classList.toggle('hidden', isSpielplan);
-        tabSpielplan.classList.toggle('active-view', isSpielplan);
-        tabSpielplan.classList.toggle('text-muted', !isSpielplan);
-        tabErgebnisse.classList.toggle('active-view', !isSpielplan);
-        tabErgebnisse.classList.toggle('text-muted', isSpielplan);
-        applyFilters();
-      }
-
-      tabSpielplan.addEventListener('click', () => switchView('spielplan'));
-      tabErgebnisse.addEventListener('click', () => switchView('ergebnisse'));
 
       teamBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -282,6 +154,10 @@ const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
         });
       });
 
+      document.querySelectorAll('.section-empty').forEach((p) => {
+        p.dataset.emptyAll = p.textContent.trim();
+      });
+
       applyFilters();
     }
 
@@ -289,10 +165,6 @@ const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
   </script>
 
   <style>
-    .active-view {
-      background-color: rgb(var(--aw-color-primary) / 0.15);
-      color: rgb(var(--aw-color-primary));
-    }
     .active-team {
       background-color: rgb(var(--aw-color-primary) / 0.15);
       border-color: rgb(var(--aw-color-primary) / 0.4);
