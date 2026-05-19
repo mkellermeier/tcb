@@ -59,8 +59,15 @@ function resultInfo(result: string | undefined) {
   if (!result) return null;
   const parts = result.split(':').map(Number);
   if (parts.length !== 2 || parts.some(isNaN)) return null;
-  return { label: result, won: parts[0] > parts[1] };
+  const outcome: 'win' | 'loss' | 'draw' = parts[0] > parts[1] ? 'win' : parts[0] < parts[1] ? 'loss' : 'draw';
+  return { label: result, outcome };
 }
+
+const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
+  win: 'bg-green-500/20 text-green-400',
+  loss: 'bg-red-500/20 text-red-400',
+  draw: 'bg-yellow-500/20 text-yellow-400',
+};
 
 // ---------- events ----------
 const eventsAll = (await getCollection('events', ({ data }) => !data.draft)).sort(
@@ -305,7 +312,7 @@ const latestPosts = postsAll.slice(0, 3);
                           </div>
                           {ri && (
                             <span
-                              class={`shrink-0 self-center px-2.5 py-1 rounded-full text-xs font-semibold ${ri.won ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}
+                              class={`shrink-0 self-center px-2.5 py-1 rounded-full text-xs font-semibold ${outcomeClass[ri.outcome]}`}
                             >
                               {ri.label}
                             </span>
