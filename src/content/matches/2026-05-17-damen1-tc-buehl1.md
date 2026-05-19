@@ -37,17 +37,21 @@ matchResults:
     opponent: 'Pfliehinger / Köninger'
     score: '6:3, 4:6, 8:10'
     won: false
+coverImage: '/images/matches/2026-05-17-damen1-tc-buehl1/01.jpeg'
+gallery:
+  - src: '/images/matches/2026-05-17-damen1-tc-buehl1/01.jpeg'
+  - src: '/images/matches/2026-05-17-damen1-tc-buehl1/02.jpeg'
 draft: false
 ---
 
-## Geteilte Punkte zum Auftakt gegen TC Bühl 1
+## Damen holen Remis im Derby gegen Bühl
 
-Die Damen 1 starteten mit einem Heimspiel gegen den TC Bühl 1 in die Sommerrunde.
+Die Damen empfingen im Derby zuhause in der Hirschbach den Nachbarn aus Bühl. Viele starke Leistungen, spannende Matches und gleich mehrere „Brillen“ gab es zu feiern.
 
-An Position eins gewann **Ramona Matthiß** mit einem deutlichen 6:0, 6:0. **Lina Rückert** musste sich mit 4:6, 2:6 geschlagen geben. **Ann-Catrin Krauth** lieferte sich ein enges Match, gewann den ersten Satz mit 6:1, verlor den zweiten und unterlag schließlich knapp im Match-Tiebreak mit 5:10. **Nadine Henschel** machte mit einem 6:0, 6:0 den Punkt sicher.
+**Ramona Matthiß** und **Nadine Henschel** machten dabei kurzen Prozess und schickten ihre Gegnerinnen jeweils mit einer „Brille“ (6:0, 6:0) vom Platz.
 
-So stand es nach den Einzeln 2:2.
+**Lina Rückert** zeigte gegen eine starke Gegnerin großen Einsatz, musste den Punkt jedoch leider dem „falschen TCB“ überlassen. **Ann-Catrin Krauth** startete stark in ihr Match und gewann den ersten Satz dank druckvoller Schläge souverän mit 6:1. Danach schlichen sich jedoch etwas die Nerven ein, sodass Satz zwei und schließlich auch der Match-Tiebreak verloren gingen.
 
-In den Doppeln spielten **Matthiß/Henschel** weiter stark auf und gewannen klar mit 6:0, 6:0. **Herrmann/Krauth** lieferten ein enges Match: Nach gewonnenem ersten Satz mit 6:3 ging der zweite mit 4:6 verloren, im Match-Tiebreak fehlte beim 8:10 das Quäntchen.
+Mit einem 2:2 ging es somit in die Doppel. Das Duo **Matthiß/Henschel** bestätigte seine starke Frühform und gewann auch das Doppel mit einer weiteren „Brille“. **Herrmann/Krauth** lieferten sich dagegen ein sehenswertes und umkämpftes Match. Nach einem gewonnenen und einem verlorenen Satz musste erneut der Match-Tiebreak entscheiden – dieser ging denkbar knapp mit 8:10 an die Bühler Damen.
 
-Am Ende teilten sich beide Mannschaften die Punkte beim 3:3.
+Damit stand am Ende ein **3:3-Unentschieden** auf dem Spielbericht. Ein guter Start in die Saison, auch wenn mit etwas mehr Matchglück durchaus ein Sieg möglich gewesen wäre.

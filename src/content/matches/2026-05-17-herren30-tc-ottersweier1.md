@@ -52,17 +52,20 @@ matchResults:
     opponent: 'Büyükasik / Meier'
     score: '6:0, 6:0'
     won: true
+coverImage: '/images/matches/2026-05-17-herren30-tc-ottersweier1/01.jpeg'
+gallery:
+  - src: '/images/matches/2026-05-17-herren30-tc-ottersweier1/01.jpeg'
+  - src: '/images/matches/2026-05-17-herren30-tc-ottersweier1/02.jpeg'
+  - src: '/images/matches/2026-05-17-herren30-tc-ottersweier1/03.jpeg'
 draft: false
 ---
 
-## Auswärtssieg in Ottersweier
+## Herren 30 mit Auswärtssieg in Ottersweier
 
-Die Herren 30 waren auswärts beim TC Ottersweier 1 zu Gast.
+Die Herren 30 waren bei den Senioren des TC Ottersweier zu Gast und konnten dort einen verdienten **6:3-Erfolg** feiern.
 
-An Position eins hatte **Fabrice Huck** gegen einen sehr stark aufspielenden Gegner mit 0:6, 3:6 das Nachsehen. **Jan Burkard** zeigte eine solide Leistung und gewann mit 6:3, 6:3. **Simon Kellermeier** setzte sich mit 6:4, 6:2 durch. **Rico Früh** musste sich mit 5:7, 2:6 geschlagen geben. **Roman Rau** überzeugte mit einem 6:1, 6:3, und **Matthias Geiger** ließ seinem Gegner beim 6:0, 6:1 kaum eine Chance.
+**Fabrice Huck** steckte das Wochenende noch etwas in den Knochen, weshalb diesmal nichts zu holen war. **Jan Burkard** zeigte erneut seine starke Form in dieser Saison und gewann souverän. **Simon Kellermeier** überzeugte mit einer mental starken Leistung und konnte sein Match ebenfalls für sich entscheiden.
 
-So stand es nach den Einzeln 4:2.
+**Rico Früh** erwischte dagegen einen Gegner, der ihm überhaupt nicht lag. Wenig Spielfluss und viele Slice-Bälle brachten ihn nie richtig ins Match, sodass er sich mit 5:7 und 2:6 geschlagen geben musste. **Roman Rau** spielte clever und sicherte einen weiteren Punkt für den TCB. „Boom Boom" **(Mathias) Geiger** war auf Position sechs erneut etwas unterfordert und gewann klar mit 6:0 und 6:1.
 
-In den Doppeln drehten **Huck/Früh** nach verlorenem zweiten Satz im Match-Tiebreak auf und gewannen mit 6:4, 2:6, 10:3. **Kellermeier/Rau** mussten sich knapp mit 6:7, 5:7 geschlagen geben. **Burkard/Geiger** machten den Sieg mit einem makellosen 6:0, 6:0 perfekt.
-
-Am Ende stand ein verdienter 6:3-Auswärtssieg.
+Mit einer 4:2-Führung nach den Einzeln wurden die Doppel taktisch klug aufgestellt, sodass am Ende ein verdienter **6:3-Auswärtssieg** gefeiert werden konnte.

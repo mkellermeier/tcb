@@ -37,17 +37,17 @@ matchResults:
     opponent: 'Goertz / Albiez'
     score: '6:0, 6:0'
     won: true
+coverImage: '/images/matches/2026-05-17-herren2-tc-rebland2/01.jpeg'
+gallery:
+  - src: '/images/matches/2026-05-17-herren2-tc-rebland2/01.jpeg'
+  - src: '/images/matches/2026-05-17-herren2-tc-rebland2/02.jpeg'
 draft: false
 ---
 
-## Klarer Heimsieg für die Herren 2
+## Herren 2 feiern überzeugenden 5:1-Heimsieg
 
-Am zweiten Spieltag der Sommerrunde empfingen die Herren 2 den TC Rebland 2 auf der heimischen Anlage.
+Auch die Herren 2 durften zuhause antreten. Zu Gast war TC Rebland 2.
 
-An Position eins zeigte **Steven Huber** eine souveräne Vorstellung und gewann mit 6:3, 6:2. **Dennis Kohler** musste sich seinem Gegner geschlagen geben und verlor mit 2:6, 4:6. **Benni Kohler** ließ seinem Kontrahenten beim 6:2, 6:1 wenig Spielraum, und auch **Timo Kohler** sorgte mit einem 6:4, 6:0 für einen klaren Punkt.
+Die menschliche Ballwand **Steven Huber** siegte souverän in zwei Sätzen. **Dennis Kohler** zeigte ebenfalls starkes Tennis, musste sich jedoch seinem erfahrenen Gegner geschlagen geben. **Benni** und **Timo Kohler** spielten äußerst clever und ließen ihren Gegnern kaum eine Chance.
 
-So stand es nach den Einzeln 3:1.
-
-In den Doppeln machten **Huber/Kohler, B.** mit einem 6:3, 6:2 den Sack zu, **Kohler, D./Kohler, T.** legten mit einem makellosen 6:0, 6:0 nach.
-
-Am Ende stand ein deutlicher 5:1-Heimsieg.
+Auch die Doppel liefen anschließend hervorragend. Sowohl **Huber/B. Kohler** als auch **D. Kohler/T. Kohler** gewannen ihre Matches deutlich. Die beiden Kohler-Brüder verteilten dabei ebenfalls eine „Brille“, wodurch der starke **5:1-Mannschaftserfolg** perfekt gemacht wurde.
