@@ -32,8 +32,8 @@ const sportsClubSchema = {
   description:
     'Tennisclub im Schwarzwald, gegründet 1965. Sechs Sandplätze, Mannschaften und Vereinsleben in Bühlertal.',
   url: 'https://tcbuehlertal.de',
-  logo: 'https://tcbuehlertal.de/og-image.png',
-  image: 'https://tcbuehlertal.de/og-image.png',
+  logo: 'https://tcbuehlertal.de/og-image.jpg',
+  image: 'https://tcbuehlertal.de/og-image.jpg',
   foundingDate: '1965',
   sport: 'Tennis',
   email: 'tcbuehlertal@web.de',
@@ -56,8 +56,10 @@ const sportsClubSchema = {
 <html lang={language} dir={textDirection} class="2xl:text-[20px] bg-page">
   <head>
     <CommonMeta />
-    <meta property="og:image" content="https://tcbuehlertal.de/og-image.png" />
-    <meta name="twitter:image" content="https://tcbuehlertal.de/og-image.png" />
+    <meta property="og:image" content="https://tcbuehlertal.de/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="https://tcbuehlertal.de/og-image.jpg" />
     <Favicons />
     <CustomStyles />
     <ApplyColorMode />
