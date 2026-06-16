@@ -1,0 +1,122 @@
+---
+// Backend-freies Formular: sammelt die Felder und öffnet beim Absenden das
+// E-Mail-Programm mit vorausgefülltem Betreff + strukturiertem Text.
+interface Field {
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'date' | 'time' | 'textarea' | 'select' | 'checkbox';
+  required?: boolean;
+  placeholder?: string;
+  options?: string[];
+  full?: boolean;
+}
+
+export interface Props {
+  email: string;
+  subject: string;
+  fields: Field[];
+  submitLabel?: string;
+  id?: string;
+}
+
+const { email, subject, fields, submitLabel = 'Anfrage senden', id = 'mailto-form' } = Astro.props;
+
+const inputClass =
+  'w-full rounded-xl border border-gray-500/20 bg-dark px-3 py-2 text-sm text-page placeholder:text-muted/70 focus:outline-none focus:border-primary/50 transition';
+---
+
+<form class="mailto-form grid grid-cols-1 sm:grid-cols-2 gap-4" data-email={email} data-subject={subject}>
+  {
+    fields.map((f) => {
+      const fieldId = `${id}-${f.name}`;
+      const type = f.type ?? 'text';
+      const colSpan = f.full || type === 'textarea' || type === 'checkbox' ? 'sm:col-span-2' : '';
+
+      if (type === 'checkbox') {
+        return (
+          <label class={`${colSpan} flex items-center gap-2 text-sm text-page cursor-pointer`} for={fieldId}>
+            <input
+              id={fieldId}
+              name={f.name}
+              type="checkbox"
+              data-field
+              data-label={f.label}
+              class="h-4 w-4 rounded border-gray-500/40 bg-dark accent-primary"
+            />
+            <span>{f.label}</span>
+          </label>
+        );
+      }
+
+      return (
+        <div class={colSpan}>
+          <label class="block text-sm font-medium text-page mb-1" for={fieldId}>
+            {f.label}
+            {f.required && <span class="text-primary"> *</span>}
+          </label>
+          {type === 'textarea' ? (
+            <textarea
+              id={fieldId}
+              name={f.name}
+              rows={4}
+              required={f.required}
+              placeholder={f.placeholder}
+              data-field
+              data-label={f.label}
+              class={inputClass}
+            />
+          ) : type === 'select' ? (
+            <select id={fieldId} name={f.name} required={f.required} data-field data-label={f.label} class={inputClass}>
+              <option value="">Bitte wählen …</option>
+              {f.options?.map((o) => (
+                <option value={o}>{o}</option>
+              ))}
+            </select>
+          ) : (
+            <input
+              id={fieldId}
+              name={f.name}
+              type={type}
+              required={f.required}
+              placeholder={f.placeholder}
+              data-field
+              data-label={f.label}
+              class={inputClass}
+            />
+          )}
+        </div>
+      );
+    })
+  }
+
+  <div class="sm:col-span-2">
+    <button type="submit" class="btn btn-primary">{submitLabel}</button>
+    <p class="text-muted text-xs mt-2">
+      Beim Absenden öffnet sich dein E-Mail-Programm mit einer vorausgefüllten Nachricht.
+    </p>
+  </div>
+</form>
+
+<script is:inline>
+  function initMailtoForms() {
+    document.querySelectorAll('form.mailto-form').forEach((form) => {
+      if (form.dataset.bound) return;
+      form.dataset.bound = '1';
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const email = form.getAttribute('data-email');
+        const subject = form.getAttribute('data-subject') || 'Anfrage';
+        const lines = [];
+        form.querySelectorAll('[data-field]').forEach((el) => {
+          const label = el.getAttribute('data-label') || el.name;
+          const value = el.type === 'checkbox' ? (el.checked ? 'Ja' : 'Nein') : (el.value || '').trim();
+          if (value) lines.push(label + ': ' + value);
+        });
+        const body = lines.join('\n') + '\n\n– gesendet über das Formular auf tcbuehlertal.de';
+        window.location.href =
+          'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      });
+    });
+  }
+  document.addEventListener('astro:page-load', initMailtoForms);
+</script>

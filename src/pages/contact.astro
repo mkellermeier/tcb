@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import Features2 from '~/components/widgets/Features2.astro';
+import MailtoForm from '~/components/MailtoForm.astro';
 
 const metadata = {
   title: 'Kontakt',
@@ -57,19 +58,38 @@ const email = 'tcbuehlertal@web.de';
         </div>
       </div>
 
-      <!-- mailto CTA -->
-      <div class="rounded-2xl border border-gray-500/20 bg-dark p-6 flex flex-col justify-between">
-        <div>
-          <h2 class="text-lg font-semibold">Nachricht senden</h2>
-          <p class="text-muted mt-2 text-sm leading-relaxed">
-            Klicke auf den Button, um direkt eine E-Mail zu verfassen. Gib dabei kurz an, worum es geht – wir antworten
-            so bald wie möglich.
-          </p>
-        </div>
-        <div class="mt-6">
-          <a class="btn btn-primary" href={`mailto:${email}?subject=Anfrage%20TC%20B%C3%BChlertal`}>
-            E-Mail schreiben
-          </a>
+      <!-- Contact form -->
+      <div class="rounded-2xl border border-gray-500/20 bg-dark p-6">
+        <h2 class="text-lg font-semibold">Nachricht senden</h2>
+        <p class="text-muted mt-2 text-sm leading-relaxed">
+          Schreib uns kurz, worum es geht – wir antworten so bald wie möglich.
+        </p>
+        <div class="mt-5">
+          <MailtoForm
+            email={email}
+            subject="Anfrage TC Bühlertal"
+            submitLabel="Nachricht senden"
+            id="contact"
+            fields={[
+              { name: 'name', label: 'Name', type: 'text', required: true },
+              { name: 'email', label: 'E-Mail', type: 'email', required: true },
+              {
+                name: 'anliegen',
+                label: 'Anliegen',
+                type: 'select',
+                required: true,
+                full: true,
+                options: ['Mitgliedschaft', 'Platzbuchung / Gastspiel', 'Veranstaltungen', 'Sonstiges'],
+              },
+              {
+                name: 'nachricht',
+                label: 'Nachricht',
+                type: 'textarea',
+                required: true,
+                placeholder: 'Deine Nachricht …',
+              },
+            ]}
+          />
         </div>
       </div>
     </div>

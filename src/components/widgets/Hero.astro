@@ -1,5 +1,6 @@
 ---
 import Button from '~/components/ui/Button.astro';
+import { Picture } from 'astro:assets';
 import { findImage } from '~/utils/images';
 
 import type { Hero as Props } from '~/types';
@@ -17,6 +18,7 @@ const {
   id,
 } = Astro.props;
 
+let bgImage: ImageMetadata | undefined;
 let bgSrc: string | undefined;
 let bgAlt = '';
 
@@ -26,14 +28,25 @@ if (image && typeof image !== 'string') {
   if (typeof resolved === 'string') {
     bgSrc = resolved;
   } else if (resolved && typeof resolved === 'object') {
-    bgSrc = (resolved as ImageMetadata).src;
+    bgImage = resolved as ImageMetadata;
   }
 }
 ---
 
 <section class="hero-cinematic relative overflow-hidden -mt-[76px]" {...id ? { id } : {}}>
   {
-    bgSrc ? (
+    bgImage ? (
+      <Picture
+        src={bgImage}
+        alt={bgAlt}
+        formats={['avif', 'webp']}
+        widths={[640, 960, 1280, 1920, 2560]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="hero-bg absolute inset-0 w-full h-full object-cover"
+      />
+    ) : bgSrc ? (
       <div class="hero-bg absolute inset-0">
         <img
           src={bgSrc}
@@ -116,5 +129,11 @@ if (image && typeof image !== 'string') {
   .hero-bg {
     animation: kenburns 22s linear infinite alternate;
     transform-origin: center center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg {
+      animation: none;
+    }
   }
 </style>

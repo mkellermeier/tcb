@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import MailtoForm from '~/components/MailtoForm.astro';
 
 const metadata = {
   title: 'Gastspieler',
@@ -143,16 +144,42 @@ const reasons = [
     <div class="rounded-2xl border border-gray-500/20 bg-dark p-6">
       <h2 class="text-xl font-semibold">Buchungsanfrage</h2>
       <p class="text-muted mt-2">
-        Schreiben Sie uns kurz Ihren Wunschtermin, die Spielstärke (optional) und ob ein aktives Vereinsmitglied
-        mitspielt.
+        Füllen Sie kurz das Formular aus – Wunschtermin, Spielstärke (optional) und ob ein aktives Vereinsmitglied
+        mitspielt. Wir bestätigen Ihnen den Platz so schnell wie möglich.
       </p>
 
-      <div class="mt-4 flex flex-col sm:flex-row gap-3">
-        <a class="btn btn-primary" href={`mailto:${bookingEmail}?subject=Gastspiel-Anfrage%20TC%20B%C3%BChlertal`}>
-          E-Mail senden
-        </a>
-        <a class="btn btn-secondary" href="/contact"> Kontakt </a>
+      <div class="mt-5">
+        <MailtoForm
+          email={bookingEmail}
+          subject="Gastspiel-Anfrage TC Bühlertal"
+          submitLabel="Anfrage senden"
+          id="booking"
+          fields={[
+            { name: 'name', label: 'Name', type: 'text', required: true },
+            { name: 'email', label: 'E-Mail', type: 'email', required: true },
+            { name: 'datum', label: 'Wunschtermin', type: 'date', required: true },
+            { name: 'uhrzeit', label: 'Uhrzeit', type: 'time' },
+            {
+              name: 'spielstaerke',
+              label: 'Spielstärke (optional)',
+              type: 'text',
+              placeholder: 'z. B. LK 15 oder Hobby',
+              full: true,
+            },
+            { name: 'mitglied', label: 'Ein aktives TCB-Mitglied spielt mit', type: 'checkbox' },
+            {
+              name: 'nachricht',
+              label: 'Nachricht (optional)',
+              type: 'textarea',
+              placeholder: 'Anmerkungen, Anzahl Spieler …',
+            },
+          ]}
+        />
       </div>
+
+      <p class="text-muted mt-4 text-sm">
+        Lieber direkt schreiben? <a class="text-primary hover:underline" href="/contact">Zum Kontakt</a>.
+      </p>
     </div>
 
     <!-- Closing -->

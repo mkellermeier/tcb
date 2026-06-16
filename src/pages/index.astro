@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import { Icon } from 'astro-icon/components';
+import { Picture } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import defaultPostImage from '~/assets/images/hero-blackforest.png';
 import courtOverview from '~/assets/images/court-overview.png';
@@ -87,11 +88,15 @@ const latestPosts = postsAll.slice(0, 3);
 <Layout metadata={metadata}>
   <!-- Cinematic hero -->
   <section class="hero-cinematic relative overflow-hidden -mt-[76px]">
-    <img
-      src={courtOverview.src}
+    <Picture
+      src={courtOverview}
       alt="Tennis im Schwarzwald"
-      class="hero-bg absolute inset-0 w-full h-full object-cover"
+      formats={['avif', 'webp']}
+      widths={[640, 960, 1280, 1920, 2560]}
+      sizes="100vw"
       loading="eager"
+      fetchpriority="high"
+      class="hero-bg absolute inset-0 w-full h-full object-cover"
     />
     <!-- gradient overlay -->
     <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/55"></div>
@@ -124,8 +129,8 @@ const latestPosts = postsAll.slice(0, 3);
 
   <style>
     .hero-cinematic {
-      height: 85vh;
-      min-height: 480px;
+      height: 70vh;
+      min-height: 460px;
     }
 
     @keyframes kenburns {
@@ -140,6 +145,12 @@ const latestPosts = postsAll.slice(0, 3);
     .hero-bg {
       animation: kenburns 22s linear infinite alternate;
       transform-origin: center center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-bg {
+        animation: none;
+      }
     }
 
     .hero-btn {
@@ -419,14 +430,14 @@ const latestPosts = postsAll.slice(0, 3);
 
   <CallToAction
     actions={[
-      { variant: 'primary', text: 'Platz buchen', href: '/guest-players', icon: 'tabler:calendar' },
+      { variant: 'primary', text: 'Platz anfragen', href: '/guest-players', icon: 'tabler:calendar' },
       { text: 'Mitglied werden', href: '/membership', icon: 'tabler:user-plus' },
       { text: 'Kontakt', href: '/contact' },
     ]}
   >
     <Fragment slot="title">Lust auf ein Match?</Fragment>
     <Fragment slot="subtitle"
-      >Buche deinen Platz online, werde Mitglied oder melde dich bei Fragen direkt bei uns.</Fragment
+      >Frag als Gast einen Platz an, werde Mitglied oder melde dich bei Fragen direkt bei uns.</Fragment
     >
   </CallToAction>
 </Layout>
