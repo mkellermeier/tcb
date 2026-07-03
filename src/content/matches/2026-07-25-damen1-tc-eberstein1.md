@@ -1,6 +1,6 @@
 ---
 team: 'Damen 1'
-matchDate: 2026-06-28T09:30:00+02:00
+matchDate: 2026-07-25T09:30:00+02:00
 homeAway: home
 opponent: 'TC Eberstein 1'
 competition: 'Sommer 2026'
