@@ -40,13 +40,13 @@ matchResults:
   - position: 'D1'
     tcbPlayer: 'Ganter / Frank'
     opponent: 'Kraft / Kassel'
-    score: '1:6, 5:7'
-    won: false
+    score: '6:2, 6:2'
+    won: true
   - position: 'D2'
     tcbPlayer: 'Huck / Früh'
     opponent: 'Seifert / Ernst'
-    score: '6:2, 6:2'
-    won: true
+    score: '1:6, 5:7'
+    won: false
   - position: 'D3'
     tcbPlayer: 'Hoogen / Kellermeier'
     opponent: 'Werling / Grzesiak'
@@ -57,12 +57,10 @@ draft: false
 
 ## Herren 30 gewinnen souverän in Elchesheim: 7:2
 
-Die Herren 30 feierten beim TC Elchesheim-Illingen 1 einen klaren 7:2-Auswärtssieg.
+Die Herren 30 waren am Sonntag beim TC Elchesheim-Illingen zu Gast und wurden ihrer Favoritenrolle eindrucksvoll gerecht. Mit einem verdienten 7:2-Auswärtssieg nahm die Mannschaft die Punkte mit nach Bühlertal.
 
-Die Einzel legten den Grundstein. **Robin Ganter** (6:0, 6:2), **Kevin Frank** (6:3, 6:2), **Sven Hoogen** (6:4, 6:4) und **Michael Kellermeier** (6:1, 6:2) gewannen jeweils sicher in zwei Sätzen. **Fabrice Huck** machte es an Position 2 spannend und setzte sich erst im Match-Tiebreak mit 11:9 durch (6:1, 2:6, 11:9). Einzig **Rico Früh** musste mit 4:6, 4:6 den einzigen Einzelpunkt abgeben.
+Bereits in den Einzeln stellte der TCB früh die Weichen auf Sieg. Robin Ganter ließ seinem Gegner beim 6:0 und 6:2 keine Chance. Fabrice Huck machte es deutlich spannender: Nach einem souverän gewonnenen ersten Satz kämpfte sich sein Gegner noch einmal zurück, doch im Match-Tiebreak behielt Huck mit 11:9 die Oberhand. Kevin Frank zeigte eine starke Vorstellung und gewann sein Match souverän mit 6:3 und 6:2. Sven Hoogen ließ ebenfalls nichts anbrennen und siegte mit 6:4 und 6:4. Michael Kellermeier machte den fünften Einzelpunkt mit einem ungefährdeten 6:1 und 6:2 perfekt. Lediglich Rico Früh musste sich an diesem Tag seinem Gegner geschlagen geben.
 
-So stand es nach den Einzeln 5:1.
+Mit der beruhigenden 5:1-Führung im Rücken konnten die Doppel entspannt angegangen werden. Robin Ganter und Kevin Frank knüpften an ihre starken Einzelleistungen an und gewannen ihr Doppel souverän mit 6:2 und 6:2. Auch Sven Hoogen und Michael Kellermeier harmonierten bestens und machten mit einem 6:3 und 6:1 den siebten Punkt perfekt. Fabrice Huck und Rico Früh mussten sich trotz guter Leistung ihren Gegnern geschlagen geben.
 
-In den Doppeln machten **Huck / Früh** (6:2, 6:2) und **Hoogen / Kellermeier** (6:3, 6:1) den deutlichen Erfolg perfekt. Nur **Ganter / Frank** unterlagen mit 1:6, 5:7.
-
-Am Ende stand ein souveräner 7:2-Auswärtssieg.
+Am Ende stand ein ungefährdeter 7:2-Erfolg für die Herren 30 auf dem Spielbericht. Mit fünf gewonnenen Einzeln war der Grundstein früh gelegt, ehe auch zwei der drei Doppel erfolgreich gestaltet wurden. Ein rundum gelungener Auftritt der Herren 30, die ihre starke Saison damit eindrucksvoll fortsetzen konnten.

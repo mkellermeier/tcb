@@ -37,17 +37,18 @@ matchResults:
     opponent: 'Benz / Hafermann'
     score: '1:6, 1:6'
     won: false
+coverImage: '/images/matches/2026-07-05-damen1-tc-iffezheim2/01.jpeg'
+gallery:
+  - src: '/images/matches/2026-07-05-damen1-tc-iffezheim2/01.jpeg'
 draft: false
 ---
 
 ## Damen 1 teilen sich die Punkte mit Iffezheim: 3:3
 
-Die Damen 1 trennten sich im Heimspiel gegen den TC Iffezheim 2 mit einem gerechten 3:3.
+Die Damen empfingen am Sonntag den TC Iffezheim in der Hirschbach. Nach drei Unentschieden in Folge sollte dieses Mal der erste Sieg der Saison gelingen.
 
-In den Einzeln legten die Bühlertälerinnen stark vor. **Saskia Waidelich** ließ an Position 1 beim 6:0, 6:0 nichts anbrennen, **Laura Herrmann** gewann mit 6:2, 7:6. Das dramatischste Match lieferte **Marlene Hochstuhl**: Nach verlorenem ersten Satz drehte sie die Partie und behielt im Match-Tiebreak mit 10:4 die Oberhand (5:7, 6:4, 10:4). Einzig **Lina Rückert** musste sich mit 2:6, 1:6 geschlagen geben.
+Saskia Waidelich zeigte einmal mehr ihre starke Form und ließ ihrer Gegnerin beim 6:0 und 6:0 nicht den Hauch einer Chance. Lina Rückert musste sich trotz großen Einsatzes ihrer Gegnerin geschlagen geben. Laura Herrmann spielte konzentriert auf und sicherte sich mit einem 6:2 und 7:6 einen verdienten Erfolg. Marlene Hochstuhl bewies einmal mehr ihre Nervenstärke. Nach verlorenem ersten Satz kämpfte sie sich eindrucksvoll zurück und entschied den Match-Tiebreak mit 10:4 für sich.
 
-So stand es nach den Einzeln 3:1.
+Mit einer komfortablen 3:1-Führung nach den Einzeln fehlte nur noch ein Punkt zum Gesamtsieg. Das Doppel Waidelich/Herrmann lieferte sich ein hochklassiges und spannendes Match. Nach gewonnenem ersten Satz, inklusive einer einstündigen Regenpause, mussten sie den zweiten abgeben und unterlagen schließlich denkbar knapp, nach zwei verpassten Matchbällen, mit 9:11 im Match-Tiebreak. Das zweite Doppel mit Krauth und Dukic musste sich den Gästen geschlagen geben.
 
-In den Doppeln glich Iffezheim aus. **Waidelich / Herrmann** gaben ein umkämpftes Match erst im Match-Tiebreak mit 9:11 ab (7:6, 2:6, 9:11), **Krauth / Dukic** unterlagen mit 1:6, 1:6.
-
-Am Ende stand ein leistungsgerechtes 3:3.
+So stand am Ende erneut ein 3:3-Unentschieden auf dem Spielbericht. Auch wenn der Sieg zum Greifen nah war, können die Damen mit ihrer geschlossenen Mannschaftsleistung zufrieden sein. Mit etwas mehr Matchglück im ersten Doppel wären die zwei Punkte in Bühlertal geblieben.

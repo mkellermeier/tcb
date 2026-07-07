@@ -5,49 +5,50 @@ homeAway: home
 opponent: 'TSG TC Hügelsheim/TC Söllingen-Rheinmünster 1'
 competition: 'Sommer 2026'
 detailsUrl: 'https://baden.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/groupPage?championship=B2+S+2026&group=18'
-result: '0:6'
+result: '2:4'
 matchResults:
   - position: 'E1'
-    tcbPlayer: 'Buttau, Michael'
-    opponent: 'Zimmer, Tamino'
-    score: '0:6, 0:6'
-    won: false
+    tcbPlayer: 'Kohler, Dennis'
+    opponent: 'Wiesner, Raymon'
+    score: '6:4, 6:1'
+    won: true
   - position: 'E2'
-    tcbPlayer: 'Wiesner, Raymon'
-    opponent: 'Friehe, Louis'
-    score: '1:6, 0:6'
+    tcbPlayer: 'Kohler, Benni'
+    opponent: 'Schmitt, Nicolas'
+    score: '7:5, 2:6, 6:10'
     won: false
   - position: 'E3'
-    tcbPlayer: 'Stockhoff, Sandro'
-    opponent: 'Naumann, Fabian'
+    tcbPlayer: 'Mege, Mathis'
+    opponent: 'Stockhoff, Sandro'
     score: '0:6, 0:6'
     won: false
   - position: 'E4'
-    tcbPlayer: 'Ullrich, Levin'
-    opponent: 'Stähle, Daniel'
+    tcbPlayer: 'Brenneisen, Jonas'
+    opponent: 'Ullrich, Levin'
     score: '0:6, 0:6'
     won: false
   - position: 'D1'
-    tcbPlayer: 'Buttau / Wiesner'
-    opponent: 'Zimmer / Friehe'
-    score: '3:6, 0:6'
-    won: false
+    tcbPlayer: 'Kohler D. / Kohler B.'
+    opponent: 'Wiesner / Schmitt'
+    score: '6:2, 6:3'
+    won: true
   - position: 'D2'
-    tcbPlayer: 'Stockhoff / Ullrich'
-    opponent: 'Naumann / Stähle'
+    tcbPlayer: 'Mege / Brenneisen'
+    opponent: 'Stockhoff / Ullrich'
     score: '0:6, 0:6'
     won: false
+coverImage: '/images/matches/2026-07-05-herren2-tsg-huegelsheim/01.jpeg'
+gallery:
+  - src: '/images/matches/2026-07-05-herren2-tsg-huegelsheim/01.jpeg'
 draft: false
 ---
 
-## Klare Heimniederlage: Herren 2 unterliegen Hügelsheim/Söllingen 0:6
+## Junge Herren 2 unterliegen Hügelsheim/Söllingen 2:4
 
-Gegen den Verbund aus TC Hügelsheim und TC Söllingen-Rheinmünster fanden die Herren 2 im Heimspiel kein Mittel und mussten sich mit 0:6 geschlagen geben.
+Die Herren 2 hatten am Sonntag die Spielgemeinschaft aus Hügelsheim und Söllingen-Rheinmünster zu Gast. Gegen die Flachländer wartete eine schwere Aufgabe auf die junge Mannschaft des TCB.
 
-In den Einzeln war der Gegner durchweg eine Nummer zu groß. **Michael Buttau** (0:6, 0:6), **Sandro Stockhoff** (0:6, 0:6) und **Levin Ullrich** (0:6, 0:6) blieben ohne Satzgewinn. Auch **Raymon Wiesner** hatte an Position 2 beim 1:6, 0:6 keine Chance.
+Dennis Kohler zeigte eine starke Leistung und gewann sein Einzel souverän mit 6:4 und 6:1. Benni Kohler machte es deutlich spannender. Nach gewonnenem ersten Satz musste er den Satzausgleich hinnehmen und unterlag erst im Match-Tiebreak. Für unsere beiden Junioren Mathis Mege und Jonas Brenneisen war gegen starke Gegner, wohlgemerkt in ihrem allerersten Match überhaupt, an diesem Tag leider nichts zu holen. Dennoch zeigten sie sehr schöne Ballwechsel, und mit etwas mehr Glück und Erfahrung wäre bestimmt etwas zu holen gewesen.
 
-So stand es nach den Einzeln 0:4.
+Mit einem 1:3-Rückstand nach den Einzeln war die Ausgangslage schwierig. Im ersten Doppel zeigten Dennis und Benni noch einmal ihr Können und holten mit einem überzeugenden 6:2 und 6:3 den zweiten Punkt für den TCB. Das zweite Doppel musste sich den Gästen geschlagen geben.
 
-Auch die Doppel gingen verloren: **Buttau / Wiesner** unterlagen mit 3:6, 0:6, **Stockhoff / Ullrich** mit 0:6, 0:6.
-
-Am Ende blieb eine deutliche 0:6-Niederlage.
+Am Ende stand eine 2:4-Niederlage für die junge TCB-Mannschaft, die aber auf jeden Fall Lust auf die nächsten Jahre macht.
