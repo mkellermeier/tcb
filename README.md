@@ -49,6 +49,8 @@ public/
 
 ## Lokale Entwicklung
 
+Voraussetzung: Node.js 24 (wie in der CI).
+
 ```bash
 npm install
 npm run dev
@@ -122,6 +124,7 @@ der Datei ist der **Spielbericht**, der auf der Match-Detailseite angezeigt wird
 ---
 team: 'Herren 1'
 matchDate: 2026-05-10
+dateTbd: true # optional, Termin noch offen (matchDate dann nur Platzhalter zum Sortieren)
 homeAway: home # oder: away
 opponent: 'TC Beispiel'
 location: 'Tennisanlage' # optional
