@@ -7,7 +7,15 @@
     {
       "description": "Held back: Astro 7 needs a native compiler that Windows app-control blocks locally; keep tooling in sync",
       "matchUpdateTypes": ["major"],
-      "matchPackageNames": ["astro", "@astrojs/mdx", "astro-eslint-parser", "prettier-plugin-astro", "typescript"],
+      "matchPackageNames": [
+        "astro",
+        "@astrojs/mdx",
+        "astro-eslint-parser",
+        "prettier-plugin-astro",
+        "eslint-plugin-astro",
+        "vite",
+        "typescript"
+      ],
       "enabled": false
     }
   ]
