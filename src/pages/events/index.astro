@@ -61,7 +61,7 @@ function formatShort(d: Date) {
           <div class="space-y-3">
             {upcoming.map((e) => (
               <a
-                href={`/events/${e.slug}`}
+                href={`/events/${e.id}`}
                 class="block rounded-2xl border border-gray-500/20 bg-light p-5 hover:shadow-md transition"
               >
                 <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
@@ -96,7 +96,7 @@ function formatShort(d: Date) {
           <div class="space-y-2">
             {past.map((e) => (
               <a
-                href={`/events/${e.slug}`}
+                href={`/events/${e.id}`}
                 class="block rounded-2xl border border-gray-500/20 bg-dark p-4 opacity-70 hover:opacity-90 transition"
               >
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">

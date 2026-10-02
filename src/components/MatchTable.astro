@@ -52,7 +52,7 @@ const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
                 <tr
                   class="match-row border-t border-gray-500/20 first:border-t-0 hover:bg-white/5 transition cursor-pointer"
                   data-team={m.data.team}
-                  onclick={`window.location='/matches/${m.slug}'`}
+                  onclick={`window.location='/matches/${m.id}'`}
                 >
                   <td class="p-3 whitespace-nowrap w-32">
                     <div class="text-page">{m.data.dateTbd ? 'Termin offen' : formatDate(m.data.matchDate)}</div>

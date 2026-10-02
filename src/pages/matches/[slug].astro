@@ -7,7 +7,7 @@ import Gallery from '~/components/common/Gallery.astro';
 export async function getStaticPaths() {
   const entries = await getCollection('matches', ({ data }) => !data.draft);
   return entries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
