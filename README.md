@@ -1,6 +1,7 @@
 # TC Bühlertal – Vereinshomepage
 
 [![CI / Deploy](https://github.com/mkellermeier/tcb/actions/workflows/actions.yaml/badge.svg)](https://github.com/mkellermeier/tcb/actions/workflows/actions.yaml)
+[![Renovate](https://img.shields.io/badge/Renovate-enabled-1A1F6C?logo=renovate&logoColor=white)](https://docs.renovatebot.com/)
 [![Astro](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=white)](https://astro.build/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -76,6 +77,10 @@ Das Deployment läuft automatisch über GitHub Actions (`.github/workflows/actio
 2. **Deploy** – Build und Veröffentlichung auf GitHub Pages (`actions/deploy-pages`)
 
 Der Workflow läuft bei jedem Push auf `main`, bei Pull Requests (nur **Check**) sowie täglich um 03:00 Uhr und manuell über `workflow_dispatch`. Die Domain wird über die `CNAME`-Datei in `public/` gesetzt.
+
+## Abhängigkeiten
+
+[Renovate](https://docs.renovatebot.com/) läuft als GitHub-Action (`.github/workflows/renovate.yaml`) am 1. jedes Monats und manuell über `workflow_dispatch`. Minor- und Patch-Updates kommen gebündelt in einem PR, Major-Updates einzeln. Konfiguration: `renovate.json`. Der Workflow nutzt das Repo-Secret `RENOVATE_TOKEN` (fine-grained PAT, läuft ab und muss dann erneuert werden).
 
 ## Content pflegen
 
