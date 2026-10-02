@@ -55,8 +55,8 @@ const outcomeClass: Record<'win' | 'loss' | 'draw', string> = {
                   onclick={`window.location='/matches/${m.slug}'`}
                 >
                   <td class="p-3 whitespace-nowrap w-32">
-                    <div class="text-page">{formatDate(m.data.matchDate)}</div>
-                    {time && <div class="text-xs text-muted">{time} Uhr</div>}
+                    <div class="text-page">{m.data.dateTbd ? 'Termin offen' : formatDate(m.data.matchDate)}</div>
+                    {time && !m.data.dateTbd && <div class="text-xs text-muted">{time} Uhr</div>}
                   </td>
                   <td class="p-3">
                     <div class="font-medium text-page">

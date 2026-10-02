@@ -22,7 +22,7 @@ const title = `${d.team} – ${d.homeAway === 'home' ? 'Heim' : 'Auswärts'} vs.
 const resultPart = d.result ? `Endstand ${d.result}. ` : '';
 const metadata = {
   title,
-  description: `${resultPart}${d.team} vs. ${d.opponent} am ${d.matchDate.toLocaleDateString('de-DE')} – TC Bühlertal.`,
+  description: `${resultPart}${d.team} vs. ${d.opponent}${d.dateTbd ? '' : ` am ${d.matchDate.toLocaleDateString('de-DE')}`} – TC Bühlertal.`,
 };
 
 const fmtLong = (date: Date) =>
@@ -79,8 +79,8 @@ const hasTime = timeFormatted !== '00:00';
           <div>
             <div class="text-muted">Datum</div>
             <div class="text-page font-medium">
-              {fmtLong(d.matchDate)}
-              {hasTime ? ` · ${fmtTime(d.matchDate)} Uhr` : ''}
+              {d.dateTbd ? 'Termin offen' : fmtLong(d.matchDate)}
+              {hasTime && !d.dateTbd ? ` · ${fmtTime(d.matchDate)} Uhr` : ''}
             </div>
           </div>
         </div>

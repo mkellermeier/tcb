@@ -32,6 +32,7 @@ const matches = defineCollection({
   schema: z.object({
     team: z.string(),
     matchDate: z.coerce.date(),
+    dateTbd: z.boolean().optional(), // ponytail: matchDate is then just a sort placeholder
     homeAway: z.enum(['home', 'away']),
     opponent: z.string(),
     location: z.string().optional(),
