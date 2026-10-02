@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":semanticCommitTypeAll(chore)", "group:allNonMajor"],
+  "gitAuthor": "mkellermeier <michaelkellermeier@gmx.de>",
   "timezone": "Europe/Berlin"
 }
