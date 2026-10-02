@@ -256,7 +256,7 @@ const latestPosts = postsAll.slice(0, 3);
                     return (
                       <li>
                         <a
-                          href={`/matches/${m.slug}`}
+                          href={`/matches/${m.id}`}
                           class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
                         >
                           <div>
@@ -307,7 +307,7 @@ const latestPosts = postsAll.slice(0, 3);
                     return (
                       <li>
                         <a
-                          href={`/matches/${m.slug}`}
+                          href={`/matches/${m.id}`}
                           class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
                         >
                           <div>
@@ -357,7 +357,7 @@ const latestPosts = postsAll.slice(0, 3);
                   {upcomingEvents.map((e) => (
                     <li>
                       <a
-                        href={`/events/${e.slug}`}
+                        href={`/events/${e.id}`}
                         class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
                       >
                         <div>
@@ -402,7 +402,7 @@ const latestPosts = postsAll.slice(0, 3);
                     return (
                       <li>
                         <a
-                          href={`/posts/${p.slug}`}
+                          href={`/posts/${p.id}`}
                           class="flex items-center gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition group"
                         >
                           <img

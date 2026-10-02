@@ -1,7 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const posts = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -28,7 +30,7 @@ const posts = defineCollection({
 });
 
 const matches = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/matches' }),
   schema: z.object({
     team: z.string(),
     matchDate: z.coerce.date(),
@@ -37,7 +39,7 @@ const matches = defineCollection({
     opponent: z.string(),
     location: z.string().optional(),
     competition: z.string().optional(),
-    detailsUrl: z.string().url().optional(),
+    detailsUrl: z.url().optional(),
     result: z.string().optional(),
     matchResults: z
       .array(
@@ -65,7 +67,7 @@ const matches = defineCollection({
 });
 
 const events = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
   schema: z.object({
     title: z.string(),
     startDate: z.coerce.date(),
