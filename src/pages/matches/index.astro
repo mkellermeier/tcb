@@ -77,14 +77,13 @@ const pastArchiveGroups = groupByCompetition(pastArchive);
           </button>
         ))
       }
-      <a
-        href="/spielplan.ics"
-        download
-        class="ml-auto inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-      >
-        <Icon name="tabler:calendar-plus" class="w-4 h-4" />
-        Spielplan als Kalender (.ics)
-      </a>
+      <span class="ml-auto inline-flex items-center gap-3 text-sm">
+        <Icon name="tabler:calendar-plus" class="w-4 h-4 text-primary" />
+        <a class="text-primary hover:underline" href={`webcal://${Astro.site?.host}/spielplan.ics`}
+          >Kalender abonnieren</a
+        >
+        <a class="text-muted hover:underline" href="/spielplan.ics" download>.ics</a>
+      </span>
     </div>
 
     <!-- Letzte Ergebnisse (aktuelle Saison) -->

@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import MailtoForm from '~/components/MailtoForm.astro';
+import { guestFees as fees } from '~/data/fees';
 
 const metadata = {
   title: 'Gastspieler',
@@ -9,17 +10,6 @@ const metadata = {
 };
 
 const bookingEmail = 'tcbuehlertal@web.de';
-
-const fees = [
-  {
-    label: 'Tennis-Einzel (90 Min.) mit aktivem TCB Mitglied',
-    price: '6 €',
-  },
-  {
-    label: 'Tennis-Einzel (90 Min.) ohne aktives TCB Mitglied',
-    price: '15 €',
-  },
-];
 
 const reasons = [
   {

@@ -1,0 +1,155 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import MailtoForm from '~/components/MailtoForm.astro';
+import { Icon } from 'astro-icon/components';
+import { guestFees, membershipFees } from '~/data/fees';
+
+const metadata = {
+  title: 'Tennis ausprobieren',
+  description: 'Als Gast spielen, Mitglied werden oder Jugendlicher im Verein – so kommst du zum TC Bühlertal.',
+};
+
+const email = 'tcbuehlertal@web.de';
+const youth = membershipFees.find((f) => f.title === 'Jugendliche');
+const guestWithMember = guestFees[0];
+
+const paths = [
+  {
+    icon: 'tabler:ball-tennis',
+    title: 'Als Gast spielen',
+    text: 'Einfach mal eine Stunde auf Sand spielen – allein, zu zweit oder mit Freunden.',
+    price: guestWithMember ? `ab ${guestWithMember.price} pro 90 Min.` : undefined,
+    href: '/guest-players',
+    cta: 'Gastspieler-Infos',
+  },
+  {
+    icon: 'tabler:user-plus',
+    title: 'Mitglied werden',
+    text: 'Regelmäßig spielen, in einer Mannschaft antreten und Teil der Gemeinschaft sein.',
+    price: undefined,
+    href: '/membership',
+    cta: 'Beiträge & Antrag',
+  },
+  {
+    icon: 'tabler:users-group',
+    title: 'Für Jugendliche',
+    text: 'Bis zum 18. Lebensjahr gibt es einen ermäßigten Beitrag.',
+    price: youth?.price,
+    href: '/membership',
+    cta: 'Zur Mitgliedschaft',
+  },
+];
+
+const steps = [
+  { title: 'Weg wählen', text: 'Gast, Mitglied oder Jugend – such dir aus, was zu dir passt.' },
+  { title: 'Kurz anfragen', text: 'Schreib uns über das Formular unten oder per Mail.' },
+  { title: 'Loslegen', text: 'Wir melden uns bei dir, dann geht es auf den Platz.' },
+];
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    image={{
+      src: '~/assets/images/ball-over-net.png',
+      alt: 'Tennis ausprobieren beim TC Bühlertal',
+    }}
+  >
+    <Fragment slot="title">Tennis <span class="text-primary">ausprobieren</span></Fragment>
+    <Fragment slot="subtitle"
+      >Vier Sandplätze im Schwarzwald warten auf dich – egal ob Einsteiger oder Wiedereinsteiger.</Fragment
+    >
+  </Hero>
+
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-12">
+    <!-- Drei Wege -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">Drei Wege zum TC Bühlertal</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          paths.map((p) => (
+            <article class="rounded-2xl border border-gray-500/20 bg-light p-5 flex flex-col">
+              <Icon name={p.icon} class="w-8 h-8 text-primary" />
+              <h3 class="text-lg font-semibold mt-3">{p.title}</h3>
+              <p class="text-muted mt-2 text-sm leading-relaxed grow">{p.text}</p>
+              {p.price && <div class="mt-3 font-semibold text-page">{p.price}</div>}
+              <a class="btn btn-secondary mt-4 self-start" href={p.href}>
+                {p.cta}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- So läuft's -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">So geht’s</h2>
+      <ol class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          steps.map((s, i) => (
+            <li class="rounded-2xl border border-gray-500/20 bg-light p-5">
+              <div class="text-sm text-muted">Schritt {i + 1}</div>
+              <h3 class="font-semibold mt-1">{s.title}</h3>
+              <p class="text-muted mt-2 text-sm">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <!-- Das brauchst du -->
+    <div class="rounded-2xl border border-gray-500/20 bg-dark p-6">
+      <h2 class="text-xl font-semibold">Das solltest du wissen</h2>
+      <ul class="mt-3 space-y-2 text-sm text-muted">
+        <li class="flex items-start gap-3">
+          <Icon name="tabler:shoe" class="w-5 h-5 text-primary shrink-0" />
+          Tennisschuhe mit Sohle für Sandplätze sind Pflicht.
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="tabler:calendar" class="w-5 h-5 text-primary shrink-0" />
+          Die Anlage ist in der Regel von April bis Oktober geöffnet.
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="tabler:map-pin" class="w-5 h-5 text-primary shrink-0" />
+          Anfahrt und Platzregeln:
+          <a class="text-primary hover:underline" href="/facility">Anlage &amp; Anfahrt →</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Formular -->
+    <div id="anfrage" class="scroll-mt-24 rounded-2xl border border-gray-500/20 bg-light p-6">
+      <h2 class="text-xl font-semibold">Kennenlernen anfragen</h2>
+      <p class="text-muted mt-2 text-sm leading-relaxed">
+        Sag uns kurz, was dich interessiert – wir melden uns bei dir.
+      </p>
+      <div class="mt-5">
+        <MailtoForm
+          email={email}
+          subject="Kennenlernen TC Bühlertal"
+          submitLabel="Anfrage senden"
+          id="tryout"
+          fields={[
+            { name: 'name', label: 'Name', type: 'text', required: true },
+            { name: 'email', label: 'E-Mail', type: 'email', required: true },
+            {
+              name: 'interesse',
+              label: 'Ich interessiere mich für',
+              type: 'select',
+              required: true,
+              full: true,
+              options: ['Als Gast spielen', 'Mitglied werden', 'Jugend (bis 18)', 'Weiß ich noch nicht'],
+            },
+            {
+              name: 'nachricht',
+              label: 'Nachricht (optional)',
+              type: 'textarea',
+              placeholder: 'Erfahrung, Wunschtermin, Fragen …',
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -6,6 +6,7 @@ import { Picture } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import defaultPostImage from '~/assets/images/hero-blackforest.png';
 import courtOverview from '~/assets/images/court-overview.png';
+import { sponsors } from '~/data/sponsors';
 
 const metadata = {
   title: 'TC Bühlertal',
@@ -50,7 +51,14 @@ const matchesAll = (await getCollection('matches', ({ data }) => !data.draft)).s
   (a, b) => +a.data.matchDate - +b.data.matchDate
 );
 
-const upcomingMatches = matchesAll.filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result).slice(0, 3);
+const upcomingAll = matchesAll.filter((m) => dayOf(m.data.matchDate) >= todayBerlin && !m.data.result);
+const featured = upcomingAll.find((m) => !m.data.dateTbd);
+const followingMatches = upcomingAll.filter((m) => m !== featured).slice(0, 3);
+const teamCount = new Set(matchesAll.map((m) => m.data.team)).size;
+const matchTime = (d: Date) => {
+  const t = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' });
+  return t !== '00:00' ? t : null;
+};
 const recentMatches = matchesAll
   .filter((m) => m.data.result || dayOf(m.data.matchDate) < todayBerlin)
   .slice(-3)
@@ -83,6 +91,15 @@ const postsAll = (await getCollection('posts', ({ data }) => !data.draft)).sort(
 );
 
 const latestPosts = postsAll.slice(0, 3);
+
+// ---------- facts + sponsors ----------
+const facts = [
+  { value: '1965', label: 'Gegründet' },
+  { value: '4', label: 'Sandplätze' },
+  { value: String(teamCount), label: 'Mannschaften' },
+  { value: 'Apr–Okt', label: 'Saison' },
+];
+const homeSponsors = sponsors.slice(0, 8);
 ---
 
 <Layout metadata={metadata}>
@@ -115,13 +132,13 @@ const latestPosts = postsAll.slice(0, 3);
         Willkommen beim TC Bühlertal – eurem Tennisclub seit 1965.
       </p>
       <div class="flex flex-col sm:flex-row gap-3">
-        <a href="/matches" class="hero-btn hero-btn-primary">
+        <a href="/tennis-ausprobieren" class="hero-btn hero-btn-primary">
+          <Icon name="tabler:ball-tennis" class="w-4 h-4 mr-2 inline-block" />
+          Tennis ausprobieren
+        </a>
+        <a href="/matches" class="hero-btn hero-btn-secondary">
           <Icon name="tabler:trophy" class="w-4 h-4 mr-2 inline-block" />
           Spiele &amp; Ergebnisse
-        </a>
-        <a href="/events" class="hero-btn hero-btn-secondary">
-          <Icon name="tabler:calendar-event" class="w-4 h-4 mr-2 inline-block" />
-          Termine
         </a>
       </div>
     </div>
@@ -193,257 +210,280 @@ const latestPosts = postsAll.slice(0, 3);
     }
   </style>
 
-  <section class="max-w-5xl mx-auto px-4 py-10 space-y-10">
-    <!-- Stat bar -->
-    <div
-      class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gray-500/20 bg-light px-6 py-4"
-    >
-      <div class="flex flex-wrap gap-6 text-sm">
-        <div class="flex items-center gap-2">
-          <Icon name="tabler:calendar" class="w-4 h-4 text-primary shrink-0" />
-          <span class="font-semibold text-page">1965</span>
-          <span class="text-muted">gegründet</span>
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-12">
+    <!-- Nächstes Spiel -->
+    {
+      featured ? (
+        <div class="rounded-3xl border border-primary/30 bg-light p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div class="min-w-0">
+              <p class="text-sm font-semibold uppercase tracking-widest text-primary">Nächstes Spiel</p>
+              <h2 class="text-3xl md:text-4xl font-bold mt-2 leading-tight">
+                {featured.data.team} <span class="text-muted font-normal">vs.</span> {featured.data.opponent}
+              </h2>
+              <p class="mt-3 text-muted flex flex-wrap items-center gap-x-5 gap-y-1">
+                <span class="inline-flex items-center gap-1.5">
+                  <Icon name="tabler:calendar" class="w-4 h-4 text-primary" />
+                  {featured.data.matchDate.toLocaleDateString('de-DE', {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: 'long',
+                    timeZone: 'Europe/Berlin',
+                  })}
+                  {matchTime(featured.data.matchDate) ? ` · ${matchTime(featured.data.matchDate)} Uhr` : ''}
+                </span>
+                {featured.data.location && (
+                  <span class="inline-flex items-center gap-1.5">
+                    <Icon name="tabler:map-pin" class="w-4 h-4 text-primary" />
+                    {featured.data.location}
+                  </span>
+                )}
+                <span class="rounded-full border border-gray-500/20 bg-dark px-3 py-0.5 text-sm">
+                  {homeAwayLabel(featured.data.homeAway)}
+                </span>
+              </p>
+            </div>
+            <div class="md:text-right shrink-0">
+              <div
+                class="text-3xl md:text-4xl font-bold text-primary"
+                data-countdown
+                data-start={featured.data.matchDate.toISOString()}
+              >
+                {relativeLabel(featured.data.matchDate) || formatShortDate(featured.data.matchDate)}
+              </div>
+              <a class="btn btn-secondary mt-3" href={`/matches/${featured.id}`}>
+                Details
+              </a>
+            </div>
+          </div>
+
+          {followingMatches.length > 0 && (
+            <ul class="mt-6 pt-5 border-t border-gray-500/20 grid grid-cols-1 md:grid-cols-3 gap-3">
+              {followingMatches.map((m) => (
+                <li>
+                  <a
+                    href={`/matches/${m.id}`}
+                    class="block rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
+                  >
+                    <div class="text-sm font-semibold text-page">
+                      {m.data.team} <span class="font-normal text-muted">vs. {m.data.opponent}</span>
+                    </div>
+                    <div class="text-sm text-muted mt-0.5">
+                      {m.data.dateTbd ? 'Termin offen' : formatShortDate(m.data.matchDate)} ·{' '}
+                      {homeAwayLabel(m.data.homeAway)}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div class="mt-5 text-sm">
+            <a class="text-primary hover:underline" href="/matches">
+              Kompletter Spielplan →
+            </a>
+          </div>
         </div>
-        <div class="hidden sm:block w-px bg-gray-500/20 self-stretch"></div>
-        <div class="flex items-center gap-2">
-          <Icon name="tabler:ball-tennis" class="w-4 h-4 text-primary shrink-0" />
-          <span class="font-semibold text-page">4</span>
-          <span class="text-muted">Sandplätze</span>
+      ) : (
+        <div class="rounded-3xl border border-gray-500/20 bg-light p-6 md:p-8">
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary">Nächstes Spiel</p>
+          <p class="mt-2 text-muted">
+            Aktuell ist kein Spiel angesetzt. Alle Ergebnisse findest du im{' '}
+            <a class="text-primary hover:underline" href="/matches">
+              Spielplan
+            </a>
+            .
+          </p>
         </div>
-        <div class="hidden sm:block w-px bg-gray-500/20 self-stretch"></div>
-        <div class="flex items-center gap-2">
-          <Icon name="tabler:home" class="w-4 h-4 text-primary shrink-0" />
-          <span class="text-muted">Clubhaus & Terrasse</span>
-        </div>
-        <div class="hidden sm:block w-px bg-gray-500/20 self-stretch"></div>
-        <div class="flex items-center gap-2">
-          <Icon name="tabler:map-pin" class="w-4 h-4 text-primary shrink-0" />
-          <span class="font-semibold text-page">Bühlertal</span>
-          <span class="text-muted">Schwarzwald</span>
-        </div>
-      </div>
-      <a href="/club" class="text-sm text-primary hover:underline whitespace-nowrap">Mehr über uns →</a>
+      )
+    }
+
+    <!-- Zahlen -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {
+        facts.map((f) => (
+          <div class="rounded-2xl border border-gray-500/20 bg-light p-5 text-center">
+            <div class="text-3xl font-bold text-primary">{f.value}</div>
+            <div class="text-sm text-muted mt-1">{f.label}</div>
+          </div>
+        ))
+      }
     </div>
 
-    <!-- Aktuelles -->
-    <div>
-      <h2 class="text-2xl font-semibold mb-4">Aktuelles</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Spiele -->
-        <div class="rounded-2xl border border-gray-500/20 bg-light p-5 space-y-5">
-          <!-- Nächste Spiele -->
-          <div>
-            <div class="flex items-center justify-between gap-3 mb-3">
-              <div class="flex items-center gap-2">
-                <Icon name="tabler:calendar-event" class="w-5 h-5 text-primary shrink-0" />
-                <h3 class="font-semibold text-page">Nächste Spiele</h3>
-              </div>
-              <a class="text-sm text-primary hover:underline" href="/matches">Spielplan →</a>
-            </div>
-            {
-              upcomingMatches.length === 0 ? (
-                <p class="text-muted text-sm">Keine kommenden Spiele.</p>
-              ) : (
-                <ul class="space-y-2">
-                  {upcomingMatches.map((m) => {
-                    const timeStr = m.data.matchDate.toLocaleTimeString('de-DE', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      timeZone: 'Europe/Berlin',
-                    });
-                    const hasTime = timeStr !== '00:00';
-                    return (
-                      <li>
-                        <a
-                          href={`/matches/${m.id}`}
-                          class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
-                        >
-                          <div>
-                            <div class="flex flex-wrap items-center gap-2">
-                              <span class="text-sm font-semibold text-page">{m.data.team}</span>
-                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                                {homeAwayLabel(m.data.homeAway)}
-                              </span>
-                              {!m.data.dateTbd && relativeLabel(m.data.matchDate) && (
-                                <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
-                                  {relativeLabel(m.data.matchDate)}
-                                </span>
-                              )}
-                            </div>
-                            <div class="mt-1 text-sm text-muted">
-                              {m.data.dateTbd ? 'Termin offen' : formatShortDate(m.data.matchDate)}
-                              {hasTime && !m.data.dateTbd ? ` · ${timeStr} Uhr` : ''} · vs. {m.data.opponent}
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )
-            }
+    <!-- Neueste Berichte -->
+    {
+      latestPosts.length > 0 && (
+        <div>
+          <div class="flex items-baseline justify-between gap-3 mb-4">
+            <h2 class="text-2xl font-semibold">Neueste Berichte</h2>
+            <a class="text-sm text-primary hover:underline" href="/posts">
+              Alle Berichte →
+            </a>
           </div>
-
-          <!-- Divider -->
-          <div class="border-t border-gray-500/20"></div>
-
-          <!-- Letzte Ergebnisse -->
-          <div>
-            <div class="flex items-center justify-between gap-3 mb-3">
-              <div class="flex items-center gap-2">
-                <Icon name="tabler:trophy" class="w-5 h-5 text-primary shrink-0" />
-                <h3 class="font-semibold text-page">Letzte Ergebnisse</h3>
-              </div>
-              <a class="text-sm text-primary hover:underline" href="/matches#ergebnisse">Alle →</a>
-            </div>
-            {
-              recentMatches.length === 0 ? (
-                <p class="text-muted text-sm">Noch keine Ergebnisse.</p>
-              ) : (
-                <ul class="space-y-2">
-                  {recentMatches.map((m) => {
-                    const ri = resultInfo(m.data.result);
-                    return (
-                      <li>
-                        <a
-                          href={`/matches/${m.id}`}
-                          class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
-                        >
-                          <div>
-                            <div class="flex flex-wrap items-center gap-2">
-                              <span class="text-sm font-semibold text-page">{m.data.team}</span>
-                              <span class="rounded-full border border-gray-500/20 px-2 py-0.5 text-xs text-muted">
-                                {homeAwayLabel(m.data.homeAway)}
-                              </span>
-                            </div>
-                            <div class="mt-1 text-sm text-muted">
-                              {formatShortDate(m.data.matchDate)} · vs. {m.data.opponent}
-                            </div>
-                          </div>
-                          {ri && (
-                            <span
-                              class={`shrink-0 self-center px-2.5 py-1 rounded-full text-sm font-semibold ${outcomeClass[ri.outcome]}`}
-                            >
-                              {ri.label}
-                            </span>
-                          )}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )
-            }
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {latestPosts.map((p) => (
+              <a
+                href={`/posts/${p.id}`}
+                class="group rounded-2xl border border-gray-500/20 bg-light overflow-hidden hover:border-gray-400/40 transition"
+              >
+                <div class="overflow-hidden">
+                  <img
+                    src={p.data.coverImage ?? p.data.gallery?.[0]?.src ?? defaultPostImage.src}
+                    alt={p.data.title}
+                    loading="lazy"
+                    class="aspect-video w-full object-cover object-[center_30%] group-hover:scale-[1.03] transition duration-500"
+                  />
+                </div>
+                <div class="p-4">
+                  <div class="text-sm text-muted">{formatPostDate(p.data.date)}</div>
+                  <h3 class="font-semibold text-page mt-1 leading-snug">{p.data.title}</h3>
+                  {p.data.excerpt && <p class="text-sm text-muted mt-2 line-clamp-2">{p.data.excerpt}</p>}
+                </div>
+              </a>
+            ))}
           </div>
         </div>
+      )
+    }
 
-        <!-- Rechte Spalte: Termine + Neueste Berichte -->
-        <div class="flex flex-col gap-4">
-          <!-- Nächste Termine -->
-          <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-            <div class="flex items-center justify-between gap-3 mb-4">
-              <div class="flex items-center gap-2">
-                <Icon name="tabler:calendar-event" class="w-5 h-5 text-primary shrink-0" />
-                <h3 class="font-semibold text-page">Nächste Termine</h3>
-              </div>
-              <a class="text-sm text-primary hover:underline" href="/events">Alle →</a>
-            </div>
-            {
-              upcomingEvents.length === 0 ? (
-                <p class="text-muted text-sm">
-                  Aktuell keine Termine veröffentlicht. Die nächsten Spiele findest du im{' '}
-                  <a class="text-primary hover:underline" href="/matches">
-                    Spielplan
-                  </a>
-                  .
-                </p>
-              ) : (
-                <ul class="space-y-2">
-                  {upcomingEvents.map((e) => (
-                    <li>
-                      <a
-                        href={`/events/${e.id}`}
-                        class="flex items-start justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
-                      >
-                        <div>
-                          <div class="flex flex-wrap items-center gap-2">
-                            <span class="text-sm font-semibold text-page">{e.data.title}</span>
-                            {relativeLabel(e.data.startDate) && (
-                              <span class="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-xs text-primary">
-                                {relativeLabel(e.data.startDate)}
-                              </span>
-                            )}
-                          </div>
-                          <div class="mt-1 text-sm text-muted">
-                            {formatShortDate(e.data.startDate)}
-                            {e.data.time ? ` · ${e.data.time} Uhr` : ''}
-                            {e.data.location ? ` · ${e.data.location}` : ''}
-                          </div>
+    <!-- Ergebnisse + Termine -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <Icon name="tabler:trophy" class="w-5 h-5 text-primary shrink-0" />
+            <h3 class="font-semibold text-page">Letzte Ergebnisse</h3>
+          </div>
+          <a class="text-sm text-primary hover:underline" href="/matches"> Alle → </a>
+        </div>
+        {
+          recentMatches.length === 0 ? (
+            <p class="text-muted text-sm">Noch keine Ergebnisse.</p>
+          ) : (
+            <ul class="space-y-2">
+              {recentMatches.map((m) => {
+                const ri = resultInfo(m.data.result);
+                return (
+                  <li>
+                    <a
+                      href={`/matches/${m.id}`}
+                      class="flex items-center justify-between gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
+                    >
+                      <div class="min-w-0">
+                        <div class="text-sm font-semibold text-page">
+                          {m.data.team} <span class="font-normal text-muted">vs. {m.data.opponent}</span>
                         </div>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )
-            }
-          </div>
-
-          <!-- Neueste Berichte -->
-          <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
-            <div class="flex items-center justify-between gap-3 mb-4">
-              <div class="flex items-center gap-2">
-                <Icon name="tabler:news" class="w-5 h-5 text-primary shrink-0" />
-                <h3 class="font-semibold text-page">Neueste Berichte</h3>
-              </div>
-              <a class="text-sm text-primary hover:underline" href="/posts">Alle →</a>
-            </div>
-            {
-              latestPosts.length === 0 ? (
-                <p class="text-muted text-sm">Noch keine Berichte.</p>
-              ) : (
-                <ul class="space-y-2">
-                  {latestPosts.slice(0, 3).map((p) => {
-                    const previewImg = p.data.coverImage ?? p.data.gallery?.[0]?.src ?? defaultPostImage.src;
-                    return (
-                      <li>
-                        <a
-                          href={`/posts/${p.id}`}
-                          class="flex items-center gap-3 rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition group"
+                        <div class="text-sm text-muted mt-0.5">
+                          {formatShortDate(m.data.matchDate)} · {homeAwayLabel(m.data.homeAway)}
+                        </div>
+                      </div>
+                      {ri && (
+                        <span
+                          class={`shrink-0 px-2.5 py-1 rounded-full text-sm font-semibold ${outcomeClass[ri.outcome]}`}
                         >
-                          <img
-                            src={previewImg}
-                            alt={p.data.title}
-                            loading="lazy"
-                            class="h-12 w-12 rounded-lg object-cover object-[center_30%] shrink-0"
-                          />
-                          <div class="min-w-0">
-                            <div class="text-sm font-semibold text-page leading-snug line-clamp-1">{p.data.title}</div>
-                            <div class="text-sm text-muted mt-0.5">{formatPostDate(p.data.date)}</div>
-                          </div>
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )
-            }
-          </div>
-        </div>
+                          {ri.label}
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          )
+        }
       </div>
+
+      <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <Icon name="tabler:calendar-event" class="w-5 h-5 text-primary shrink-0" />
+            <h3 class="font-semibold text-page">Nächste Termine</h3>
+          </div>
+          <a class="text-sm text-primary hover:underline" href="/events"> Alle → </a>
+        </div>
+        {
+          upcomingEvents.length === 0 ? (
+            <p class="text-muted text-sm">
+              Aktuell keine Termine veröffentlicht. Die nächsten Spiele findest du im{' '}
+              <a class="text-primary hover:underline" href="/matches">
+                Spielplan
+              </a>
+              .
+            </p>
+          ) : (
+            <ul class="space-y-2">
+              {upcomingEvents.map((e) => (
+                <li>
+                  <a
+                    href={`/events/${e.id}`}
+                    class="block rounded-xl border border-gray-500/20 bg-dark p-3 hover:border-gray-400/40 hover:bg-white/5 transition"
+                  >
+                    <div class="text-sm font-semibold text-page">{e.data.title}</div>
+                    <div class="text-sm text-muted mt-0.5">
+                      {formatShortDate(e.data.startDate)}
+                      {e.data.time ? ` · ${e.data.time} Uhr` : ''}
+                      {e.data.location ? ` · ${e.data.location}` : ''}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Sponsoren -->
+    <div>
+      <div class="flex items-baseline justify-between gap-3 mb-4">
+        <h2 class="text-2xl font-semibold">Unsere Partner</h2>
+        <a class="text-sm text-primary hover:underline" href="/sponsors"> Alle Sponsoren → </a>
+      </div>
+      <ul class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {
+          homeSponsors.map((s) => (
+            <li>
+              <a
+                href="/sponsors"
+                title={s.name}
+                class="flex h-16 items-center justify-center rounded-xl bg-white p-2 hover:opacity-90 transition"
+              >
+                <img
+                  src={s.logo}
+                  alt={s.name}
+                  loading="lazy"
+                  class="max-h-full max-w-full object-contain"
+                  onerror="this.parentElement.parentElement.style.display='none'"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
   <CallToAction
     actions={[
-      { variant: 'primary', text: 'Platz anfragen', href: '/guest-players', icon: 'tabler:calendar' },
+      { variant: 'primary', text: 'Tennis ausprobieren', href: '/tennis-ausprobieren', icon: 'tabler:ball-tennis' },
       { text: 'Mitglied werden', href: '/membership', icon: 'tabler:user-plus' },
       { text: 'Kontakt', href: '/contact' },
     ]}
   >
-    <Fragment slot="title">Lust auf ein Match?</Fragment>
+    <Fragment slot="title">Lust auf Tennis?</Fragment>
     <Fragment slot="subtitle"
-      >Frag als Gast einen Platz an, werde Mitglied oder melde dich bei Fragen direkt bei uns.</Fragment
+      >Probier es aus – als Gast, als neues Mitglied oder als Jugendlicher. Wir freuen uns auf dich.</Fragment
     >
   </CallToAction>
+
+  <script is:inline>
+    document.querySelectorAll('[data-countdown]').forEach((el) => {
+      const start = new Date(el.getAttribute('data-start'));
+      const day = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+      const diff = Math.round((day(start) - day(new Date())) / 86400000);
+      if (diff === 0) el.textContent = 'Heute';
+      else if (diff === 1) el.textContent = 'Morgen';
+      else if (diff > 1) el.textContent = 'in ' + diff + ' Tagen';
+    });
+  </script>
 </Layout>
