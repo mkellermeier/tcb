@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
 import Hero from '~/components/widgets/Hero.astro';
 import MatchTable from '~/components/MatchTable.astro';
 import { getCollection } from 'astro:content';
@@ -59,7 +60,7 @@ const pastArchiveGroups = groupByCompetition(pastArchive);
 
   <section class="max-w-5xl mx-auto px-4 py-10 space-y-8">
     <!-- Team filter -->
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <button
         class="team-btn active-team px-4 py-1.5 rounded-full text-sm border border-gray-500/20 bg-light transition"
         data-team="__all__"
@@ -76,11 +77,24 @@ const pastArchiveGroups = groupByCompetition(pastArchive);
           </button>
         ))
       }
+      <a
+        href="/spielplan.ics"
+        download
+        class="ml-auto inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+      >
+        <Icon name="tabler:calendar-plus" class="w-4 h-4" />
+        Spielplan als Kalender (.ics)
+      </a>
     </div>
 
     <!-- Letzte Ergebnisse (aktuelle Saison) -->
     <div class="match-section space-y-6">
       <h2 class="text-xl font-bold text-page">Letzte Ergebnisse</h2>
+      <p class="text-sm text-muted flex flex-wrap gap-x-4 gap-y-1">
+        <span><span class="text-green-400" aria-hidden="true">●</span> Sieg</span>
+        <span><span class="text-yellow-400" aria-hidden="true">●</span> Unentschieden</span>
+        <span><span class="text-red-400" aria-hidden="true">●</span> Niederlage</span>
+      </p>
       <MatchTable groups={pastCurrentGroups} mode="result" />
       <p class:list={['section-empty text-center text-muted py-8', { hidden: pastCurrentGroups.size > 0 }]}>
         Noch keine Ergebnisse.
@@ -99,11 +113,11 @@ const pastArchiveGroups = groupByCompetition(pastArchive);
     <!-- Frühere Saisons -->
     {
       pastArchiveGroups.size > 0 && (
-        <div class="match-section space-y-6">
-          <h2 class="text-xl font-bold text-page">Frühere Saisons</h2>
+        <details class="match-section space-y-6">
+          <summary class="text-xl font-bold text-page cursor-pointer mb-6">Frühere Saisons</summary>
           <MatchTable groups={pastArchiveGroups} mode="result" />
           <p class="section-empty text-center text-muted py-8 hidden">Keine Spiele für dieses Team.</p>
-        </div>
+        </details>
       )
     }
   </section>

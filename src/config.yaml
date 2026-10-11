@@ -26,4 +26,4 @@ apps:
     isEnabled: false # Blog aus, wir nutzen Events/Spielbetrieb als Collections
 
 ui:
-  theme: 'system'
+  theme: 'dark:only'

@@ -4,15 +4,20 @@ import { getCollection, render } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import Gallery from '~/components/common/Gallery.astro';
 
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import PrevNext from '~/components/common/PrevNext.astro';
+
 export async function getStaticPaths() {
-  const entries = await getCollection('matches', ({ data }) => !data.draft);
-  return entries.map((entry) => ({
+  const entries = (await getCollection('matches', ({ data }) => !data.draft)).sort(
+    (a, b) => +a.data.matchDate - +b.data.matchDate
+  );
+  return entries.map((entry, i) => ({
     params: { slug: entry.id },
-    props: { entry },
+    props: { entry, prev: entries[i - 1], next: entries[i + 1] },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, prev, next } = Astro.props;
 const { Content } = await render(entry);
 
 const d = entry.data;
@@ -37,15 +42,24 @@ const fmtLong = (date: Date) =>
 const fmtTime = (date: Date) =>
   date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' });
 
+const matchLabel = (m: typeof entry) => `${m.data.team} vs. ${m.data.opponent}`;
+const matchWhen = (m: typeof entry) =>
+  m.data.dateTbd
+    ? 'Termin offen'
+    : m.data.matchDate.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        timeZone: 'Europe/Berlin',
+      });
+
 const timeFormatted = fmtTime(d.matchDate);
 const hasTime = timeFormatted !== '00:00';
 ---
 
 <Layout metadata={metadata}>
   <section class="max-w-3xl mx-auto px-4 py-12 space-y-6">
-    <div>
-      <a class="btn btn-secondary" href="/matches">← Zurück zur Übersicht</a>
-    </div>
+    <Breadcrumbs items={[{ text: 'Start', href: '/' }, { text: 'Spielbetrieb', href: '/matches' }, { text: title }]} />
 
     {
       d.coverImage && (
@@ -183,5 +197,14 @@ const hasTime = timeFormatted !== '00:00';
         </div>
       )
     }
+
+    <PrevNext
+      prev={prev && { href: `/matches/${prev.id}`, title: matchLabel(prev), meta: matchWhen(prev) }}
+      next={next && { href: `/matches/${next.id}`, title: matchLabel(next), meta: matchWhen(next) }}
+      prevLabel="Vorheriges Spiel"
+      nextLabel="Nächstes Spiel"
+      backHref="/matches"
+      backLabel="Zurück zum Spielbetrieb"
+    />
   </section>
 </Layout>

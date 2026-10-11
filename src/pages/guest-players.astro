@@ -24,7 +24,7 @@ const fees = [
 const reasons = [
   {
     title: 'Top gepflegte Plätze',
-    text: 'Unsere Sandplätze sind das ganze Jahr über in erstklassigem Zustand und bieten optimale Spielbedingungen.',
+    text: 'Unsere Sandplätze sind während der Saison (April bis Oktober) in erstklassigem Zustand und bieten optimale Spielbedingungen.',
   },
   {
     title: 'Freundliches Umfeld',
@@ -44,7 +44,7 @@ const reasons = [
 <Layout metadata={metadata}>
   <Hero
     image={{
-      src: '~/assets/images/old-bag-on-clay.png',
+      src: '~/assets/images/bag-on-clay.png',
       alt: 'Gastspieler Tennis',
     }}
   >
@@ -88,7 +88,8 @@ const reasons = [
           <div class="text-sm text-muted">Schritt 1</div>
           <h3 class="font-semibold mt-1">Platzbuchung anfragen</h3>
           <p class="text-muted mt-2 text-sm">
-            Senden Sie uns eine E-Mail an:
+            Nutzen Sie das <a class="text-primary hover:underline" href="#anfrage">Anfrageformular</a> oder schreiben Sie
+            uns an:
             <a class="hover:underline ml-1" href={`mailto:${bookingEmail}`}>{bookingEmail}</a>
           </p>
         </div>
@@ -97,7 +98,8 @@ const reasons = [
           <div class="text-sm text-muted">Schritt 2</div>
           <h3 class="font-semibold mt-1">Gebühr gemäß Tarif</h3>
           <p class="text-muted mt-2 text-sm">
-            Die Gastspiel-Gebühr richtet sich danach, ob ein aktives Vereinsmitglied mitspielt.
+            Die Gastspiel-Gebühr richtet sich danach, ob ein aktives Vereinsmitglied mitspielt – siehe
+            <a class="text-primary hover:underline" href="#gebuehren">Gebühren</a>.
           </p>
         </div>
 
@@ -113,7 +115,7 @@ const reasons = [
     </div>
 
     <!-- Prices -->
-    <div>
+    <div id="gebuehren" class="scroll-mt-24">
       <h2 class="text-2xl font-semibold mb-4">Gastspiel-Gebühren</h2>
 
       <div class="overflow-x-auto rounded-2xl border border-gray-500/20">
@@ -141,7 +143,7 @@ const reasons = [
     </div>
 
     <!-- Booking CTA -->
-    <div class="rounded-2xl border border-gray-500/20 bg-dark p-6">
+    <div id="anfrage" class="scroll-mt-24 rounded-2xl border border-gray-500/20 bg-dark p-6">
       <h2 class="text-xl font-semibold">Buchungsanfrage</h2>
       <p class="text-muted mt-2">
         Füllen Sie kurz das Formular aus – Wunschtermin, Spielstärke (optional) und ob ein aktives Vereinsmitglied

@@ -1,0 +1,28 @@
+---
+export interface Props {
+  items: Array<{ text: string; href?: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Brotkrumen" class="text-sm text-muted">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {
+      items.map((item, i) => (
+        <li class="flex items-center gap-2">
+          {i > 0 && <span aria-hidden="true">/</span>}
+          {item.href ? (
+            <a class="hover:underline" href={item.href}>
+              {item.text}
+            </a>
+          ) : (
+            <span class="text-page" aria-current="page">
+              {item.text}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

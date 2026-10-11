@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import Features2 from '~/components/widgets/Features2.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { Icon } from 'astro-icon/components';
 import MailtoForm from '~/components/MailtoForm.astro';
 
 const metadata = {
@@ -10,16 +10,40 @@ const metadata = {
 };
 
 const email = 'tcbuehlertal@web.de';
+
+const help = [
+  {
+    title: 'Mitgliedschaft',
+    description: 'Fragen zu Beiträgen, Aufnahme oder Kündigungen beantworten wir gerne.',
+    icon: 'tabler:id-badge-2',
+  },
+  {
+    title: 'Platzbuchung',
+    description: 'Für Gastspieler und Anfragen zur Platzverfügbarkeit einfach mailen.',
+    icon: 'tabler:calendar-check',
+  },
+  {
+    title: 'Veranstaltungen',
+    description: 'Informationen zu Turnieren, Events und Vereinsaktivitäten.',
+    icon: 'tabler:calendar-event',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <HeroText
-    tagline="Kontakt"
-    title="Schreib uns!"
-    subtitle="Fragen zur Mitgliedschaft, Platzbuchung oder Vereinsaktivitäten? Wir melden uns so schnell wie möglich zurück."
-  />
+  <Hero
+    image={{
+      src: '~/assets/images/racket-in-clay.png',
+      alt: 'Kontakt TC Bühlertal',
+    }}
+  >
+    <Fragment slot="title">Schreib uns!</Fragment>
+    <Fragment slot="subtitle">
+      Fragen zur Mitgliedschaft, Platzbuchung oder Vereinsaktivitäten? Wir melden uns so schnell wie möglich zurück.
+    </Fragment>
+  </Hero>
 
-  <section class="max-w-5xl mx-auto px-4 pb-10">
+  <section class="max-w-5xl mx-auto px-4 py-10 space-y-12">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Contact info -->
       <div class="space-y-4">
@@ -27,15 +51,15 @@ const email = 'tcbuehlertal@web.de';
           <h2 class="text-lg font-semibold">Kontaktdaten</h2>
           <ul class="mt-4 space-y-3 text-sm text-muted">
             <li class="flex items-start gap-3">
-              <span class="mt-0.5 text-page">✉</span>
+              <Icon name="tabler:mail" class="w-5 h-5 text-primary shrink-0" />
               <a class="hover:underline" href={`mailto:${email}`}>{email}</a>
             </li>
             <li class="flex items-start gap-3">
-              <span class="mt-0.5 text-page">📍</span>
-              <span>Tennisanlage TC Bühlertal<br />Bühlertal, Baden-Württemberg</span>
+              <Icon name="tabler:map-pin" class="w-5 h-5 text-primary shrink-0" />
+              <span>Tennisanlage TC Bühlertal<br />Hirschbachstraße, 77830 Bühlertal</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="mt-0.5 text-page">📸</span>
+              <Icon name="tabler:brand-instagram" class="w-5 h-5 text-primary shrink-0" />
               <a
                 class="hover:underline"
                 href="https://www.instagram.com/tcbuehlertal/"
@@ -93,41 +117,21 @@ const email = 'tcbuehlertal@web.de';
         </div>
       </div>
     </div>
-  </section>
 
-  <Features2
-    title="Womit können wir helfen?"
-    items={[
-      {
-        title: 'Mitgliedschaft',
-        description: 'Fragen zu Beiträgen, Aufnahme oder Kündigungen beantworten wir gerne.',
-        icon: 'tabler:id-badge-2',
-      },
-      {
-        title: 'Platzbuchung',
-        description: 'Für Gastspieler und Anfragen zur Platzverfügbarkeit einfach mailen.',
-        icon: 'tabler:calendar-check',
-      },
-      {
-        title: 'Veranstaltungen',
-        description: 'Informationen zu Turnieren, Events und Vereinsaktivitäten.',
-        icon: 'tabler:calendar-event',
-      },
-      {
-        title: 'E-Mail',
-        description: email,
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Adresse',
-        description: 'Bühlertal, Baden-Württemberg',
-        icon: 'tabler:map-pin',
-      },
-      {
-        title: 'Anlage',
-        description: '4 Sandplätze, Clubhaus mit Terrasse.',
-        icon: 'tabler:building',
-      },
-    ]}
-  />
+    <!-- Womit können wir helfen -->
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">Womit können wir helfen?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          help.map((h) => (
+            <div class="rounded-2xl border border-gray-500/20 bg-light p-5">
+              <Icon name={h.icon} class="w-7 h-7 text-primary" />
+              <h3 class="font-semibold mt-3">{h.title}</h3>
+              <p class="text-muted mt-2 text-sm leading-relaxed">{h.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </Layout>

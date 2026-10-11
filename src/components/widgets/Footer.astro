@@ -23,7 +23,7 @@ export interface Props {
   theme?: string;
 }
 
-const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme = 'light' } = Astro.props;
+const { socialLinks = [], links = [], footNote = '', theme = 'light' } = Astro.props;
 ---
 
 <footer class:list={[{ dark: theme === 'dark' }, 'relative border-t border-gray-200 dark:border-slate-800 not-prose']}>
@@ -36,20 +36,12 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
         <div class="mb-2">
           <a class="inline-block font-bold text-xl" href={getHomePermalink()}>{SITE?.name}</a>
         </div>
-        <div class="text-sm text-muted flex gap-1">
-          {
-            secondaryLinks.map(({ text, href }, index) => (
-              <>
-                {index !== 0 ? ' · ' : ''}
-                <a
-                  class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out"
-                  href={href}
-                  set:html={text}
-                />
-              </>
-            ))
-          }
-        </div>
+        <p class="text-sm text-muted">Tennisclub seit 1965 – vier Sandplätze im Schwarzwald.</p>
+        <address class="text-sm text-muted not-italic mt-3">
+          Hirschbachstraße<br />
+          77830 Bühlertal<br />
+          <a class="hover:underline" href="mailto:tcbuehlertal@web.de">tcbuehlertal@web.de</a>
+        </address>
       </div>
       {
         links.map(({ title, links }) => (
